@@ -40,7 +40,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class RegisterActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
+                    attemptRegister();
                     return true;
                 }
                 return false;
@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         signInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                attemptRegister();
             }
         });
 
@@ -97,8 +97,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         cancelButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent nextActivity  = new Intent(LoginActivity.this, WelcomeActivity.class);
+                Intent nextActivity  = new Intent(RegisterActivity.this, WelcomeActivity.class);
                 startActivity(nextActivity);
+                finish();
             }
         });
 
@@ -131,13 +132,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-
     /**
-     * Attempts to sign in or register the account specified by the login form.
+     * Attempts to register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    private void attemptLogin() {
+
+
+    private void attemptRegister() {
         if (mAuthTask != null) {
             return;
         }
@@ -166,7 +168,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             focusView = usernameView;
             cancel = true;
         } else if (!isUsernameValid(username)) {
-            usernameView.setError(getString(R.string.error_invalid_username));
+            usernameView.setError(getString(R.string.error_used_username));
             focusView = usernameView;
             cancel = true;
         }
@@ -184,8 +186,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-    private boolean isUsernameValid(String email) {
-        //TODO: Replace this with your own logic
+    private boolean isUsernameValid(String username) {
+        for (String credential : DUMMY_CREDENTIALS) {
+            String[] pieces = credential.split(":");
+            if (pieces[0].equals(username)) {
+               return false;
+            }
+        }
         return true;
     }
 
@@ -267,7 +274,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void addUsernamesToAutocomplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(LoginActivity.this,
+                new ArrayAdapter<>(RegisterActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         usernameView.setAdapter(adapter);
@@ -298,6 +305,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mPassword = password;
         }
 
+        //TODO: actually implement  authentication
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
@@ -309,6 +317,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
+            /*
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
                 if (pieces[0].equals(mUsername)) {
@@ -316,6 +325,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     return pieces[1].equals(mPassword);
                 }
             }
+            */
             return true;
         }
 
@@ -325,7 +335,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                Intent nextActivity  = new Intent(LoginActivity.this, HomeActivity.class);
+                Intent nextActivity  = new Intent(RegisterActivity.this, HomeActivity.class);
                 startActivity(nextActivity);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
