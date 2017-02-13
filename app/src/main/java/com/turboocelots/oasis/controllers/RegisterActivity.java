@@ -1,11 +1,11 @@
-package com.turboocelots.oasis;
+package com.turboocelots.oasis.controllers;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -35,7 +35,9 @@ import java.util.List;
 import android.content.Intent;
 
 
-import static android.Manifest.permission.READ_CONTACTS;
+import com.turboocelots.oasis.R;
+import com.turboocelots.oasis.models.Model;
+import com.turboocelots.oasis.models.Reporter;
 
 /**
  * A login screen that offers login via email/password.
@@ -46,14 +48,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
-
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "user:pass"
-    };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -68,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
         // Set up the login form.
         usernameView = (AutoCompleteTextView) findViewById(R.id.username);
         populateAutoComplete();
@@ -85,8 +79,8 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             }
         });
 
-        Button signInButton = (Button) findViewById(R.id.sign_in_button);
-        signInButton.setOnClickListener(new OnClickListener() {
+        Button registerButton = (Button) findViewById(R.id.register_button);
+        registerButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptRegister();
@@ -97,8 +91,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         cancelButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent nextActivity  = new Intent(RegisterActivity.this, WelcomeActivity.class);
-                startActivity(nextActivity);
                 finish();
             }
         });
@@ -180,6 +172,9 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
+
+            //TODO: update database once implemented
+            Model.getInstance().addReporter(new Reporter(username, password));
             showProgress(true);
             mAuthTask = new UserLoginTask(username, password);
             mAuthTask.execute((Void) null);
@@ -187,9 +182,8 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     }
 
     private boolean isUsernameValid(String username) {
-        for (String credential : DUMMY_CREDENTIALS) {
-            String[] pieces = credential.split(":");
-            if (pieces[0].equals(username)) {
+        for (Reporter reporter : Model.getInstance().getReporters()) {
+            if (reporter.getUsername().equals(username)) {
                return false;
             }
         }
@@ -317,15 +311,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
                 return false;
             }
 
-            /*
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mUsername)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-            */
             return true;
         }
 

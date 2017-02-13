@@ -1,11 +1,11 @@
-package com.turboocelots.oasis;
+package com.turboocelots.oasis.controllers;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -34,8 +34,9 @@ import java.util.List;
 
 import android.content.Intent;
 
-
-import static android.Manifest.permission.READ_CONTACTS;
+import com.turboocelots.oasis.R;
+import com.turboocelots.oasis.models.Model;
+import com.turboocelots.oasis.models.Reporter;
 
 /**
  * A login screen that offers login via email/password.
@@ -47,13 +48,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private static final int REQUEST_READ_CONTACTS = 0;
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "user:pass"
-    };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -97,8 +91,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         cancelButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent nextActivity  = new Intent(LoginActivity.this, WelcomeActivity.class);
-                startActivity(nextActivity);
+               finish();
             }
         });
 
@@ -309,11 +302,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mUsername)) {
+            for (Reporter reporter : Model.getInstance().getReporters()) {
+                if (reporter.getUsername().equals(mUsername)) {
                     // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
+                    return reporter.getPassword().equals(mPassword);
                 }
             }
             return true;
@@ -326,6 +318,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 Intent nextActivity  = new Intent(LoginActivity.this, HomeActivity.class);
+                nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(nextActivity);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
