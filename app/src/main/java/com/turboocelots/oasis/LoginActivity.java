@@ -32,6 +32,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
+
+
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
@@ -94,8 +97,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         cancelButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: transition back to Welcom
-                finish();
+                Intent nextActivity  = new Intent(LoginActivity.this, WelcomeActivity.class);
+                startActivity(nextActivity);
             }
         });
 
@@ -163,7 +166,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             focusView = usernameView;
             cancel = true;
         } else if (!isUsernameValid(username)) {
-            usernameView.setError(getString(R.string.error_invalid_email));
+            usernameView.setError(getString(R.string.error_invalid_username));
             focusView = usernameView;
             cancel = true;
         }
@@ -322,7 +325,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                finish();
+                Intent nextActivity  = new Intent(LoginActivity.this, WelcomeActivity.class);
+                startActivity(nextActivity);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

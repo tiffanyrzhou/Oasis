@@ -3,6 +3,7 @@ package com.turboocelots.oasis;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -94,8 +95,8 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         cancelButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: transition back to Welcom
-                finish();
+                Intent nextActivity  = new Intent(RegisterActivity.this, WelcomeActivity.class);
+                startActivity(nextActivity);
             }
         });
 
@@ -262,21 +263,11 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             cursor.moveToNext();
         }
 
-        addUsernamesToAutocomplete(usernames);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
 
-    }
-
-    private void addUsernamesToAutocomplete(List<String> emailAddressCollection) {
-        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(LoginActivity.this,
-                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-
-        usernameView.setAdapter(adapter);
     }
 
 

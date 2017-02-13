@@ -12,6 +12,14 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+        final Button registerButton = (Button) findViewById(R.id.register_id);
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent nextActivity  = new Intent(WelcomeActivity.this, RegisterActivity.class);
+                startActivity(nextActivity);
+            }
+        });
+
         final Button loginButton = (Button) findViewById(R.id.login_id);
         loginButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -19,6 +27,9 @@ public class WelcomeActivity extends AppCompatActivity {
                 startActivity(nextActivity);
             }
         });
+
+
+
     }
 
 }
