@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_welcome"
     android:layout_width="match_parent"
@@ -8,33 +9,65 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.turboocelots.oasis.controllers.WelcomeActivity">
+    tools:context="com.turboocelots.oasis.controllers.WelcomeActivity"
+    android:layout_centerVertical="false"
+    android:layout_centerHorizontal="true">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="10dp">
+        android:weightSum="1"
+        android:background="@drawable/blue_gradient_background"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/logo"
+            android:id="@+id/imageView"
+            android:layout_marginTop="111dp" />
 
         <TextView
-            android:text="Welcome"
+            android:text="Oasis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/welcomeText_id"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+            android:textAlignment="center"
+            android:layout_marginTop="14dp"
+            android:textColor="@android:color/background_light"
+            android:layout_gravity="center_horizontal"
+            android:textSize="45sp" />
 
         <Button
             android:text="Login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/login_id" />
+            android:layout_height="36dp"
+            android:id="@+id/login_id"
+            android:background="@drawable/roundedbutton"
+            android:elevation="11dp"
+            android:fontFamily="sans-serif"
+            android:typeface="sans"
+            android:textColor="@android:color/background_light"
+            android:textAlignment="center"
+            android:layout_width="144dp"
+            android:backgroundTint="@color/Lght_blue"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="22dp" />
 
         <Button
-            android:text="Register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/register_id" />
+            android:text="Sign up"
+            android:layout_width="144dp"
+            android:layout_height="36dp"
+            android:id="@+id/register_id"
+            android:background="@drawable/roundedbutton"
+            android:backgroundTint="@color/Lght_green"
+            android:elevation="11dp"
+            android:fontFamily="sans-serif"
+            android:typeface="sans"
+            android:textColor="@android:color/background_light"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="22dp" />
     </LinearLayout>
 </RelativeLayout>
