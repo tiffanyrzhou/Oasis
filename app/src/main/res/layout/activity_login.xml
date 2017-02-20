@@ -54,9 +54,9 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="185dp"
                 android:layout_height="41dp"
-                android:background="@color/Almost_white"
                 android:textColorHint="@color/V_lght_grey"
-                android:layout_marginTop="22dp">
+                android:layout_marginTop="22dp"
+                android:background="@color/Almost_white">
 
                 <AutoCompleteTextView
                     android:id="@+id/username"
@@ -66,7 +66,8 @@
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:textColor="@color/Drk_grey" />
+                    android:textColor="@color/Drk_grey"
+                    android:background="@android:color/transparent" />
 
             </android.support.design.widget.TextInputLayout>
             <View
@@ -90,7 +91,10 @@
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:background="@android:color/transparent"
+                    android:textColorLink="@color/Lght_green"
+                    android:textColor="@android:color/black" />
 
             </android.support.design.widget.TextInputLayout>
 
