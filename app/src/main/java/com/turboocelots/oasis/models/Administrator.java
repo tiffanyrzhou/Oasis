@@ -8,7 +8,17 @@ import com.turboocelots.oasis.models.Manager;
 
 public class Administrator extends Manager {
 
-    public Administrator(String username, String password) {
-        super(username, password);
+    /**
+     * Creates an instance of the Administrator class.
+     * @param username the username of the Administrator
+     * @param password the password of the Administrator
+     * @param email the email of the Administrator
+     * @param home the home address of the Administrator
+     * @param title the title of the Administrator
+     * @param phone the phone number of the Administrator
+     */
+    public Administrator(String username, String password,
+                         String email, String home, String title, String phone) {
+                            super(username, password, email, home, title, phone);
     }
 }

@@ -8,7 +8,17 @@ import com.turboocelots.oasis.models.Reporter;
 
 public class Worker extends Reporter {
 
-    public Worker(String username, String password) {
-        super(username, password);
+    /**
+     * Creates an instance of the Worker class.
+     * @param username the username of the Worker
+     * @param password the password of the Worker
+     * @param email the email of the Worker
+     * @param home the home address of the Worker
+     * @param title the title of the Worker
+     * @param phone the phone number of the Worker
+     */
+    public Worker(String username, String password, String email,
+                  String home, String title, String phone) {
+                    super(username, password, email, home, title, phone);
     }
 }
