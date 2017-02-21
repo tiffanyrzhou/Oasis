@@ -17,14 +17,15 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        final Reporter currentUser = (Reporter) getIntent().getSerializableExtra("CurrentUser");
+        final String username = (String) getIntent().getSerializableExtra("CurrentUser");
+        final Reporter currentUser = Model.getInstance().getReporter(username);
 
         final Button logoutButton = (Button) findViewById(R.id.logout_id);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent nextActivity  = new Intent(HomeActivity.this, WelcomeActivity.class);
                 nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                nextActivity.putExtra("CurrentUser", currentUser);
+                nextActivity.putExtra("CurrentUser", currentUser.getUsername());
                 startActivity(nextActivity);
             }
         });
@@ -34,7 +35,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent nextActivity  = new Intent(HomeActivity.this, EditProfileActivity.class);
                 nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                nextActivity.putExtra("CurrentUser", currentUser);
+                nextActivity.putExtra("CurrentUser", currentUser.getUsername());
                 startActivity(nextActivity);
             }
         });

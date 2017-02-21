@@ -17,9 +17,9 @@ public class Administrator extends Manager {
      * @param title the title of the Administrator
      * @param phone the phone number of the Administrator
      */
-    public Administrator(String username, String password,
+    public Administrator(String username, String name, String password,
                          String email, String home, String title, String phone) {
-                            super(username, password, email, home, title, phone);
+                            super(username, name, password, email, home, title, phone);
     }
 
     public UserType getUserType(){
