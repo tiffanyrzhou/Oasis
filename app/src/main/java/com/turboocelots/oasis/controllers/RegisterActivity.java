@@ -64,6 +64,8 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     private View mLoginFormView;
     private Spinner userTypeSpinner;
 
+    private Reporter currentUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -185,15 +187,16 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             // perform the user login attempt.
 
             //TODO: update database once implemented
-            if (user.equals(UserType.Reporter)) {
-                Model.getInstance().addReporter(new Reporter(username, password));
-            } else if (user.equals(UserType.Manager)) {
-                Model.getInstance().addReporter(new Manager(username, password, "", "", "", ""));
+            if (user.equals(UserType.Manager)) {
+                currentUser = new Manager(username, password, "", "", "", "");
             } else if (user.equals(UserType.Administrator)) {
-                Model.getInstance().addReporter(new Manager(username, password, "", "", "", ""));
-            }else if (user.equals(UserType.Worker)) {
-                Model.getInstance().addReporter(new Worker(username, password, "", "", "", ""));
+                currentUser = new Manager(username, password, "", "", "", "");
+            } else if (user.equals(UserType.Worker)) {
+                currentUser = new Worker(username, password, "", "", "", "");
+            } else {
+                currentUser = new Reporter(username, password);
             }
+            Model.getInstance().addReporter(currentUser);
             showProgress(true);
             mAuthTask = new UserLoginTask(username, password);
             mAuthTask.execute((Void) null);
@@ -340,6 +343,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
             if (success) {
                 Intent nextActivity  = new Intent(RegisterActivity.this, HomeActivity.class);
+                nextActivity.putExtra("CurrentUser", currentUser);
                 startActivity(nextActivity);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

@@ -21,4 +21,8 @@ public class Manager extends Worker {
                    String home, String title, String phone){
         super(username, password, email, home, title, phone);
     }
+
+    public UserType getUserType(){
+        return UserType.Manager;
+    }
 }
