@@ -27,6 +27,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ import android.content.Intent;
 import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.Reporter;
+import com.turboocelots.oasis.models.UserType;
 
 /**
  * A login screen that offers login via email/password.
@@ -58,6 +60,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private Spinner userTypeSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +100,11 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        userTypeSpinner = (Spinner) findViewById(R.id.userTypeSpinner_id);
+
+        ArrayAdapter<UserType> userTypeArrayAdapter = new ArrayAdapter<UserType>(this,android.R.layout.simple_spinner_item, UserType.values());
+        userTypeArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        userTypeSpinner.setAdapter(userTypeArrayAdapter);
     }
 
     private void populateAutoComplete() {
