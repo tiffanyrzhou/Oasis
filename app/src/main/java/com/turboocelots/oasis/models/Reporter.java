@@ -1,12 +1,13 @@
 package com.turboocelots.oasis.models;
 
+import java.io.Serializable;
 /**
  * Represents a single Reporter in model
  *
  * Created by mlin on 2/12/17.
  */
 
-public class Reporter {
+public class Reporter implements Serializable{
     private String _username;
     private String _password;
     private String _email;
@@ -65,6 +66,10 @@ public class Reporter {
 
     public String getPhone() { return _phone; }
     public void setPhone(String phone) { _phone = phone; }
+
+    public UserType getUserType(){
+        return UserType.Reporter;
+    }
 
     public boolean equals(Object o) {
         Reporter r = (Reporter) o;

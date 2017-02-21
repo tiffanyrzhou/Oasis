@@ -5,8 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.turboocelots.oasis.R;
+import com.turboocelots.oasis.models.Model;
+import com.turboocelots.oasis.models.Reporter;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -23,5 +26,9 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(nextActivity);
             }
         });
+
+        final TextView userTypeText = (TextView) findViewById(R.id.userText_id);
+        Reporter currentUser = (Reporter) getIntent().getSerializableExtra("CurrentUser");
+        userTypeText.setText(currentUser.getUserType().toString());
     }
 }

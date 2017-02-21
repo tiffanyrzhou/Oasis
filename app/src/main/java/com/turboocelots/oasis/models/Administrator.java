@@ -21,4 +21,8 @@ public class Administrator extends Manager {
                          String email, String home, String title, String phone) {
                             super(username, password, email, home, title, phone);
     }
+
+    public UserType getUserType(){
+        return UserType.Administrator;
+    }
 }
