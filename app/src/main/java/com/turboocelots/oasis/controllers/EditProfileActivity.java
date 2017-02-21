@@ -27,7 +27,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private EditText emailField;
     private EditText homeAddressField;
     private EditText phoneAddressField;
-
+    private Spinner userTitleSpinner;
     /* ***********************
    Data for Reporter being edited.
  */
@@ -46,8 +46,12 @@ public class EditProfileActivity extends AppCompatActivity {
         emailField = (EditText) findViewById(R.id.editEmail);
         homeAddressField = (EditText) findViewById(R.id.editHomeAddress);
         phoneAddressField = (EditText) findViewById(R.id.editPhoneNumber);
+        userTitleSpinner = (Spinner) findViewById(R.id.TitleSpinner);
 
 //        idField = (TextView) findViewById(R.id.student_id_field);
+        ArrayAdapter<UserTitle> userTitleArrayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, UserTitle.values());
+        userTitleArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        userTitleSpinner.setAdapter(userTitleArrayAdapter);
 //
 //
 //        nameField.setText(_reporter.get);
@@ -56,6 +60,9 @@ public class EditProfileActivity extends AppCompatActivity {
         emailField.setText(currentUser.getEmail());
         homeAddressField.setText(currentUser.getHome());
         phoneAddressField.setText(currentUser.getPhone());
+        //int pos = userTitleArrayAdapter.getPosition(currentUser.getTitle());
+        //userTitleSpinner.setSelection(pos);
+        
 //        idField.setText("" + _student.getId());
 
     }
