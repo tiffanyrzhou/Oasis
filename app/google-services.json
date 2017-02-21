@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "556023887355",
+    "firebase_url": "https://oasis-a0e29.firebaseio.com",
+    "project_id": "oasis-a0e29",
+    "storage_bucket": "oasis-a0e29.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:556023887355:android:afa964f8b63de316",
+        "android_client_info": {
+          "package_name": "com.turboocelots.oasis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "556023887355-8403aismjqm2slv6bucl31sbpb5hvn95.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.turboocelots.oasis",
+            "certificate_hash": "ED46B12F5EE08C67F166BBC1957E828B5C64AF02"
+          }
+        },
+        {
+          "client_id": "556023887355-gh49d7ujnp2d1djm05ag57ccpdrif9dk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCY43xjA_qj1TLhjg4L7ki_uVhNLy2z1fM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "556023887355-gh49d7ujnp2d1djm05ag57ccpdrif9dk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

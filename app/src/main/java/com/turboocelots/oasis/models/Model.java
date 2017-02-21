@@ -21,15 +21,6 @@ public class Model {
      */
     public Model() {
         _reporters = new ArrayList<Reporter>();
-        loadDummyData();
-    }
-
-    /**
-     * Populates the model with dummy data. Will access from database, and we
-     * will no longer need this.
-     */
-    private void loadDummyData() {
-        _reporters.add(new Reporter("user", "pass"));
     }
 
     /**
@@ -52,4 +43,5 @@ public class Model {
         _reporters.add(reporter);
         return true;
     }
+
 }
