@@ -179,20 +179,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isUsernameValid(String email) {
         //TODO: Replace this with your own logic
-        if(email.equals("user")) {
-            return true;
-        } else {
-            return false;
-        }
+        return true;
 
     }
 
     private boolean isPasswordValid(String password) {
-        if (password.equals("pass")) {
-            return true;
-        } else {
-        return  false;
-        }
+        return true;
     }
 
 
@@ -318,7 +310,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     return reporter.getPassword().equals(mPassword);
                 }
             }
-            return true;
+            return false;
         }
 
         @Override
@@ -331,8 +323,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(nextActivity);
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+                usernameView.setError(getString(R.string.error_invalid_combination));
+                usernameView.requestFocus();
             }
         }
 
