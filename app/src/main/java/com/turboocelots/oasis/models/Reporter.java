@@ -9,10 +9,27 @@ package com.turboocelots.oasis.models;
 public class Reporter {
     private String _username;
     private String _password;
+    private String _email;
+    private String _home;
+    private String _title;
+    private String _phone;
 
-    public Reporter(String username, String password) {
+    /**
+     * Creates an instance of the report class.
+     * @param username the username of the Reporter
+     * @param password the password of the Reporter
+     * @param email the email of the Reporter
+     * @param home the home address of the Reporter
+     * @param title the title of the Reporter
+     * @param phone the phone number of the Reporter
+     */
+    public Reporter(String username, String password, String email, String home, String title, String phone) {
         _username = username;
         _password = password;
+        _email = email;
+        _home = home;
+        _title = title;
+        _phone = phone;
     }
 
     /* Getters and setters */
@@ -20,10 +37,24 @@ public class Reporter {
     public String getUsername() {
         return _username;
     }
+    public void setUsername(String username) { _username = username; }
 
     public String getPassword() {
         return _password;
     }
+    public void setPassword(String password) { _password = password; }
+
+    public String getEmail() { return _email; }
+    public void setEmail(String email) { _email = email; }
+
+    public String getHome() { return _home; }
+    public void setHome(String home) { _home = home; }
+
+    public String getTitle() { return _title; }
+    public void setTitle(String title) { _title = title; }
+
+    public String getPhone() { return _phone; }
+    public void setPhone(String phone) { _phone = phone; }
 
     public boolean equals(Object o) {
         Reporter r = (Reporter) o;
