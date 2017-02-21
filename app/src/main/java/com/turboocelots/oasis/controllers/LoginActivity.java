@@ -59,6 +59,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
+    private Reporter currentUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -307,9 +309,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             for (Reporter reporter : Model.getInstance().getReporters()) {
                 if (reporter.getUsername().equals(mUsername)) {
                     // Account exists, return true if the password matches.
-                    return reporter.getPassword().equals(mPassword);
+                    if (reporter.getPassword().equals(mPassword)) {
+                        currentUser = reporter;
+                        return true;
+                    };
                 }
             }
+            // Username or Password is incorrect
             return false;
         }
 
@@ -321,6 +327,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (success) {
                 Intent nextActivity  = new Intent(LoginActivity.this, HomeActivity.class);
                 nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                nextActivity.putExtra("CurrentUser", currentUser);
                 startActivity(nextActivity);
             } else {
                 usernameView.setError(getString(R.string.error_invalid_combination));

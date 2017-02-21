@@ -31,13 +31,12 @@ public class EditProfileActivity extends AppCompatActivity {
     /* ***********************
    Data for Reporter being edited.
  */
-    private Reporter _reporter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-
+        final Reporter currentUser = (Reporter) getIntent().getSerializableExtra("CurrentUser");
         /**
          * Grab the dialog widgets so we can get info for later
          */
@@ -52,11 +51,11 @@ public class EditProfileActivity extends AppCompatActivity {
 //
 //
 //        nameField.setText(_reporter.get);
-        usernameField.setText(_reporter.getUsername());
-        passwordField.setText(_reporter.getPassword());
-        emailField.setText(_reporter.getEmail());
-        homeAddressField.setText(_reporter.getHome());
-        phoneAddressField.setText(_reporter.getPhone());
+        usernameField.setText(currentUser.getUsername());
+        passwordField.setText(currentUser.getPassword());
+        emailField.setText(currentUser.getEmail());
+        homeAddressField.setText(currentUser.getHome());
+        phoneAddressField.setText(currentUser.getPhone());
 //        idField.setText("" + _student.getId());
 
     }

@@ -17,18 +17,29 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        final Reporter currentUser = (Reporter) getIntent().getSerializableExtra("CurrentUser");
 
         final Button logoutButton = (Button) findViewById(R.id.logout_id);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent nextActivity  = new Intent(HomeActivity.this, WelcomeActivity.class);
                 nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                nextActivity.putExtra("CurrentUser", currentUser);
+                startActivity(nextActivity);
+            }
+        });
+
+        final Button editProfileButton = (Button) findViewById(R.id.edit_profile_button);
+        editProfileButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent nextActivity  = new Intent(HomeActivity.this, EditProfileActivity.class);
+                nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                nextActivity.putExtra("CurrentUser", currentUser);
                 startActivity(nextActivity);
             }
         });
 
         final TextView userTypeText = (TextView) findViewById(R.id.userText_id);
-        Reporter currentUser = (Reporter) getIntent().getSerializableExtra("CurrentUser");
         userTypeText.setText(currentUser.getUserType().toString());
     }
 }
