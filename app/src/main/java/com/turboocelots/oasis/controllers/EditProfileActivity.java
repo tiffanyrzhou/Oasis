@@ -5,6 +5,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -48,8 +49,7 @@ public class EditProfileActivity extends AppCompatActivity {
         homeAddressField = (EditText) findViewById(R.id.editHomeAddress);
         phoneAddressField = (EditText) findViewById(R.id.editPhoneNumber);
 
-//        idField = (TextView) findViewById(R.id.student_id_field);
-//
+        //_reporter = (Reporter) getIntent().getParcelableExtra(CourseDetailFragment.ARG_REPORTER_ID);
 //
 //        nameField.setText(_reporter.get);
         usernameField.setText(_reporter.getUsername());
@@ -59,5 +59,15 @@ public class EditProfileActivity extends AppCompatActivity {
         phoneAddressField.setText(_reporter.getPhone());
 //        idField.setText("" + _student.getId());
 
+
+    }
+
+    /**
+     * Button handler for cancel
+     *
+     * @param view the button pressed
+     */
+    protected void onCancelPressed(View view) {
+        finish();
     }
 }
