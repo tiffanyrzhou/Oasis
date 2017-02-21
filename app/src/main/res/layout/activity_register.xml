@@ -49,6 +49,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <TextView
+                    android:text="Select User Type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/userType_ID"
+                    android:layout_weight="1" />
+
                 <EditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
@@ -62,6 +69,11 @@
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/userTypeSpinner_id" />
 
             <Button
                 android:id="@+id/register_button"

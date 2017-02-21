@@ -27,6 +27,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -36,8 +37,11 @@ import android.content.Intent;
 
 
 import com.turboocelots.oasis.R;
+import com.turboocelots.oasis.models.Manager;
 import com.turboocelots.oasis.models.Model;
+import com.turboocelots.oasis.models.Worker;
 import com.turboocelots.oasis.models.Reporter;
+import com.turboocelots.oasis.models.UserType;
 
 /**
  * A login screen that offers login via email/password.
@@ -58,6 +62,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private Spinner userTypeSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +102,11 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        userTypeSpinner = (Spinner) findViewById(R.id.userTypeSpinner_id);
+
+        ArrayAdapter<UserType> userTypeArrayAdapter = new ArrayAdapter<UserType>(this,android.R.layout.simple_spinner_item, UserType.values());
+        userTypeArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        userTypeSpinner.setAdapter(userTypeArrayAdapter);
     }
 
     private void populateAutoComplete() {
@@ -143,6 +153,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         // Store values at the time of the login attempt.
         String username = usernameView.getText().toString();
         String password = mPasswordView.getText().toString();
+        UserType user = (UserType) userTypeSpinner.getSelectedItem();
 
         boolean cancel = false;
         View focusView = null;
@@ -174,7 +185,15 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             // perform the user login attempt.
 
             //TODO: update database once implemented
-            Model.getInstance().addReporter(new Reporter(username, password));
+            if (user.equals(UserType.Reporter)) {
+                Model.getInstance().addReporter(new Reporter(username, password));
+            } else if (user.equals(UserType.Manager)) {
+                Model.getInstance().addReporter(new Manager(username, password, "", "", "", ""));
+            } else if (user.equals(UserType.Administrator)) {
+                Model.getInstance().addReporter(new Manager(username, password, "", "", "", ""));
+            }else if (user.equals(UserType.Worker)) {
+                Model.getInstance().addReporter(new Worker(username, password, "", "", "", ""));
+            }
             showProgress(true);
             mAuthTask = new UserLoginTask(username, password);
             mAuthTask.execute((Void) null);
