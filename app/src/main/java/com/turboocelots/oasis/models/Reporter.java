@@ -14,6 +14,16 @@ public class Reporter {
     private String _title;
     private String _phone;
 
+
+    /**
+     * Legacy constructor for Reporter class
+     * Fills in extra parameters with empty strings
+     * @param username the username of the Reporter
+     * @param password the password of the Reporter
+     */
+    public Reporter(String username, String password) {
+        this(username, password, "", "", "", "");
+    }
     /**
      * Creates an instance of the report class.
      * @param username the username of the Reporter

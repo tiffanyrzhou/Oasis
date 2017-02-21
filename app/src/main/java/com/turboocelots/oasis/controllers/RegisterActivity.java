@@ -37,7 +37,9 @@ import android.content.Intent;
 
 
 import com.turboocelots.oasis.R;
+import com.turboocelots.oasis.models.Manager;
 import com.turboocelots.oasis.models.Model;
+import com.turboocelots.oasis.models.Worker;
 import com.turboocelots.oasis.models.Reporter;
 import com.turboocelots.oasis.models.UserType;
 
@@ -151,6 +153,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         // Store values at the time of the login attempt.
         String username = usernameView.getText().toString();
         String password = mPasswordView.getText().toString();
+        UserType user = (UserType) userTypeSpinner.getSelectedItem();
 
         boolean cancel = false;
         View focusView = null;
@@ -182,7 +185,15 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             // perform the user login attempt.
 
             //TODO: update database once implemented
-            Model.getInstance().addReporter(new Reporter(username, password));
+            if (user.equals(UserType.Reporter)) {
+                Model.getInstance().addReporter(new Reporter(username, password));
+            } else if (user.equals(UserType.Manager)) {
+                Model.getInstance().addReporter(new Manager(username, password, "", "", "", ""));
+            } else if (user.equals(UserType.Administrator)) {
+                Model.getInstance().addReporter(new Manager(username, password, "", "", "", ""));
+            }else if (user.equals(UserType.Worker)) {
+                Model.getInstance().addReporter(new Worker(username, password, "", "", "", ""));
+            }
             showProgress(true);
             mAuthTask = new UserLoginTask(username, password);
             mAuthTask.execute((Void) null);
