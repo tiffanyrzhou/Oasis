@@ -31,6 +31,15 @@ public class Model {
         return _reporters;
     }
 
+    public Reporter getReporter(String username) {
+        for (Reporter reporter : _reporters) {
+            if (reporter.getUsername().equals(username)) {
+                return reporter;
+            }
+        }
+        return null;
+    }
+
     /**
      * Adds a Reporter to the app. Checks if Reporter is already entered
      */

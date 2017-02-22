@@ -42,6 +42,7 @@ import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.Worker;
 import com.turboocelots.oasis.models.Reporter;
 import com.turboocelots.oasis.models.UserType;
+import com.turboocelots.oasis.models.Administrator;
 
 /**
  * A login screen that offers login via email/password.
@@ -187,12 +188,12 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             // perform the user login attempt.
 
             //TODO: update database once implemented
-            if (user.equals(UserType.Manager)) {
-                currentUser = new Manager(username, password, "", "", "", "");
-            } else if (user.equals(UserType.Administrator)) {
-                currentUser = new Manager(username, password, "", "", "", "");
+            if (user.equals(UserType.Administrator)) {
+                currentUser = new Administrator(username, "", password, "", "", "", "");
+            } else if (user.equals(UserType.Manager)) {
+                currentUser = new Manager(username, "", password, "", "", "", "");
             } else if (user.equals(UserType.Worker)) {
-                currentUser = new Worker(username, password, "", "", "", "");
+                currentUser = new Worker(username, "", password, "", "", "", "");
             } else {
                 currentUser = new Reporter(username, password);
             }
@@ -343,7 +344,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
             if (success) {
                 Intent nextActivity  = new Intent(RegisterActivity.this, HomeActivity.class);
-                nextActivity.putExtra("CurrentUser", currentUser);
+                nextActivity.putExtra("CurrentUser", currentUser.getUsername());
                 startActivity(nextActivity);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

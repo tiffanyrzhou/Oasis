@@ -10,6 +10,7 @@ import java.io.Serializable;
 public class Reporter implements Serializable{
     private String _username;
     private String _password;
+    private String _name;
     private String _email;
     private String _home;
     private String _title;
@@ -23,18 +24,20 @@ public class Reporter implements Serializable{
      * @param password the password of the Reporter
      */
     public Reporter(String username, String password) {
-        this(username, password, "", "", "", "");
+        this(username, "", password, "", "", "", "");
     }
     /**
      * Creates an instance of the report class.
      * @param username the username of the Reporter
+     * @param name the name of the Reporter
      * @param password the password of the Reporter
      * @param email the email of the Reporter
      * @param home the home address of the Reporter
      * @param title the title of the Reporter
      * @param phone the phone number of the Reporter
      */
-    public Reporter(String username, String password, String email, String home, String title, String phone) {
+    public Reporter(String username, String name, String password, String email, String home, String title, String phone) {
+        _name = name;
         _username = username;
         _password = password;
         _email = email;
@@ -54,6 +57,9 @@ public class Reporter implements Serializable{
         return _password;
     }
     public void setPassword(String password) { _password = password; }
+
+    public String getName() {return _name;}
+    public void setName(String name) {_name = name;}
 
     public String getEmail() { return _email; }
     public void setEmail(String email) { _email = email; }

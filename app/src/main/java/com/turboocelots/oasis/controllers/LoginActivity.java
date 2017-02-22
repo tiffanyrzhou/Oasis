@@ -327,7 +327,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (success) {
                 Intent nextActivity  = new Intent(LoginActivity.this, HomeActivity.class);
                 nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                nextActivity.putExtra("CurrentUser", currentUser);
+                nextActivity.putExtra("CurrentUser", currentUser.getUsername());
                 startActivity(nextActivity);
             } else {
                 usernameView.setError(getString(R.string.error_invalid_combination));
