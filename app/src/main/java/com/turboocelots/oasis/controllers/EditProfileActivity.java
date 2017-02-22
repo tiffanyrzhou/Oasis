@@ -62,7 +62,7 @@ public class EditProfileActivity extends AppCompatActivity {
         phoneAddressField.setText(currentUser.getPhone());
         //int pos = userTitleArrayAdapter.getPosition(currentUser.getTitle());
         //userTitleSpinner.setSelection(pos);
-        
+
 //        idField.setText("" + _student.getId());
 
     }
