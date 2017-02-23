@@ -69,6 +69,10 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
     private User currentUser;
 
+    /**
+     * Creates the Acitivty
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -206,6 +210,13 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         }
     }
 
+    /**
+     * Checks to see if the username has already been used.
+     * TODO: should probably be moved to its own check, or to UserTaskAuth
+     * @param username in the username field
+     * @return whether the username has been used or not
+     */
+
     private boolean isUsernameValid(String username) {
         for (User user : Model.getInstance().getUsers()) {
             if (user.getUsername().equals(username)) {
@@ -214,6 +225,12 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         }
         return true;
     }
+
+    /**
+     * Should check if the password has illegal characters
+     * @param password the entered password
+     * @return
+     */
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
@@ -255,6 +272,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
+
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
@@ -339,6 +357,11 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             return true;
         }
 
+        /**
+         * Transitions to the HomeActivity, passing the current username
+         * using putExtra
+         * @param success
+         */
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
