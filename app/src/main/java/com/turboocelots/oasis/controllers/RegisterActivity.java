@@ -39,6 +39,7 @@ import android.content.Intent;
 import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.models.Manager;
 import com.turboocelots.oasis.models.Model;
+import com.turboocelots.oasis.models.UserTitle;
 import com.turboocelots.oasis.models.Worker;
 import com.turboocelots.oasis.models.Reporter;
 import com.turboocelots.oasis.models.UserType;
@@ -189,11 +190,11 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
             //TODO: update database once implemented
             if (user.equals(UserType.Administrator)) {
-                currentUser = new Administrator(username, "", password, "", "", "", "");
+                currentUser = new Administrator(username, "", password, "", "", UserTitle.NA, "");
             } else if (user.equals(UserType.Manager)) {
-                currentUser = new Manager(username, "", password, "", "", "", "");
+                currentUser = new Manager(username, "", password, "", "", UserTitle.NA, "");
             } else if (user.equals(UserType.Worker)) {
-                currentUser = new Worker(username, "", password, "", "", "", "");
+                currentUser = new Worker(username, "", password, "", "", UserTitle.NA, "");
             } else {
                 currentUser = new Reporter(username, password);
             }

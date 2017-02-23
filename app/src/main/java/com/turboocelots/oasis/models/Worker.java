@@ -18,7 +18,7 @@ public class Worker extends Reporter {
      * @param phone the phone number of the Worker
      */
     public Worker(String username, String name, String password, String email,
-                  String home, String title, String phone) {
+                  String home, UserTitle title, String phone) {
                     super(username, name, password, email, home, title, phone);
     }
 
