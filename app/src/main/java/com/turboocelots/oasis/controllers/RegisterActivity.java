@@ -193,9 +193,9 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             if (user.equals(UserType.Administrator)) {
                 currentUser = new Administrator(username, "", password, "", "", UserTitle.NA, "");
             } else if (user.equals(UserType.Manager)) {
-                currentUser = new Manager(username, "", password, "", "", UserTitle.NA, "");
+                currentUser = new Manager("", username, password, "", "", UserTitle.NA, "");
             } else if (user.equals(UserType.Worker)) {
-                currentUser = new Worker(username, "", password, "", "", UserTitle.NA, "");
+                currentUser = new Worker("", username, password, "", "", UserTitle.NA, "", UserType.Worker);
             } else {
                 currentUser = new Reporter(username, password);
             }

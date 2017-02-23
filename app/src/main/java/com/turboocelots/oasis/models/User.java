@@ -36,7 +36,7 @@ public abstract class User {
     public void setHome(String home) { _home = home; }
 
     public UserTitle getTitle() { return _title; }
-    public void setUserTitle(UserTitle title) { _title = title; }
+    public void setTitle(UserTitle title) { _title = title; }
 
     public String getPhone() { return _phone; }
     public void setPhone(String phone) { _phone = phone; }
