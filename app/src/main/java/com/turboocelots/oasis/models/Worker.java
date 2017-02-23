@@ -20,6 +20,10 @@ public class Worker extends Reporter {
                     super(name, username, password, email, home, title, phone, type);
     }
 
+    /**
+     * gets current user type
+     * @return UserType enum Worker
+     */
     public UserType getUserType(){
         return UserType.Worker;
     }

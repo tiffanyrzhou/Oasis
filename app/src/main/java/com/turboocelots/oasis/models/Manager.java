@@ -22,6 +22,10 @@ public class Manager extends Worker {
         super(name, username, password, email, home, title, phone, UserType.Manager);
     }
 
+    /**
+     * Returns the type of user
+     * @return the UserType Enum for Manager
+     */
     public UserType getUserType(){
         return UserType.Manager;
     }
