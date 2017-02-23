@@ -10,7 +10,7 @@ public abstract class User {
     protected String _name;
     protected String _email;
     protected String _home;
-    protected String _title;
+    protected UserTitle _title;
     protected String _phone;
     protected UserType _userType;
 
@@ -35,8 +35,8 @@ public abstract class User {
     public String getHome() { return _home; }
     public void setHome(String home) { _home = home; }
 
-    public String getTitle() { return _title; }
-    public void setTitle(String title) { _title = title; }
+    public UserTitle getTitle() { return _title; }
+    public void setUserTitle(UserTitle title) { _title = title; }
 
     public String getPhone() { return _phone; }
     public void setPhone(String phone) { _phone = phone; }

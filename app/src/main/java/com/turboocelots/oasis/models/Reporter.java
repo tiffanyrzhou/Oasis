@@ -16,19 +16,21 @@ public class Reporter extends User implements Serializable {
      * @param password the password of the Reporter
      */
     public Reporter(String username, String password) {
-        this(username, "", password, "", "", "", "");
+        this("", username, password, "", "", UserTitle.NA, "", UserType.Reporter);
     }
+
     /**
      * Creates an instance of the report class.
-     * @param username the username of the Reporter
      * @param name the name of the Reporter
+     * @param username the username of the Reporter
      * @param password the password of the Reporter
      * @param email the email of the Reporter
      * @param home the home address of the Reporter
      * @param title the title of the Reporter
      * @param phone the phone number of the Reporter
+     * @param reporter
      */
-    public Reporter(String username, String name, String password, String email, String home, String title, String phone) {
+    public Reporter(String name, String username, String password, String email, String home, UserTitle title, String phone, UserType reporter) {
         _name = name;
         _username = username;
         _password = password;
@@ -36,5 +38,15 @@ public class Reporter extends User implements Serializable {
         _home = home;
         _title = title;
         _phone = phone;
+        _userType = UserType.Reporter;
+    }
+
+    public UserType getUserType(){
+        return UserType.Reporter;
+    }
+
+    public boolean equals(Object o) {
+        Reporter r = (Reporter) o;
+        return (r.getUsername().equals(_username));
     }
 }
