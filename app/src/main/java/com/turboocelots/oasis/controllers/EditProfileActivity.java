@@ -59,7 +59,8 @@ public class EditProfileActivity extends AppCompatActivity {
         emailField = (EditText) findViewById(R.id.editEmail);
         homeAddressField = (EditText) findViewById(R.id.editHomeAddress);
         phoneAddressField = (EditText) findViewById(R.id.editPhoneNumber);
-        userTitleSpinner = (Spinner) findViewById(R.id.TitleSpinner);
+
+        userTitleSpinner = (Spinner)findViewById(R.id.TitleSpinner);
 
 //        idField = (TextView) findViewById(R.id.student_id_field);
         ArrayAdapter<UserTitle> userTitleArrayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, UserTitle.values());
