@@ -28,9 +28,9 @@ public class Reporter extends User implements Serializable {
      * @param home the home address of the Reporter
      * @param title the title of the Reporter
      * @param phone the phone number of the Reporter
-     * @param reporter
+     * @param usertype the usertype of the Reporter
      */
-    public Reporter(String name, String username, String password, String email, String home, UserTitle title, String phone, UserType reporter) {
+    public Reporter(String name, String username, String password, String email, String home, UserTitle title, String phone, UserType usertype) {
         _name = name;
         _username = username;
         _password = password;
@@ -41,10 +41,19 @@ public class Reporter extends User implements Serializable {
         _userType = UserType.Reporter;
     }
 
+    /**
+     * gets the current user type
+     * @return the UserType Enum for Reporter
+     */
     public UserType getUserType(){
         return UserType.Reporter;
     }
 
+    /**
+     * Checks if two Reporters are equal (share the same username)
+     * @param o the other object to check equality
+     * @return whether or not two reporters are equal
+     */
     public boolean equals(Object o) {
         Reporter r = (Reporter) o;
         return (r.getUsername().equals(_username));

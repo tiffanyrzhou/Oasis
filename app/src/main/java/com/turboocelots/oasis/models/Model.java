@@ -13,7 +13,6 @@ public class Model {
     public static Model getInstance() {return _instance;}
 
     // Holds a list of all Reporters
-
     private List<User> _users;
 
     /**
@@ -31,6 +30,11 @@ public class Model {
         return _users;
     }
 
+    /**
+     * gets the current user via username
+     * @param username the username to compare all users to
+     * @return the correct user if found, null otherwise
+     */
     public User getUser(String username) {
         for (User user : _users) {
             if (user.getUsername().equals(username)) {
@@ -42,6 +46,8 @@ public class Model {
 
     /**
      * Adds a Reporter to the app. Checks if Reporter is already entered
+     * @param user the new user to be added
+     * @return whether or not the user is successfully added
      */
     public boolean addUser(User user) {
         for (User u : _users) {

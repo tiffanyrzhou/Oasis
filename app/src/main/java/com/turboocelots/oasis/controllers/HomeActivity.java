@@ -13,6 +13,11 @@ import com.turboocelots.oasis.models.User;
 
 public class HomeActivity extends AppCompatActivity {
 
+    /**
+     * Creates the HomeActivity
+     * The username of the current user is passesd through "CurrentUser" in getSerializableExtra
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
