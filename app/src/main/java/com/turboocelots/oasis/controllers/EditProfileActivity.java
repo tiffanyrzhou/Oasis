@@ -35,7 +35,7 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
         final String username = (String) getIntent().getSerializableExtra("CurrentUser");
-        final Reporter currentUser = Model.getInstance().getReporter(username);
+        final User currentUser = Model.getInstance().getUser(username);
 
         final Button cancelButton = (Button) findViewById(R.id.EditProfileCancel);
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +92,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     protected void onSavePressed(View view) {
         final String username = (String) getIntent().getSerializableExtra("CurrentUser");
-        final Reporter currentUser = Model.getInstance().getReporter(username);
+        final User currentUser = Model.getInstance().getUser(username);
         currentUser.setHome(homeAddressField.getText().toString());
         currentUser.setEmail(emailField.getText().toString());
         currentUser.setName(nameField.getText().toString());

@@ -6,7 +6,17 @@ import com.turboocelots.oasis.models.Manager;
  * Created by Shane on 2/20/17.
  */
 
-public class Administrator extends Manager {
+public class Administrator extends User {
+
+    /**
+     * Legacy constructor for Reporter class
+     * Fills in extra parameters with empty strings
+     * @param username the username of the Reporter
+     * @param password the password of the Reporter
+     */
+    public Administrator(String username, String password) {
+        this("", username, password, "", "", UserTitle.NA, "");
+    }
 
     /**
      * Creates an instance of the Administrator class.
@@ -19,7 +29,14 @@ public class Administrator extends Manager {
      */
     public Administrator(String username, String name, String password,
                          String email, String home, UserTitle title, String phone) {
-                            super(username, name, password, email, home, title, phone);
+        _name = name;
+        _username = username;
+        _password = password;
+        _email = email;
+        _home = home;
+        _title = title;
+        _phone = phone;
+        _userType = UserType.Administrator;
     }
 
     public UserType getUserType(){

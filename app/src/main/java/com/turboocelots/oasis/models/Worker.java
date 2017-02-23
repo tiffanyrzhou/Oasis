@@ -1,7 +1,5 @@
 package com.turboocelots.oasis.models;
 
-import com.turboocelots.oasis.models.Reporter;
-
 /**
  * Created by Shane on 2/20/17.
  */
@@ -17,9 +15,9 @@ public class Worker extends Reporter {
      * @param title the title of the Worker
      * @param phone the phone number of the Worker
      */
-    public Worker(String username, String name, String password, String email,
-                  String home, UserTitle title, String phone) {
-                    super(username, name, password, email, home, title, phone);
+    public Worker(String name, String username, String password, String email,
+                  String home, UserTitle title, String phone, UserType type) {
+                    super(name, username, password, email, home, title, phone, type);
     }
 
     public UserType getUserType(){

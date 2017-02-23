@@ -7,15 +7,7 @@ import java.io.Serializable;
  * Created by mlin on 2/12/17.
  */
 
-public class Reporter implements Serializable{
-    private String _username;
-    private String _password;
-    private String _name;
-    private String _email;
-    private String _home;
-    private UserTitle _title;
-    private String _phone;
-
+public class Reporter extends User implements Serializable {
 
     /**
      * Legacy constructor for Reporter class
@@ -24,19 +16,21 @@ public class Reporter implements Serializable{
      * @param password the password of the Reporter
      */
     public Reporter(String username, String password) {
-        this(username, "", password, "", "", UserTitle.NA, "");
+        this("", username, password, "", "", UserTitle.NA, "", UserType.Reporter);
     }
+
     /**
      * Creates an instance of the report class.
-     * @param username the username of the Reporter
      * @param name the name of the Reporter
+     * @param username the username of the Reporter
      * @param password the password of the Reporter
      * @param email the email of the Reporter
      * @param home the home address of the Reporter
      * @param title the title of the Reporter
      * @param phone the phone number of the Reporter
+     * @param reporter
      */
-    public Reporter(String username, String name, String password, String email, String home, UserTitle title, String phone) {
+    public Reporter(String name, String username, String password, String email, String home, UserTitle title, String phone, UserType reporter) {
         _name = name;
         _username = username;
         _password = password;
@@ -44,34 +38,8 @@ public class Reporter implements Serializable{
         _home = home;
         _title = title;
         _phone = phone;
+        _userType = UserType.Reporter;
     }
-
-    /* Getters and setters */
-
-    public String getUsername() {
-        return _username;
-    }
-    public void setUsername(String username) { _username = username; }
-
-    public String getPassword() {
-        return _password;
-    }
-    public void setPassword(String password) { _password = password; }
-
-    public String getName() {return _name;}
-    public void setName(String name) {_name = name;}
-
-    public String getEmail() { return _email; }
-    public void setEmail(String email) { _email = email; }
-
-    public String getHome() { return _home; }
-    public void setHome(String home) { _home = home; }
-
-    public UserTitle getTitle() { return _title; }
-    public void setTitle(UserTitle title) { _title = title; }
-
-    public String getPhone() { return _phone; }
-    public void setPhone(String phone) { _phone = phone; }
 
     public UserType getUserType(){
         return UserType.Reporter;
