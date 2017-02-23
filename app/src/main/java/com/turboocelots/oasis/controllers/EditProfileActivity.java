@@ -19,7 +19,6 @@ public class EditProfileActivity extends AppCompatActivity {
     /* ************************
      Widgets we will need for binding and getting information
   */
-    private TextView idField;
     private EditText nameField;
     private EditText usernameField;
     private EditText passwordField;
@@ -55,8 +54,9 @@ public class EditProfileActivity extends AppCompatActivity {
          * Grab the dialog widgets so we can get info for later
          */
         nameField = (EditText) findViewById(R.id.editName);
+        usernameField = (EditText) findViewById(R.id.editUsername);
         passwordField = (EditText) findViewById(R.id.editPassword);
-        emailField = (EditText) findViewById(R.id.editEmailAddress);
+        emailField = (EditText) findViewById(R.id.editEmail);
         homeAddressField = (EditText) findViewById(R.id.editHomeAddress);
         phoneAddressField = (EditText) findViewById(R.id.editPhoneNumber);
         userTitleSpinner = (Spinner) findViewById(R.id.TitleSpinner);
@@ -67,15 +67,14 @@ public class EditProfileActivity extends AppCompatActivity {
         userTitleSpinner.setAdapter(userTitleArrayAdapter);
 //
 //
-//        nameField.setText(_reporter.get);
         usernameField.setText(currentUser.getUsername());
         nameField.setText(currentUser.getName());
         passwordField.setText(currentUser.getPassword());
         emailField.setText(currentUser.getEmail());
         homeAddressField.setText(currentUser.getHome());
         phoneAddressField.setText(currentUser.getPhone());
-        //int pos = userTitleArrayAdapter.getPosition(currentUser.getTitle());
-        //userTitleSpinner.setSelection(pos);
+        int pos = userTitleArrayAdapter.getPosition(currentUser.getTitle());
+        userTitleSpinner.setSelection(pos);
 
 //        idField.setText("" + _student.getId());
 
@@ -98,6 +97,7 @@ public class EditProfileActivity extends AppCompatActivity {
         currentUser.setName(nameField.getText().toString());
         currentUser.setPhone(phoneAddressField.getText().toString());
         currentUser.setPassword(passwordField.getText().toString());
+        currentUser.setTitle((UserTitle) userTitleSpinner.getSelectedItem());
         finish();
     }
 }

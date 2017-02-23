@@ -8,6 +8,7 @@ import java.io.Serializable;
  */
 
 public enum UserTitle implements Serializable {
+    NA ("NA"),
     Mr ("Mr."),
     Ms ("Ms."),
     Mrs ("Mrs."),

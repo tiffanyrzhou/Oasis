@@ -13,7 +13,7 @@ public class Reporter implements Serializable{
     private String _name;
     private String _email;
     private String _home;
-    private String _title;
+    private UserTitle _title;
     private String _phone;
 
 
@@ -24,7 +24,7 @@ public class Reporter implements Serializable{
      * @param password the password of the Reporter
      */
     public Reporter(String username, String password) {
-        this(username, "", password, "", "", "", "");
+        this(username, "", password, "", "", UserTitle.NA, "");
     }
     /**
      * Creates an instance of the report class.
@@ -36,7 +36,7 @@ public class Reporter implements Serializable{
      * @param title the title of the Reporter
      * @param phone the phone number of the Reporter
      */
-    public Reporter(String username, String name, String password, String email, String home, String title, String phone) {
+    public Reporter(String username, String name, String password, String email, String home, UserTitle title, String phone) {
         _name = name;
         _username = username;
         _password = password;
@@ -67,8 +67,8 @@ public class Reporter implements Serializable{
     public String getHome() { return _home; }
     public void setHome(String home) { _home = home; }
 
-    public String getTitle() { return _title; }
-    public void setTitle(String title) { _title = title; }
+    public UserTitle getTitle() { return _title; }
+    public void setTitle(UserTitle title) { _title = title; }
 
     public String getPhone() { return _phone; }
     public void setPhone(String phone) { _phone = phone; }
