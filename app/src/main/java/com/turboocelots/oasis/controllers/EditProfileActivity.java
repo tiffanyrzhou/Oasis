@@ -26,9 +26,13 @@ public class EditProfileActivity extends AppCompatActivity {
     private EditText homeAddressField;
     private EditText phoneAddressField;
     private Spinner userTitleSpinner;
-    /* ***********************
-   Data for Reporter being edited.
- */
+
+    /**
+     * Instantiates the Activity. The activity is implicitly given a reference to the user
+     * by username via the getSerializableExtra method
+     * This is then used to modify the user via the Model class
+     * @param savedInstanceState
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +66,10 @@ public class EditProfileActivity extends AppCompatActivity {
 
         userTitleSpinner = (Spinner)findViewById(R.id.TitleSpinner);
 
-//        idField = (TextView) findViewById(R.id.student_id_field);
         ArrayAdapter<UserTitle> userTitleArrayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, UserTitle.values());
         userTitleArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userTitleSpinner.setAdapter(userTitleArrayAdapter);
-//
-//
+
         usernameField.setText(currentUser.getUsername());
         nameField.setText(currentUser.getName());
         passwordField.setText(currentUser.getPassword());
@@ -76,8 +78,6 @@ public class EditProfileActivity extends AppCompatActivity {
         phoneAddressField.setText(currentUser.getPhone());
         int pos = userTitleArrayAdapter.getPosition(currentUser.getTitle());
         userTitleSpinner.setSelection(pos);
-
-//        idField.setText("" + _student.getId());
 
     }
 
@@ -90,6 +90,13 @@ public class EditProfileActivity extends AppCompatActivity {
         finish();
     }
 
+
+    /**
+     * Saves all of the updated data to the corresponding User object in the Model class
+     * Then, exits the activity
+     * TODO: database arbitration to update
+     * @param view
+     */
     protected void onSavePressed(View view) {
         final String username = (String) getIntent().getSerializableExtra("CurrentUser");
         final User currentUser = Model.getInstance().getUser(username);

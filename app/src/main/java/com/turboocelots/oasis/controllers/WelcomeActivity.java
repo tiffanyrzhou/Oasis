@@ -9,7 +9,10 @@ import android.content.Intent;
 import com.turboocelots.oasis.R;
 
 public class WelcomeActivity extends AppCompatActivity {
-
+    /**
+     * Instantiates the Welcome activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
