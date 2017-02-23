@@ -14,27 +14,27 @@ public class Model {
 
     // Holds a list of all Reporters
 
-    private List<Reporter> _reporters;
+    private List<User> _users;
 
     /**
      * Makes a new model
      */
     public Model() {
-        _reporters = new ArrayList<Reporter>();
+        _users = new ArrayList<User>();
     }
 
     /**
      * Gets the Reporters
      * @return a List of Reporters in the app
      */
-    public List<Reporter> getReporters() {
-        return _reporters;
+    public List<User> getUsers() {
+        return _users;
     }
 
-    public Reporter getReporter(String username) {
-        for (Reporter reporter : _reporters) {
-            if (reporter.getUsername().equals(username)) {
-                return reporter;
+    public User getUser(String username) {
+        for (User user : _users) {
+            if (user.getUsername().equals(username)) {
+                return user;
             }
         }
         return null;
@@ -43,13 +43,13 @@ public class Model {
     /**
      * Adds a Reporter to the app. Checks if Reporter is already entered
      */
-    public boolean addReporter(Reporter reporter) {
-        for (Reporter r : _reporters) {
-            if (r.equals(reporter)) {
+    public boolean addUser(User user) {
+        for (User u : _users) {
+            if (u.equals(user)) {
                 return false;
             }
         }
-        _reporters.add(reporter);
+        _users.add(user);
         return true;
     }
 

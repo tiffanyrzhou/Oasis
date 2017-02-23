@@ -36,7 +36,7 @@ import android.content.Intent;
 
 import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.models.Model;
-import com.turboocelots.oasis.models.Reporter;
+import com.turboocelots.oasis.models.User;
 
 /**
  * A login screen that offers login via email/password.
@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
-    private Reporter currentUser;
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -306,11 +306,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-            for (Reporter reporter : Model.getInstance().getReporters()) {
-                if (reporter.getUsername().equals(mUsername)) {
+            for (User user : Model.getInstance().getUsers()) {
+                if (user.getUsername().equals(mUsername)) {
                     // Account exists, return true if the password matches.
-                    if (reporter.getPassword().equals(mPassword)) {
-                        currentUser = reporter;
+                    if (user.getPassword().equals(mPassword)) {
+                        currentUser = user;
                         return true;
                     };
                 }

@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.models.Model;
-import com.turboocelots.oasis.models.Reporter;
+import com.turboocelots.oasis.models.User;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -18,7 +18,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         final String username = (String) getIntent().getSerializableExtra("CurrentUser");
-        final Reporter currentUser = Model.getInstance().getReporter(username);
+        final User currentUser = Model.getInstance().getUser(username);
 
         final Button logoutButton = (Button) findViewById(R.id.logout_id);
         logoutButton.setOnClickListener(new View.OnClickListener() {

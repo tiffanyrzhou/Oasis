@@ -37,6 +37,7 @@ import android.content.Intent;
 
 
 import com.turboocelots.oasis.R;
+import com.turboocelots.oasis.models.User;
 import com.turboocelots.oasis.models.Manager;
 import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.Worker;
@@ -65,7 +66,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     private View mLoginFormView;
     private Spinner userTypeSpinner;
 
-    private Reporter currentUser;
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -197,7 +198,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             } else {
                 currentUser = new Reporter(username, password);
             }
-            Model.getInstance().addReporter(currentUser);
+            Model.getInstance().addUser(currentUser);
             showProgress(true);
             mAuthTask = new UserLoginTask(username, password);
             mAuthTask.execute((Void) null);
@@ -205,8 +206,8 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     }
 
     private boolean isUsernameValid(String username) {
-        for (Reporter reporter : Model.getInstance().getReporters()) {
-            if (reporter.getUsername().equals(username)) {
+        for (User user : Model.getInstance().getUsers()) {
+            if (user.getUsername().equals(username)) {
                return false;
             }
         }
