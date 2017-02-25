@@ -14,12 +14,14 @@ public class Model {
 
     // Holds a list of all Reporters
     private List<User> _users;
+    private List<Report> _reports;
 
     /**
      * Makes a new model
      */
     public Model() {
         _users = new ArrayList<User>();
+        _reports = new ArrayList<Report>();
     }
 
     /**
@@ -29,6 +31,15 @@ public class Model {
     public List<User> getUsers() {
         return _users;
     }
+
+    /**
+     * Gets the reports
+      * @return a List of reports in the app
+     */
+    public  List<Report> getReports(){
+        return _reports;
+    }
+
 
     /**
      * gets the current user via username
@@ -44,6 +55,7 @@ public class Model {
         return null;
     }
 
+
     /**
      * Adds a Reporter to the app. Checks if Reporter is already entered
      * @param user the new user to be added
@@ -58,5 +70,14 @@ public class Model {
         _users.add(user);
         return true;
     }
+
+    /**
+     * Adds a report to the app
+     * @param report the report to be added
+     */
+    public void addReport(Report report) {
+        _reports.add(report);
+    }
+
 
 }
