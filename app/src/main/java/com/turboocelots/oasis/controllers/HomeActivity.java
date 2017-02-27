@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.User;
+import com.turboocelots.oasis.models.UserType;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -44,6 +45,22 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(nextActivity);
             }
         });
+
+        final Button submitReportButton = (Button) findViewById(R.id.submit_report_button);
+        if (currentUser.getUserType() == UserType.Administrator) {
+            submitReportButton.setVisibility(View.GONE);
+        } else {
+            submitReportButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent nextActivity  = new Intent(HomeActivity.this, SubmitWaterSourceReportActivity.class);
+                    nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                    startActivity(nextActivity);
+                }
+            });
+        }
+
+
 
         final TextView userTypeText = (TextView) findViewById(R.id.userText_id);
         userTypeText.setText(currentUser.getUserType().toString());
