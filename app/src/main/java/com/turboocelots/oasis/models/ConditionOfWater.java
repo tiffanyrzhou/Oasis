@@ -8,10 +8,10 @@ import java.io.Serializable;
  */
 
 public enum ConditionOfWater implements Serializable{
-    WA ("Waste"),
-    TRC ("Treatable-Clear"),
-    TRM ("Treatable-Muddy"),
-    PO ("Potable");
+    WASTE ("Waste"),
+    CLEAR ("Treatable-Clear"),
+    MUDDY ("Treatable-Muddy"),
+    POTABLE ("Potable");
 
     private final String waterCondition;
 
