@@ -28,6 +28,7 @@
             android:name=".controllers.RegisterActivity"
             android:label="@string/title_activity_register" />
         <activity android:name=".controllers.HomeActivity" />
+        <activity android:name=".controllers.SubmitWaterSourceReportActivity"></activity>
     </application>
 
 </manifest>

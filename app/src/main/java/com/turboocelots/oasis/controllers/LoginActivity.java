@@ -39,7 +39,7 @@ import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.User;
 
 /**
- * A login screen that offers login via email/password.
+ * The Activity that controls the Login with username and password
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
@@ -61,6 +61,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private User currentUser;
 
+    /**
+     * Creates the activity.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,7 +133,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     /**
      * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
+     * If there are form errors (missing username, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
@@ -179,12 +183,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-    private boolean isUsernameValid(String email) {
-        //TODO: Replace this with your own logic
+    /**
+     * Checks if username is invalid. Should filter out illegal characters,
+     * like spaces
+     * @param username the username in the current TextEdit field
+     * @return whether the password is true or not
+     */
+
+    private boolean isUsernameValid(String username) {
         return true;
 
     }
 
+    /**
+     * Checks if a password is invalid. Should filter out illegal characters.
+     * @param password the password in the password TextEdit field
+     * @return whether the password is true or not
+     */
     private boolean isPasswordValid(String password) {
         return true;
     }
@@ -227,6 +242,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
+    /**
+     * Load contact's email addresses
+     * @param i
+     * @param bundle
+     * @return
+     */
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return new CursorLoader(this,
@@ -244,6 +265,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
     }
 
+    /**
+     * Add contacts to the autocomplete
+     * @param cursorLoader
+     * @param cursor
+     */
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         List<String> usernames = new ArrayList<>();
@@ -261,6 +287,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     }
 
+    /**
+     * Add usernames to the autocomplete
+     * @param emailAddressCollection the collection of usernames to add
+     */
     private void addUsernamesToAutocomplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =

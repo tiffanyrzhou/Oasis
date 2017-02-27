@@ -28,6 +28,12 @@
                 android:id="@+id/userText_id" />
 
             <Button
+                android:text="Submit Report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/submit_report_button" />
+
+            <Button
                 android:text="Edit Profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -38,6 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/logout_id" />
+
         </LinearLayout>
 
     </FrameLayout>
