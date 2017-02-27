@@ -21,44 +21,60 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:text="Title"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/TitleView"
-                tools:text="Title"
-                android:layout_above="@+id/editName"
-                android:layout_alignParentTop="true"
-                android:layout_alignEnd="@+id/PasswordView"
-                android:layout_alignStart="@+id/EditProfileSave" />
+                android:layout_height="match_parent">
 
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/TitleSpinner"
-                android:layout_above="@+id/editName"
-                android:layout_below="@+id/EditProfileView"
-                android:layout_alignEnd="@+id/textView7" />
+                <TextView
+                    android:text="Title"
+                    android:layout_width="31dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editProfile"
+                    tools:text="Title"
+                    android:layout_alignParentTop="true"
+                    android:textSize="12sp" />
 
-            <TextView
-                android:text="Name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/EditProfileView"
-                android:layout_alignStart="@+id/EditProfileView"
-                android:layout_marginTop="21dp"
-                android:id="@+id/NameView" />
+                <TextView
+                    android:text="Name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:id="@+id/NameView"
+                    android:layout_weight="0.00"
+                    android:layout_marginLeft="50dp"
+                    android:textSize="12sp" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/editName"
-                android:layout_below="@+id/NameView"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="12dp"
-                android:hint="Enter Name" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="122dp"
+                android:layout_height="match_parent"
+                android:weightSum="1">
+
+                <Spinner
+                    android:layout_width="27dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/TitleSpinner"
+                    android:layout_above="@+id/editName"
+                    android:layout_below="@+id/EditProfileView"
+                    android:layout_alignEnd="@+id/textView7"
+                    android:layout_weight="56" />
+
+                <EditText
+                    android:layout_width="94dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:layout_below="@+id/NameView"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="12dp"
+                    android:hint="ie. John Doe"
+                    android:textSize="14sp"
+                    android:layout_weight="251.33"
+                    android:id="@+id/editProfile" />
+            </LinearLayout>
 
             <TextView
                 android:text="Home Address"
@@ -67,7 +83,8 @@
                 android:id="@+id/textView8"
                 android:layout_below="@+id/editEmail"
                 android:layout_alignStart="@+id/editEmail"
-                android:layout_marginTop="12dp" />
+                android:layout_marginTop="12dp"
+                android:textSize="12sp" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -75,28 +92,52 @@
                 android:inputType="textPostalAddress"
                 android:ems="10"
                 android:id="@+id/editHomeAddress"
-                android:text="Enter Home Address"
                 android:layout_below="@+id/textView8"
-                android:layout_alignStart="@+id/textView9" />
+                android:layout_alignStart="@+id/textView9"
+                android:hint="ie. 350 Ferst Dr, Atlanta, GA 30332"
+                android:textSize="14sp" />
 
             <TextView
-                android:text="Username"
+                android:text="Email Address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="11dp"
-                android:id="@+id/UsernameView"
-                android:layout_below="@+id/editName"
-                android:layout_alignStart="@+id/editName" />
+                android:id="@+id/textView7"
+                android:layout_below="@+id/editPassword"
+                android:layout_alignStart="@+id/editEmail"
+                android:layout_marginTop="12dp"
+                android:textSize="12sp" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:text="Enter username"
+                android:inputType="textEmailAddress"
                 android:ems="10"
-                android:id="@+id/editUsername"
-                android:layout_below="@+id/UsernameView"
-                android:layout_alignStart="@+id/UsernameView" />
+                android:id="@+id/editEmail"
+                android:layout_below="@+id/textView7"
+                android:layout_alignStart="@+id/editPassword"
+                android:textSize="14sp"
+                android:hint="ie. hello@oasis.com" />
+
+            <TextView
+                android:text="Phone Number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView9"
+                android:layout_below="@+id/editHomeAddress"
+                android:layout_alignStart="@+id/editPhoneNumber"
+                android:layout_marginTop="14dp"
+                android:textSize="12sp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:ems="10"
+                android:id="@+id/editPhoneNumber"
+                android:layout_below="@+id/textView9"
+                android:layout_toStartOf="@+id/EditProfileCancel"
+                android:textSize="14sp"
+                android:hint="ie. (404) 888 - 8888" />
 
             <TextView
                 android:text="Password"
@@ -105,7 +146,8 @@
                 android:layout_below="@+id/editUsername"
                 android:layout_alignStart="@+id/editUsername"
                 android:layout_marginTop="10dp"
-                android:id="@+id/PasswordView" />
+                android:id="@+id/PasswordView"
+                android:textSize="12sp" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -115,45 +157,7 @@
                 android:id="@+id/editPassword"
                 android:layout_below="@+id/PasswordView"
                 android:layout_alignStart="@+id/PasswordView"
-                android:text="Enter Password" />
-
-            <TextView
-                android:text="Email Address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView7"
-                android:layout_below="@+id/editPassword"
-                android:layout_alignStart="@+id/editEmail"
-                android:layout_marginTop="12dp" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:ems="10"
-                android:id="@+id/editEmail"
-                android:text="Enter Email Address"
-                android:layout_below="@+id/textView7"
-                android:layout_alignStart="@+id/editPassword" />
-
-            <TextView
-                android:text="Phone Number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView9"
-                android:layout_below="@+id/editHomeAddress"
-                android:layout_alignStart="@+id/editPhoneNumber"
-                android:layout_marginTop="14dp" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:ems="10"
-                android:id="@+id/editPhoneNumber"
-                android:text="Enter Phone Number"
-                android:layout_below="@+id/textView9"
-                android:layout_toStartOf="@+id/EditProfileCancel" />
+                android:textSize="14sp" />
 
             <Button
                 android:text="Cancel"
