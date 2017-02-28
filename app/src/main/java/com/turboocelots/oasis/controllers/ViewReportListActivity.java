@@ -11,15 +11,10 @@ import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.Report;
 import com.turboocelots.oasis.models.User;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ViewReportListActivity extends AppCompatActivity {
-    private Button viewButton;
-    private Button cancelButton;
-    private ListView reportList;
     public List<String> reportDisplay;
     public List<Report> reports;
 
@@ -28,9 +23,9 @@ public class ViewReportListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_report_list);
-        viewButton = (Button) findViewById(R.id.ViewButton);
-        cancelButton = (Button) findViewById(R.id.CancelButton);
-        reportList = (ListView) findViewById(R.id.ReportList);
+        final Button viewButton = (Button) findViewById(R.id.ViewButton);
+        final Button cancelButton = (Button) findViewById(R.id.CancelButton);
+        final ListView reportList = (ListView) findViewById(R.id.ReportList);
         final String username = (String) getIntent().getSerializableExtra("CurrentUser");
         final User currentUser = Model.getInstance().getUser(username);
 
@@ -57,7 +52,7 @@ public class ViewReportListActivity extends AppCompatActivity {
         String display;
         reportDisplay = new ArrayList<>(reports.size());
         for (Report rep : reports) {
-            display = "Report Number: " +  rep.getReportNumber() + "     " + "Creator: " + rep.getReporterName();
+            display = "Report Number: " +  rep.getReportNumber() + "  " + "Location: " + rep.getReportLocation();
             reportDisplay.add(display);
         }
         return reportDisplay;
