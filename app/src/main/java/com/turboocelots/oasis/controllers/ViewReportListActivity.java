@@ -12,14 +12,16 @@ import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.Report;
 import com.turboocelots.oasis.models.User;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ViewReportListActivity extends AppCompatActivity {
     private Button viewButton;
     private Button cancelButton;
     private ListView reportList;
-    public ArrayList<String> reportDisplay;
-    public ArrayList<Report> reports;
+    public List<String> reportDisplay;
+    public List<Report> reports;
 
 
     @Override
@@ -35,8 +37,8 @@ public class ViewReportListActivity extends AppCompatActivity {
 
 
         //Create listAdapter for ListView
-        ArrayAdapter<Report> reportListAdapter = new ArrayAdapter<Report>(this, android.R.layout.simple_list_item_1,
-                Model.getInstance().getReports());
+        ArrayAdapter<String> reportListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
+                createList());
         reportList.setAdapter(reportListAdapter);
 
         //Initializes Buttons
@@ -50,9 +52,14 @@ public class ViewReportListActivity extends AppCompatActivity {
         });
     }
 
-//    private ArrayList<String> createDisplay() {
-//        int pos = 0;
-//        reportDisplay = new ArrayList<>(Model.getInstance().getReports().size());
-//        for (int
-//    }
+    private List<String> createList() {
+        reports = Model.getInstance().getReports();
+        String display;
+        reportDisplay = new ArrayList<>(reports.size());
+        for (Report rep : reports) {
+            display = "Report Number: " +  rep.getReportNumber() + "     " + "Creator: " + rep.getReporterName();
+            reportDisplay.add(display);
+        }
+        return reportDisplay;
+    }
 }

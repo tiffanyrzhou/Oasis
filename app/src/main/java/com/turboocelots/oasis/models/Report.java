@@ -32,7 +32,18 @@ public class Report {
         this.waterType = waterType;
     }
 
+    public String getReportNumber() { return reportNumber; }
+    public void setReportNumber(String reportNumber) { this.reportNumber = reportNumber; }
 
+    public String getDateTime() { return dateTime; }
+    public void setDateTime(String dateTime) { this.dateTime = dateTime; }
 
+    public String getReporterName() { return reporterName; }
+    public void setReporterName(String reporterName) { this.reporterName = reporterName; }
 
+    public ConditionOfWater getWaterCondition() { return waterCondition; }
+    public void setWaterCondition(ConditionOfWater waterCondition) { this.waterCondition = waterCondition; }
+
+    public TypeOfWater getWaterType() { return waterType; }
+    public void setWaterType(TypeOfWater waterType) { this.waterType = waterType;}
 }
