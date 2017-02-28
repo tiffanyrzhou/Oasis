@@ -30,7 +30,7 @@
         <activity android:name=".controllers.HomeActivity" />
         <activity android:name=".controllers.SubmitWaterSourceReportActivity" />
         <activity
-            android:name=".controllers.ViewReportList"
+            android:name=".controllers.ViewReportListActivity"
             android:label="@string/title_activity_view_report_list"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
