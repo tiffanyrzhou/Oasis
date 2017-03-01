@@ -81,8 +81,9 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
     }
 
     private void addReport(){
-        Report r = new Report(this.reportNumber.toString(),this.datetime.toString(),
-                this.reporterName.toString(), this.reportLocation.toString(), (ConditionOfWater) this.waterConditionSpinner.getSelectedItem(),
+        Report r = new Report((String)this.reportNumber.getText(), (String)this.datetime.getText(),
+                (String) this.reporterName.getText(), this.reportLocation.getText().toString(),
+                (ConditionOfWater) this.waterConditionSpinner.getSelectedItem(),
                 (TypeOfWater) this.waterTypeSpinner.getSelectedItem());
                  Model.getInstance().addReport(r);
     }
