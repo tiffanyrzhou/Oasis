@@ -36,5 +36,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/register_id" />
+
+        <Button
+            android:text="Google Maps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/goto_maps" />
     </LinearLayout>
 </RelativeLayout>

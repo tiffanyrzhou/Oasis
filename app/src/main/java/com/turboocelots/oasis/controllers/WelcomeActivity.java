@@ -35,7 +35,13 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
 
-
+        final Button googleMapsButton = (Button) findViewById(R.id.goto_maps);
+        googleMapsButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent nextActivity  = new Intent(WelcomeActivity.this, MapsActivity.class);
+                startActivity(nextActivity);
+            }
+        });
     }
 
 }
