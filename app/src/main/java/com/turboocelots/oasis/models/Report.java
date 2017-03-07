@@ -57,4 +57,13 @@ public class Report {
 
     public TypeOfWater getWaterType() { return waterType; }
     public void setWaterType(TypeOfWater waterType) { this.waterType = waterType;}
+
+    @Override
+    public String toString() {
+        return getReportNumber() + "  " + "Lat: " +
+                Double.toString(getReportLat()) + " Long: " +
+                Double.toString(getReportLong()) + "  " + "Type of Water:" + "  " +
+                getWaterType().toString() + "  " + "Water Condition: " +
+                getWaterCondition();
+    }
 }
