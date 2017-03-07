@@ -57,6 +57,10 @@
         <activity
             android:name=".controllers.MapsActivity"
             android:label="@string/title_activity_maps"></activity>
+        <activity
+            android:name=".controllers.ViewReportListActivity"
+            android:label="@string/title_activity_view_report_list"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

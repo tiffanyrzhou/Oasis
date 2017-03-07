@@ -60,7 +60,15 @@ public class HomeActivity extends AppCompatActivity {
             });
         }
 
-
+        final Button viewReportList = (Button) findViewById(R.id.view_report_list_button);
+        viewReportList.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent nextActivity  = new Intent(HomeActivity.this, ViewReportListActivity.class);
+                nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                startActivity(nextActivity);
+            }
+        });
 
         final TextView userTypeText = (TextView) findViewById(R.id.userText_id);
         userTypeText.setText(currentUser.getUserType().toString());
