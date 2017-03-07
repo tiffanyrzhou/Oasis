@@ -23,7 +23,6 @@ public class ViewReportListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_report_list);
-        final Button viewButton = (Button) findViewById(R.id.ViewButton);
         final Button cancelButton = (Button) findViewById(R.id.CancelButton);
         final ListView reportList = (ListView) findViewById(R.id.ReportList);
         final String username = (String) getIntent().getSerializableExtra("CurrentUser");

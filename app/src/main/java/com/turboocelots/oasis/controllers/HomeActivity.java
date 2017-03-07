@@ -60,6 +60,20 @@ public class HomeActivity extends AppCompatActivity {
             });
         }
 
+        final Button viewWaterAvaliabilityButton = (Button) findViewById(R.id.waterAvaliability_button);
+        if (currentUser.getUserType() == UserType.Administrator) {
+            viewWaterAvaliabilityButton  .setVisibility(View.GONE);
+        } else {
+            viewWaterAvaliabilityButton .setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent nextActivity  = new Intent(HomeActivity.this, MapsActivity.class);
+                    nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                    startActivity(nextActivity);
+                }
+            });
+        }
+
         final Button viewReportList = (Button) findViewById(R.id.view_report_list_button);
         viewReportList.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

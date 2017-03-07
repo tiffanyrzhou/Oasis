@@ -1,6 +1,9 @@
 package com.turboocelots.oasis.controllers;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +13,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import java.util.Calendar;
+
+import com.google.android.gms.location.LocationListener;
 import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.models.ConditionOfWater;
 import com.turboocelots.oasis.models.Model;
@@ -25,6 +30,7 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
     private EditText reportLong;
     private Spinner waterTypeSpinner;
     private Spinner waterConditionSpinner;
+
 
 
     @Override
