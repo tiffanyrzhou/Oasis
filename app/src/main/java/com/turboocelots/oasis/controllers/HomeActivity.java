@@ -30,8 +30,8 @@ public class HomeActivity extends AppCompatActivity {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent nextActivity  = new Intent(HomeActivity.this, WelcomeActivity.class);
-                nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+//                nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                nextActivity.putExtra("CurrentUser", currentUser.getUsername());
                 startActivity(nextActivity);
             }
         });
@@ -50,6 +50,7 @@ public class HomeActivity extends AppCompatActivity {
         if (currentUser.getUserType() == UserType.Administrator) {
             submitReportButton.setVisibility(View.GONE);
         } else {
+            submitReportButton.setVisibility(View.VISIBLE);
             submitReportButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent nextActivity  = new Intent(HomeActivity.this, SubmitWaterSourceReportActivity.class);
@@ -60,11 +61,12 @@ public class HomeActivity extends AppCompatActivity {
             });
         }
 
-        final Button viewWaterAvaliabilityButton = (Button) findViewById(R.id.waterAvaliability_button);
+        final Button viewWaterAvailabilityButton = (Button) findViewById(R.id.waterAvaliability_button);
         if (currentUser.getUserType() == UserType.Administrator) {
-            viewWaterAvaliabilityButton  .setVisibility(View.GONE);
+            viewWaterAvailabilityButton.setVisibility(View.GONE);
         } else {
-            viewWaterAvaliabilityButton .setOnClickListener(new View.OnClickListener() {
+            viewWaterAvailabilityButton.setVisibility(View.VISIBLE);
+            viewWaterAvailabilityButton .setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent nextActivity  = new Intent(HomeActivity.this, MapsActivity.class);
                     nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -75,7 +77,11 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         final Button viewReportList = (Button) findViewById(R.id.view_report_list_button);
-        viewReportList.setOnClickListener(new View.OnClickListener() {
+        if (currentUser.getUserType() == UserType.Administrator) {
+            viewReportList.setVisibility(View.GONE);
+        } else {
+            viewReportList.setVisibility(View.VISIBLE);
+            viewReportList.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent nextActivity  = new Intent(HomeActivity.this, ViewReportListActivity.class);
                 nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -83,6 +89,7 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(nextActivity);
             }
         });
+    }
 
         final TextView userTypeText = (TextView) findViewById(R.id.userText_id);
         userTypeText.setText(currentUser.getUserType().toString());
