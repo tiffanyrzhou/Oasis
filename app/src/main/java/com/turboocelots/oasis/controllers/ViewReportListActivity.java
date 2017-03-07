@@ -32,8 +32,8 @@ public class ViewReportListActivity extends AppCompatActivity {
 
 
         //Create listAdapter for ListView
-        ArrayAdapter<String> reportListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
-                createList());
+        ArrayAdapter<Report> reportListAdapter = new ArrayAdapter<Report>(this, android.R.layout.simple_list_item_1,
+                Model.getInstance().getReports());
         reportList.setAdapter(reportListAdapter);
 
         //Initializes Buttons
@@ -45,24 +45,5 @@ public class ViewReportListActivity extends AppCompatActivity {
                 startActivity(nextActivity);
             }
         });
-    }
-
-    /**
-     * Creates a List<String> for the reportListAdapter
-     * @return returns reportDisplay for the reportListAdapter
-     */
-    private List<String> createList() {
-        reports = Model.getInstance().getReports();
-        String display;
-        reportDisplay = new ArrayList<>(reports.size());
-        for (Report rep : reports) {
-            display =  rep.getReportNumber() + "  " + "Lat: " +
-                    Double.toString(rep.getReportLat()) + " Long: " +
-                        Double.toString(rep.getReportLong()) + "  " + "Type of Water:" + "  " +
-                            rep.getWaterType().toString() + "  " + "Water Condition: " +
-                                rep.getWaterCondition();
-            reportDisplay.add(display);
-        }
-        return reportDisplay;
     }
 }
