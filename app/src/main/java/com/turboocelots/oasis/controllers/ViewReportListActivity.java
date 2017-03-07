@@ -47,6 +47,10 @@ public class ViewReportListActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Creates a List<String> for the reportListAdapter
+     * @return returns reportDisplay for the reportListAdapter
+     */
     private List<String> createList() {
         reports = Model.getInstance().getReports();
         String display;
