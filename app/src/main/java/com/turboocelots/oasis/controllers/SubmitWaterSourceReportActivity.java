@@ -88,6 +88,10 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
         waterConditionSpinner.setAdapter(waterConditionArrayAdapter);
     }
 
+    /**
+     * Add reports to the Model
+     * @return void
+     */
     private void addReport(){
         Report r = new Report((String)this.reportNumber.getText(), (String)this.datetime.getText(),
                 (String) this.reporterName.getText(),

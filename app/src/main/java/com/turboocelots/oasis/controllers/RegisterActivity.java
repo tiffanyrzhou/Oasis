@@ -66,11 +66,10 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     private View mProgressView;
     private View mLoginFormView;
     private Spinner userTypeSpinner;
-
     private User currentUser;
 
     /**
-     * Creates the Acitivty
+     * Creates the Activity
      * @param savedInstanceState
      */
     @Override
