@@ -47,13 +47,20 @@ public class ViewReportListActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Creates a List<String> for the reportListAdapter
+     * @return returns reportDisplay for the reportListAdapter
+     */
     private List<String> createList() {
         reports = Model.getInstance().getReports();
         String display;
         reportDisplay = new ArrayList<>(reports.size());
         for (Report rep : reports) {
-            display = "Report Number: " +  rep.getReportNumber() + "  " + "Location: " + rep.getReportLocation()
-                    + "  " + "Type of Water:" + "  " + rep.getWaterType().toString() + "  " + "Water Condition: " + rep.getWaterCondition();
+            display =  rep.getReportNumber() + "  " + "Lat: " +
+                    Double.toString(rep.getReportLat()) + " Long: " +
+                        Double.toString(rep.getReportLong()) + "  " + "Type of Water:" + "  " +
+                            rep.getWaterType().toString() + "  " + "Water Condition: " +
+                                rep.getWaterCondition();
             reportDisplay.add(display);
         }
         return reportDisplay;
