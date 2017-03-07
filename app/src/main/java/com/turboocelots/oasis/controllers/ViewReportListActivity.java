@@ -52,8 +52,11 @@ public class ViewReportListActivity extends AppCompatActivity {
         String display;
         reportDisplay = new ArrayList<>(reports.size());
         for (Report rep : reports) {
-            display = "Report Number: " +  rep.getReportNumber() + "  " + "Location: " + rep.getReportLocation()
-                    + "  " + "Type of Water:" + "  " + rep.getWaterType().toString() + "  " + "Water Condition: " + rep.getWaterCondition();
+            display =  rep.getReportNumber() + "  " + "Lat: " +
+                    Double.toString(rep.getReportLat()) + " Long: " +
+                        Double.toString(rep.getReportLong()) + "  " + "Type of Water:" + "  " +
+                            rep.getWaterType().toString() + "  " + "Water Condition: " +
+                                rep.getWaterCondition();
             reportDisplay.add(display);
         }
         return reportDisplay;
