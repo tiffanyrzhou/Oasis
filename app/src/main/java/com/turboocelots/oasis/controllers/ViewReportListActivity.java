@@ -23,7 +23,6 @@ public class ViewReportListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_report_list);
-        final Button viewButton = (Button) findViewById(R.id.ViewButton);
         final Button cancelButton = (Button) findViewById(R.id.CancelButton);
         final ListView reportList = (ListView) findViewById(R.id.ReportList);
         final String username = (String) getIntent().getSerializableExtra("CurrentUser");
@@ -32,8 +31,8 @@ public class ViewReportListActivity extends AppCompatActivity {
 
 
         //Create listAdapter for ListView
-        ArrayAdapter<String> reportListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
-                createList());
+        ArrayAdapter<Report> reportListAdapter = new ArrayAdapter<Report>(this, android.R.layout.simple_list_item_1,
+                Model.getInstance().getReports());
         reportList.setAdapter(reportListAdapter);
 
         //Initializes Buttons
@@ -45,17 +44,5 @@ public class ViewReportListActivity extends AppCompatActivity {
                 startActivity(nextActivity);
             }
         });
-    }
-
-    private List<String> createList() {
-        reports = Model.getInstance().getReports();
-        String display;
-        reportDisplay = new ArrayList<>(reports.size());
-        for (Report rep : reports) {
-            display = "Report Number: " +  rep.getReportNumber() + "  " + "Location: " + rep.getReportLocation()
-                    + "  " + "Type of Water:" + "  " + rep.getWaterType().toString() + "  " + "Water Condition: " + rep.getWaterCondition();
-            reportDisplay.add(display);
-        }
-        return reportDisplay;
     }
 }
