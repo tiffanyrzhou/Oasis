@@ -2,7 +2,7 @@ package com.turboocelots.oasis.models;
 
 /**
  * Created by Tiffany on 3/6/17.
- * a Report Location
+ * a WaterSourceReport Location
  */
 
 public class ReportLocation {
@@ -17,12 +17,26 @@ public class ReportLocation {
      * @param r
      */
     public ReportLocation(Report r) {
-        this.longitude = r.getReportLong();
-        this.latitude = r.getReportLat();
-        this.title = r.getDateTime() + " " + r.getWaterCondition() + " " + r.getWaterType();
-        this.description = r.getReporterName() + "\n" + r.getDateTime() + "\n" + "Water Type: " + r.getWaterType() + "\n" +
-                "Water Condition: " +  r.getWaterCondition() + "\n"
-                + r.getReportNumber();
+
+        if (r instanceof WaterSourceReport){
+            WaterSourceReport wsR = (WaterSourceReport)r;
+            this.longitude = wsR.getReportLong();
+            this.latitude = wsR.getReportLat();
+            this.title = wsR.getDateTime() + " " + wsR.getWaterCondition() + " " + wsR.getWaterType();
+            this.description = wsR.getReporterName() + "\n" + wsR.getDateTime() + "\n" + "Water Type: " + wsR.getWaterType() + "\n" +
+                    "Water Condition: " +  wsR.getWaterCondition() + "\n"
+                    + wsR.getReportNumber();
+        } else if (r instanceof WaterQualityReport) {
+            WaterQualityReport wqR = (WaterQualityReport)r;
+            this.longitude = wqR.getReportLong();
+            this.latitude = wqR.getReportLat();
+            this.title = wqR.getDateTime() + " " + wqR.getoCondition();
+            this.description = wqR.getReporterName() + "\n" + wqR.getDateTime() + "\n"
+                    + "Overall Condition:" + wqR.getoCondition() + "\n" +
+                    " Virus PPM: "  + wqR.getVirusPPM()+ "\n" +  " Contaminants PPM: "
+                    +  wqR.getContaminantsPPM() + wqR.getReportNumber();
+
+        }
 
     }
 
