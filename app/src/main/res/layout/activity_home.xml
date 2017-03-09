@@ -34,6 +34,18 @@
                 android:id="@+id/submit_report_button" />
 
             <Button
+                android:text="View Existing Reports"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/view_report_list_button" />
+
+            <Button
+                android:text="View Water Availability"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/waterAvaliability_button" />
+
+            <Button
                 android:text="Edit Profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

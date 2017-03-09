@@ -55,7 +55,11 @@ public class Reporter extends User implements Serializable {
      * @return whether or not two reporters are equal
      */
     public boolean equals(Object o) {
-        Reporter r = (Reporter) o;
-        return (r.getUsername().equals(_username));
+        if(o instanceof Reporter) {
+            Reporter r = (Reporter) o;
+            return (r.getUsername().equals(_username));
+        } else {
+            return false;
+        }
     }
 }

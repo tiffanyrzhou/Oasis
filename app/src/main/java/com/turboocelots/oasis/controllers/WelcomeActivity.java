@@ -34,8 +34,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 startActivity(nextActivity);
             }
         });
-
-
     }
 
 }
