@@ -34,7 +34,7 @@ public class ReportLocation {
             this.description = wqR.getReporterName() + "\n" + wqR.getDateTime() + "\n"
                     + "Overall Condition:" + wqR.getoCondition() + "\n" +
                     " Virus PPM: "  + wqR.getVirusPPM()+ "\n" +  " Contaminants PPM: "
-                    +  wqR.getContaminantsPPM() + wqR.getReportNumber();
+                    +  wqR.getContaminantsPPM() + "\n"+ wqR.getReportNumber();
 
         }
 

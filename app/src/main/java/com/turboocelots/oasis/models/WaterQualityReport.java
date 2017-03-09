@@ -57,7 +57,7 @@ public class WaterQualityReport extends Report {
 
     @Override
     public String toString(){
-        return   "Water Quality Report: \n "+reporterName + "\n" + dateTime +"\n" + "Report Number: " + reportNumber + "\n" +
+        return   "Water Quality Report: \n "+reporterName + "\n" + dateTime +"\n" + reportNumber + "\n" +
                 "Latitude: " + reportLat + "\n" + "Longitude: " + reportLong + "\n"
                 + "Overall Condition:" + oCondition.toString() + "\n" +
                 " Virus PPM: "  +virusPPM+ "\n" +  " Contaminants PPM: "  + contaminantsPPM;
