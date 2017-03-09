@@ -5,10 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.location.Location;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -31,13 +28,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.Report;
+import com.turboocelots.oasis.models.WaterSourceReport;
 import com.turboocelots.oasis.models.ReportLocation;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -127,7 +122,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     /**
-     * generates a list of Report location from the reports in the model
+     * generates a list of WaterSourceReport location from the waterSourceReports in the model
      * @return List<ReportLocation>
      */
     private List<ReportLocation> getLocationList() {

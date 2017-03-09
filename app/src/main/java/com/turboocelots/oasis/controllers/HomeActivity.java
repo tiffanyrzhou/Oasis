@@ -46,6 +46,21 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        final Button submitWaterQualityReportButton = (Button) findViewById(R.id.submitWaterQuality);
+        if (currentUser.getUserType() == UserType.Administrator || currentUser.getUserType() == UserType.Reporter) {
+            submitWaterQualityReportButton.setVisibility(View.GONE);
+        } else {
+            submitWaterQualityReportButton.setVisibility(View.VISIBLE);
+            submitWaterQualityReportButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent nextActivity  = new Intent(HomeActivity.this, SubmitWaterQualityReportActivity.class);
+                    nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                    startActivity(nextActivity);
+                }
+            });
+        }
+
         final Button submitReportButton = (Button) findViewById(R.id.submit_report_button);
         if (currentUser.getUserType() == UserType.Administrator) {
             submitReportButton.setVisibility(View.GONE);

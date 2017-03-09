@@ -28,13 +28,19 @@
                 android:id="@+id/userText_id" />
 
             <Button
-                android:text="Submit Report"
+                android:text="Submit Water Source Report"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/submit_report_button" />
 
             <Button
-                android:text="View Existing Reports"
+                android:text="Submit Water Quality Report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/submitWaterQuality" />
+
+            <Button
+                android:text="View All Existing Reports"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/view_report_list_button" />
