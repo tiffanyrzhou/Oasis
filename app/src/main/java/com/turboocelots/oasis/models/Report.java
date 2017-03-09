@@ -37,26 +37,48 @@ public class Report {
         this.waterType = waterType;
     }
 
+    /**
+     * get report number
+     * @return String representation of reportNumber
+     */
     public String getReportNumber() { return reportNumber; }
-    public void setReportNumber(String reportNumber) { this.reportNumber = reportNumber; }
 
+    /**
+     * get report date and time
+     * @return String representation of date and time
+     */
     public String getDateTime() { return dateTime; }
-    public void setDateTime(String dateTime) { this.dateTime = dateTime; }
 
+    /**
+     * get reporter name
+     * @return String representation of reporter name
+     */
     public String getReporterName() { return reporterName; }
-    public void setReporterName(String reporterName) { this.reporterName = reporterName; }
 
+    /**
+     * get report lat
+     * @return double in lat
+     */
     public double getReportLat() { return reportLat; }
-    public void setReportLocation(double reportLat) { this.reportLat = reportLat; }
 
+    /**
+     * get report long
+     * @return double in long
+     */
     public double getReportLong() {return reportLong;}
-    public void setReportLong(double reportLong) { this.reportLong = reportLong;}
 
+    /**
+     * get condition water
+     * @return condition of water
+     */
     public ConditionOfWater getWaterCondition() { return waterCondition; }
-    public void setWaterCondition(ConditionOfWater waterCondition) { this.waterCondition = waterCondition; }
 
+    /**
+     * get water type
+     * @return water type
+     */
     public TypeOfWater getWaterType() { return waterType; }
-    public void setWaterType(TypeOfWater waterType) { this.waterType = waterType;}
+
 
     @Override
     public String toString() {
