@@ -10,13 +10,14 @@ import android.widget.ListView;
 import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.Report;
+import com.turboocelots.oasis.models.WaterSourceReport;
 import com.turboocelots.oasis.models.User;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class ViewReportListActivity extends AppCompatActivity {
     public List<String> reportDisplay;
-    public List<Report> reports;
+    public List<Report> waterSourceReports;
 
 
     @Override

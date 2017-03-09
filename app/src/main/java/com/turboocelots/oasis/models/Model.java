@@ -33,8 +33,8 @@ public class Model {
     }
 
     /**
-     * Gets the reports
-      * @return a List of reports in the app
+     * Gets the waterSourceReports
+      * @return a List of waterSourceReports in the app
      */
     public  List<Report> getReports(){
         return _reports;
@@ -72,8 +72,8 @@ public class Model {
     }
 
     /**
-     * Adds a report to the app
-     * @param report the report to be added
+     * Adds a waterSourceReport to the app
+     * @param report the waterSourceReport to be added
      */
     public void addReport(Report report) {
         _reports.add(report);
