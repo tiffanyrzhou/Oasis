@@ -47,7 +47,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         final Button submitReportButton = (Button) findViewById(R.id.submit_report_button);
-        if (currentUser.getUserType() == UserType.Administrator) {
+        if (currentUser.getUserType() == UserType.Administrator || currentUser.getIsBanned() == true) {
             submitReportButton.setVisibility(View.GONE);
         } else {
             submitReportButton.setVisibility(View.VISIBLE);
@@ -90,6 +90,20 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
+        final Button manageAccountsButton = (Button) findViewById(R.id.manage_accounts);
+        if (currentUser.getUserType() != UserType.Administrator) {
+            manageAccountsButton.setVisibility(View.GONE);
+        } else {
+            manageAccountsButton.setVisibility(View.VISIBLE);
+            manageAccountsButton .setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent nextActivity  = new Intent(HomeActivity.this, ManageAccountsActivity.class);
+                    nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                    startActivity(nextActivity);
+                }
+            });
+        }
 
         final TextView userTypeText = (TextView) findViewById(R.id.userText_id);
         userTypeText.setText(currentUser.getUserType().toString());

@@ -42,4 +42,22 @@ public class Administrator extends User {
     public UserType getUserType(){
         return UserType.Administrator;
     }
+
+    /**
+     * bans the user from creating reports
+     * @param user
+     */
+    public void banUser(User user) { user.setIsBanned(true);}
+
+    /**
+     * unbans the user, allowing them to create reports
+     * @param user
+     */
+    public void unbanUser(User user) { user.setIsBanned(false);}
+
+    /**
+     * marks the account to be deleted
+     * @param user
+     */
+    public void deleteUser(User user) { user.setIsDeleted(true);}
 }

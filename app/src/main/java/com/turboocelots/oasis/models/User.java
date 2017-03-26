@@ -13,6 +13,8 @@ public abstract class User {
     protected UserTitle _title;
     protected String _phone;
     protected UserType _userType;
+    protected Boolean _isBanned;
+    protected Boolean _isDeleted;
 
     /* Getters and setters */
 
@@ -106,6 +108,30 @@ public abstract class User {
     public UserType getUserType(){
         return UserType.Reporter;
     }
+
+    /**
+     * gets whether or not the user account is banned
+     * @return the boolean for whether or not the account is banned
+     */
+    public Boolean getIsBanned() { return _isBanned; }
+
+    /**
+     * changes the ban status of the user
+     * @param isBanned
+     */
+    public void setIsBanned(Boolean isBanned) { _isBanned = isBanned; }
+
+    /**
+     * gets whether or not the account should be deleted
+     * @return the boolean for whether or not the account should be deleted
+     */
+    public Boolean getIsDeleted() { return _isDeleted; }
+
+    /**
+     * changes the deletion status of the user
+     * @param isDeleted
+     */
+    public void setIsDeleted(Boolean isDeleted) { _isDeleted = isDeleted; }
 
     /**
      * Checks equality of users by username
