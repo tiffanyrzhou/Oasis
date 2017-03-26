@@ -62,7 +62,7 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         final Button submitReportButton = (Button) findViewById(R.id.submit_report_button);
-        if (currentUser.getUserType() == UserType.Administrator || currentUser.getIsBanned() == true) {
+        if (currentUser.getUserType() == UserType.Administrator || currentUser.getIsBanned()) {
             submitReportButton.setVisibility(View.GONE);
         } else {
             submitReportButton.setVisibility(View.VISIBLE);
@@ -112,7 +112,7 @@ public class HomeActivity extends AppCompatActivity {
             manageAccountsButton.setVisibility(View.VISIBLE);
             manageAccountsButton .setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    Intent nextActivity  = new Intent(HomeActivity.this, ManageAccountsActivity.class);
+                    Intent nextActivity  = new Intent(HomeActivity.this, ViewAccountsActivity.class);
                     nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     nextActivity.putExtra("CurrentUser", currentUser.getUsername());
                     startActivity(nextActivity);

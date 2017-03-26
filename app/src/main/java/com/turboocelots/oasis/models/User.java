@@ -143,5 +143,8 @@ public abstract class User {
         return (r.getUsername().equals(_username));
     }
 
+    public String toString() {
+        return "Username: " + _username + "\nTitle: " + _title + "\nBan Status: " + _isBanned;
+    }
 
 }
