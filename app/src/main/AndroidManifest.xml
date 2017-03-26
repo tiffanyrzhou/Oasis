@@ -66,6 +66,8 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <activity android:name=".controllers.SubmitWaterQualityReportActivity"></activity>
+
         <activity
             android:name=".controllers.ManageAccountsActivity"
             android:label="@string/title_activity_manage_accounts"

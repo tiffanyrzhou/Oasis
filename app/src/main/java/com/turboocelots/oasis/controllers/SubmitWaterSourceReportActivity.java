@@ -1,9 +1,6 @@
 package com.turboocelots.oasis.controllers;
 
-import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
-import android.location.LocationManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,11 +11,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import java.util.Calendar;
 
-import com.google.android.gms.location.LocationListener;
 import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.models.ConditionOfWater;
 import com.turboocelots.oasis.models.Model;
-import com.turboocelots.oasis.models.Report;
+import com.turboocelots.oasis.models.WaterSourceReport;
 import com.turboocelots.oasis.models.TypeOfWater;
 import com.turboocelots.oasis.models.User;
 
@@ -41,8 +37,8 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
         final User currentUser = Model.getInstance().getUser(username);
         //find attributes by ID
         datetime = (TextView) findViewById(R.id.date_time);
-        reporterName = (TextView) findViewById(R.id.reporter_number);
-        reportNumber = (TextView) findViewById(R.id.report_name);
+        reporterName = (TextView) findViewById(R.id.reporter_name);
+        reportNumber = (TextView) findViewById(R.id.report_number);
         reportLat = (EditText) findViewById(R.id.lat_address);
         reportLong = (EditText) findViewById(R.id.long_address);
         waterTypeSpinner = (Spinner) findViewById(R.id.water_type_spinner);
@@ -72,7 +68,7 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
         });
 
         // initialize text view
-        datetime.setText( "Date/Time:" + Calendar.getInstance().DATE + "" + Calendar.getInstance().getTime());
+        datetime.setText( Calendar.getInstance().DATE + "" + Calendar.getInstance().getTime());
         reporterName.setText("Reporter Username:" + currentUser.getUsername());
         reportNumber.setText("Report Number:" + Model.getInstance().getReports().size()+"");
 
@@ -89,11 +85,11 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
     }
 
     /**
-     * Add reports to the Model
+     * Add waterSourceReports to the Model
      * @return void
      */
     private void addReport(){
-        Report r = new Report((String)this.reportNumber.getText(), (String)this.datetime.getText(),
+        WaterSourceReport r = new WaterSourceReport((String)this.reportNumber.getText(), (String)this.datetime.getText(),
                 (String) this.reporterName.getText(),
                 Double.parseDouble(this.reportLat.getText().toString()),
                 Double.parseDouble(this.reportLong.getText().toString()),
