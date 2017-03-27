@@ -1,5 +1,7 @@
 package com.turboocelots.oasis.models;
 
+import java.util.Calendar;
+
 /**
  * Created by Tiffany on 3/7/17.
  */
@@ -23,9 +25,9 @@ public class WaterQualityReport extends Report {
      * @param virusPPM measurement of water quality
      */
     public WaterQualityReport(String reportNumber,String dateTime,String reporterName,
-                              double reportLat, double reportLong,
+                              double reportLat, double reportLong, Calendar date,
                               OverallCondition oCondition,String virusPPM, String contaminantsPPM){
-        super(reportNumber,dateTime,reporterName,reportLat,reportLong);
+        super(reportNumber,dateTime,reporterName,reportLat,reportLong,date);
         this.oCondition = oCondition;
         this.virusPPM = virusPPM;
         this.contaminantsPPM =contaminantsPPM;

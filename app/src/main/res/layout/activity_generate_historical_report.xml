@@ -21,25 +21,46 @@
             android:layout_alignParentTop="true">
 
             <TextView
-                android:text="Location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/status_graph" />
+
+            <TextView
+                android:text="Latitude"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <Spinner
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/location_graph" />
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/lat_graph" />
+
+            <TextView
+                android:text="Longtitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView10" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/long_graph" />
 
             <TextView
                 android:text="Year"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/Year" />
+                android:layout_height="wrap_content" />
 
-            <Spinner
+            <EditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/year_graph"
-                android:layout_width="match_parent" />
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/year_graph" />
 
             <TextView
                 android:text="PPM Type"

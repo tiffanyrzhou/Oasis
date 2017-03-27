@@ -1,4 +1,7 @@
 package com.turboocelots.oasis.models;
+
+import java.util.Calendar;
+
 /**
  * Created by Tiffany on 2/25/17.
  * A instance of a WaterSourceReport
@@ -20,9 +23,9 @@ public class WaterSourceReport extends Report {
      * @param waterCondition condition of the water
      * @param waterType type of water
      */
-    public WaterSourceReport(String reportNumber, String dateTime, String reporterName, double reportLat, double reportLong,
+    public WaterSourceReport(String reportNumber, String dateTime, String reporterName, double reportLat, double reportLong,Calendar date,
                              ConditionOfWater waterCondition, TypeOfWater waterType){
-        super(reportNumber,dateTime,reporterName,reportLat,reportLong);
+        super(reportNumber,dateTime,reporterName,reportLat,reportLong,date);
         this.waterCondition = waterCondition;
         this.waterType = waterType;
     }

@@ -67,7 +67,8 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".controllers.SubmitWaterQualityReportActivity" />
-        <activity android:name=".controllers.GenerateHistoricalReportActivity"></activity>
+        <activity android:name=".controllers.GenerateHistoricalReportActivity" />
+        <activity android:name=".controllers.ViewHistoricalReportActivity"></activity>
     </application>
 
 </manifest>
