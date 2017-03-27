@@ -76,6 +76,24 @@ public class HomeActivity extends AppCompatActivity {
             });
         }
 
+        final  Button viewHistoricalPurityReportButton = (Button) findViewById(R.id.view_historical_button);
+        if (currentUser.getUserType() != UserType.Manager){
+            viewHistoricalPurityReportButton.setVisibility(View.GONE);
+        } else {
+            viewHistoricalPurityReportButton.setVisibility(View.VISIBLE);
+            viewHistoricalPurityReportButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent nextActivity  = new Intent(HomeActivity.this, GenerateHistoricalReportActivity.class);
+                   // nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    //nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                    startActivity(nextActivity);
+                }
+            });
+
+        }
+
+
+
         final Button viewWaterAvailabilityButton = (Button) findViewById(R.id.waterAvaliability_button);
         if (currentUser.getUserType() == UserType.Administrator) {
             viewWaterAvailabilityButton.setVisibility(View.GONE);
