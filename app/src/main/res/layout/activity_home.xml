@@ -17,53 +17,64 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="140dp">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/userText_id" />
+                android:layout_height="wrap_content">
 
-            <Button
-                android:text="Submit Water Source Report"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/submit_report_button" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/userText_id" />
 
-            <Button
-                android:text="Submit Water Quality Report"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/submitWaterQuality" />
+                <Button
+                    android:text="Submit Water Source Report"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/submit_report_button" />
 
-            <Button
-                android:text="View All Existing Reports"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/view_report_list_button" />
+                <Button
+                    android:text="Submit Water Quality Report"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/submitWaterQuality" />
 
-            <Button
-                android:text="View Water Availability"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/waterAvaliability_button" />
+                <Button
+                    android:text="View All Existing Reports"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/view_report_list_button" />
 
-            <Button
-                android:text="Edit Profile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/edit_profile_button" />
+                <Button
+                    android:text="View Historical Purity Report"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/view_historical_button" />
 
-            <Button
-                android:text="logout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/logout_id" />
+                <Button
+                    android:text="View Water Availability"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/waterAvaliability_button" />
 
-        </LinearLayout>
+                <Button
+                    android:text="Edit Profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edit_profile_button" />
+
+                <Button
+                    android:text="logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/logout_id" />
+
+            </LinearLayout>
+        </ScrollView>
 
     </FrameLayout>
 </RelativeLayout>

@@ -1,5 +1,8 @@
 package com.turboocelots.oasis.models;
 
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Created by Tiffany on 3/7/17.
  */
@@ -10,13 +13,16 @@ public abstract class Report {
     protected String reporterName;
     protected  double reportLat;
     protected double reportLong;
+    protected Calendar date;
 
-    public Report(String reportNumber,String dateTime,String reporterName,double reportLat, double reportLong){
+    public Report(String reportNumber,String dateTime,String reporterName,double reportLat, double reportLong,
+                  Calendar date){
         this.reportNumber = reportNumber;
         this.dateTime = dateTime;
         this.reporterName = reporterName;
         this.reportLat = reportLat;
         this.reportLong = reportLong;
+        this.date = date;
 
     }
 
@@ -34,5 +40,7 @@ public abstract class Report {
 
     public double getReportLong() {return reportLong;}
     public void setReportLong(double reportLong) { this.reportLong = reportLong;}
+
+    public Calendar getDate() {return date;}
 
 }
