@@ -67,7 +67,6 @@ public class ViewHistoricalReportActivity extends AppCompatActivity {
 
             }
         }
-       // series.appendData(new DataPoint(r.getDate().get(Calendar.MONTH),Double.parseDouble(r.getVirusPPM())),true,20);
         for (Integer m : datapoints.keySet()) {
             series.appendData(new DataPoint(m, datapoints.get(m)),true, 20);
         }

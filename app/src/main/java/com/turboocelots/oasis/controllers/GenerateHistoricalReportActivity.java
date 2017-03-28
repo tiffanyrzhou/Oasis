@@ -67,6 +67,16 @@ public class GenerateHistoricalReportActivity extends AppCompatActivity {
             }
         });
 
+        final Button cancel = (Button) findViewById(R.id.cancel_graph);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent nextActivity  = new Intent(GenerateHistoricalReportActivity.this, HomeActivity.class);
+                nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                startActivity(nextActivity);
+            }
+        });
+
 
     }
 }
