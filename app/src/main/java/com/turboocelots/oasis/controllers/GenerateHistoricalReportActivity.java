@@ -17,6 +17,7 @@ import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.OverallCondition;
 import com.turboocelots.oasis.models.PPMType;
 import com.turboocelots.oasis.models.TypeOfWater;
+import com.turboocelots.oasis.models.User;
 
 
 public class GenerateHistoricalReportActivity extends AppCompatActivity {
@@ -36,6 +37,8 @@ public class GenerateHistoricalReportActivity extends AppCompatActivity {
         latitude = (EditText) findViewById(R.id.lat_graph);
         status = (TextView) findViewById(R.id.status_graph);
         ppmSpinner = (Spinner) findViewById(R.id.PPM_graph);
+        final String username = (String) getIntent().getSerializableExtra("CurrentUser");
+        final User currentUser = Model.getInstance().getUser(username);
 
 
         final ArrayAdapter<PPMType> ppmTypeArrayAdapter = new ArrayAdapter<PPMType>
@@ -52,8 +55,10 @@ public class GenerateHistoricalReportActivity extends AppCompatActivity {
                         Double.parseDouble(latitude.getText().toString()));
                 if(Model.getInstance().get_reports_Selected().size() != 0) {
                     Intent nextActivity  = new Intent(GenerateHistoricalReportActivity.this, ViewHistoricalReportActivity.class);
-                nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                nextActivity.putExtra("CurrentType", (PPMType)ppmSpinner.getSelectedItem());
+                    nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    nextActivity.putExtra("CurrentType", (PPMType)ppmSpinner.getSelectedItem());
+                    nextActivity.putExtra("CurrentYear", (Integer) Integer.parseInt(year.getText().toString()));
+                    nextActivity.putExtra("CurrentUser", currentUser.getUsername());
                     startActivity(nextActivity);
                 } else {
                     status.setText("No Avaliable Data for current selections");

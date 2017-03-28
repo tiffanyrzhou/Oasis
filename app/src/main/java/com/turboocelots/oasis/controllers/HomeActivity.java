@@ -84,8 +84,8 @@ public class HomeActivity extends AppCompatActivity {
             viewHistoricalPurityReportButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent nextActivity  = new Intent(HomeActivity.this, GenerateHistoricalReportActivity.class);
-                   // nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    //nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                    nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    nextActivity.putExtra("CurrentUser", currentUser.getUsername());
                     startActivity(nextActivity);
                 }
             });
