@@ -16,7 +16,7 @@ public class Model {
     // Holds a list of all Reporters
     private List<User> _users;
     private List<Report> _reports;
-    private List<Report> selectedReport;
+    private List<WaterQualityReport> selectedReport;
 
 
     /**
@@ -25,6 +25,7 @@ public class Model {
     public Model() {
         _users = new ArrayList<User>();
         _reports = new ArrayList<Report>();
+        selectedReport = new ArrayList<WaterQualityReport>();
     }
 
     /**
@@ -46,13 +47,13 @@ public class Model {
     public void generate_reports_Selected(int year, double longtitude, double lat){
         for (Report r: _reports) {
             if(r.getDate().get(Calendar.YEAR) == year
-                    && r.getReportLat()== lat && r.getReportLong() == longtitude){
-                    selectedReport.add(r);
+                    && r.getReportLat()== lat && r.getReportLong() == longtitude && r instanceof WaterQualityReport){
+                    selectedReport.add((WaterQualityReport) r);
             }
         }
     }
 
-    public List<Report> get_reports_Selected(){
+    public List<WaterQualityReport> get_reports_Selected(){
         return selectedReport;
     }
 

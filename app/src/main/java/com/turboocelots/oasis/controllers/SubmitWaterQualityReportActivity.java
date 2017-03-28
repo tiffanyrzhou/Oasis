@@ -81,6 +81,11 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
         });
 
     }
+
+    /**
+     * add report to the model
+     *
+     */
     private void addReport(){
         WaterQualityReport r =  new WaterQualityReport ((String)this.reportNumber.getText(), (String)this.datetime.getText(),
                 (String) this.reporterName.getText(),
