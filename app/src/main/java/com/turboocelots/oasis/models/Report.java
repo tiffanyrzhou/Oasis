@@ -9,9 +9,9 @@ import java.util.Date;
 
 public abstract class Report {
     protected String reportNumber;
-    protected  String dateTime;
+    protected String dateTime;
     protected String reporterName;
-    protected  double reportLat;
+    protected double reportLat;
     protected double reportLong;
     protected Calendar date;
 
