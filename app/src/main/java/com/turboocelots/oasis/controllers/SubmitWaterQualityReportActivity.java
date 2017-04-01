@@ -19,6 +19,7 @@ import com.turboocelots.oasis.models.User;
 import com.turboocelots.oasis.models.WaterQualityReport;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class SubmitWaterQualityReportActivity extends AppCompatActivity {
 
@@ -30,6 +31,7 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
     private Spinner overallConditionSpinner;
     private EditText virusPPM;
     private  EditText contaminantsPPM;
+    private Calendar currentDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +55,8 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
                 (this,android.R.layout.simple_spinner_item, OverallCondition.values());
         conditionArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         overallConditionSpinner.setAdapter(conditionArrayAdapter);
-        datetime.setText( Calendar.getInstance().DATE + "" + Calendar.getInstance().getTime());
+        currentDate = Calendar.getInstance();
+        datetime.setText(currentDate.DATE + "" + currentDate.getTime());
         reporterName.setText("Reporter Username:" + currentUser.getUsername());
         reportNumber.setText("Report Number:" + Model.getInstance().getReports().size()+"");
 
@@ -78,11 +81,16 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
         });
 
     }
+
+    /**
+     * add report to the model
+     * returns void
+     */
     private void addReport(){
         WaterQualityReport r =  new WaterQualityReport ((String)this.reportNumber.getText(), (String)this.datetime.getText(),
                 (String) this.reporterName.getText(),
                 Double.parseDouble(this.reportLat.getText().toString()),
-                Double.parseDouble(this.reportLong.getText().toString()),
+                Double.parseDouble(this.reportLong.getText().toString()), currentDate,
                 (OverallCondition) overallConditionSpinner.getSelectedItem(),
                 virusPPM.getText().toString(), contaminantsPPM.getText().toString());
         Model.getInstance().addReport(r);

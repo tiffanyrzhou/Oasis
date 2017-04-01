@@ -26,6 +26,7 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
     private EditText reportLong;
     private Spinner waterTypeSpinner;
     private Spinner waterConditionSpinner;
+    private Calendar currentDate;
 
 
 
@@ -68,7 +69,8 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
         });
 
         // initialize text view
-        datetime.setText( Calendar.getInstance().DATE + "" + Calendar.getInstance().getTime());
+        currentDate = Calendar.getInstance();
+        datetime.setText( currentDate.DATE + "" + currentDate.getTime());
         reporterName.setText("Reporter Username:" + currentUser.getUsername());
         reportNumber.setText("Report Number:" + Model.getInstance().getReports().size()+"");
 
@@ -92,7 +94,7 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
         WaterSourceReport r = new WaterSourceReport((String)this.reportNumber.getText(), (String)this.datetime.getText(),
                 (String) this.reporterName.getText(),
                 Double.parseDouble(this.reportLat.getText().toString()),
-                Double.parseDouble(this.reportLong.getText().toString()),
+                Double.parseDouble(this.reportLong.getText().toString()), currentDate,
                 (ConditionOfWater) this.waterConditionSpinner.getSelectedItem(),
                 (TypeOfWater) this.waterTypeSpinner.getSelectedItem());
                  Model.getInstance().addReport(r);

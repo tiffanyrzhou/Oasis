@@ -1,5 +1,6 @@
 package com.turboocelots.oasis.models;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 /**
  * Created by mlin on 2/12/17.
@@ -15,6 +16,8 @@ public class Model {
     // Holds a list of all Reporters
     private List<User> _users;
     private List<Report> _reports;
+    private List<WaterQualityReport> selectedReport;
+
 
     /**
      * Makes a new model
@@ -22,6 +25,7 @@ public class Model {
     public Model() {
         _users = new ArrayList<User>();
         _reports = new ArrayList<Report>();
+        selectedReport = new ArrayList<WaterQualityReport>();
     }
 
     /**
@@ -40,6 +44,19 @@ public class Model {
         return _reports;
     }
 
+    public void generate_reports_Selected(int year, double longtitude, double lat){
+        for (Report r: _reports) {
+            if(r.getDate().get(Calendar.YEAR) == year
+                    && r.getReportLat()== lat && r.getReportLong() == longtitude && r instanceof WaterQualityReport){
+                    selectedReport.add((WaterQualityReport) r);
+            }
+        }
+    }
+
+    public List<WaterQualityReport> get_reports_Selected(){
+        return selectedReport;
+    }
+
 
     /**
      * gets the current user via username
@@ -54,7 +71,6 @@ public class Model {
         }
         return null;
     }
-
 
     /**
      * Adds a Reporter to the app. Checks if Reporter is already entered
@@ -76,7 +92,9 @@ public class Model {
      * @param report the waterSourceReport to be added
      */
     public void addReport(Report report) {
+
         _reports.add(report);
+
     }
 
 
