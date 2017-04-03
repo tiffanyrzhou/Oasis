@@ -25,6 +25,9 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         final String username = (String) getIntent().getSerializableExtra("CurrentUser");
         final User currentUser = Model.getInstance().getUser(username);
+        if (currentUser == null) {
+            System.out.println("null user");
+        }
 
         final Button logoutButton = (Button) findViewById(R.id.logout_id);
         logoutButton.setOnClickListener(new View.OnClickListener() {

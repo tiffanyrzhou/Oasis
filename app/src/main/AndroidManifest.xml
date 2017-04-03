@@ -68,10 +68,13 @@
 
         <activity android:name=".controllers.SubmitWaterQualityReportActivity" />
         <activity
-            android:name=".controllers.ManageAccountsActivity"
+            android:name=".controllers.ManageAccountActivity"
             android:label="@string/title_activity_manage_accounts"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".controllers.ManageAccountActivity"></activity>
+        <activity
+            android:name=".controllers.ViewAccountsActivity"
+            android:label="ViewAccountsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

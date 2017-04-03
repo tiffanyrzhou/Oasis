@@ -13,8 +13,7 @@ public abstract class User {
     protected UserTitle _title;
     protected String _phone;
     protected UserType _userType;
-    protected Boolean _isBanned;
-    protected Boolean _isDeleted;
+    protected Boolean _isBanned = false;
 
     /* Getters and setters */
 
@@ -122,18 +121,6 @@ public abstract class User {
     public void setIsBanned(Boolean isBanned) { _isBanned = isBanned; }
 
     /**
-     * gets whether or not the account should be deleted
-     * @return the boolean for whether or not the account should be deleted
-     */
-    public Boolean getIsDeleted() { return _isDeleted; }
-
-    /**
-     * changes the deletion status of the user
-     * @param isDeleted
-     */
-    public void setIsDeleted(Boolean isDeleted) { _isDeleted = isDeleted; }
-
-    /**
      * Checks equality of users by username
      * @param o the object to compare user to
      * @return whether or not the users are equal
@@ -144,7 +131,7 @@ public abstract class User {
     }
 
     public String toString() {
-        return "Username: " + _username + "\nTitle: " + _title + "\nBan Status: " + _isBanned;
+        return "Username: " + _username + "\nAccount Type: " + _userType + "\nBan Status: " + _isBanned;
     }
 
 }

@@ -59,5 +59,5 @@ public class Administrator extends User {
      * marks the account to be deleted
      * @param user
      */
-    public void deleteUser(User user) { user.setIsDeleted(true);}
+    public void deleteUser(User user) { Model.getInstance().getUsers().remove(user);}
 }

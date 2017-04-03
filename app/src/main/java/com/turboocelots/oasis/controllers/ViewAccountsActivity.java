@@ -31,6 +31,10 @@ public class ViewAccountsActivity extends AppCompatActivity {
         //Initializes Buttons
         selectButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (accountsList.getSelectedItem() == null) {
+                    System.out.println("no account selected");
+                    return;
+                }
                 selectedAccount = ((User) accountsList.getSelectedItem()).getName();
                 Intent nextActivity  = new Intent(ViewAccountsActivity.this, ManageAccountActivity.class);
                 nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
