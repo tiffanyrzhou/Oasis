@@ -1,5 +1,8 @@
 package com.turboocelots.oasis.controllers;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +14,8 @@ import android.widget.ArrayAdapter;
 
 
 import com.turboocelots.oasis.R;
+import com.turboocelots.oasis.databases.DbHelper;
+import com.turboocelots.oasis.databases.UsersTable;
 import com.turboocelots.oasis.models.*;
 
 
@@ -20,12 +25,14 @@ public class EditProfileActivity extends AppCompatActivity {
      Widgets we will need for binding and getting information
   */
     private EditText nameField;
-    private EditText usernameField;
+    private TextView usernameField;
     private EditText passwordField;
     private EditText emailField;
     private EditText homeAddressField;
     private EditText phoneAddressField;
     private Spinner userTitleSpinner;
+
+    private UpdateUserTask updateTask = null;
 
     /**
      * Instantiates the Activity. The activity is implicitly given a reference to the user
@@ -58,7 +65,7 @@ public class EditProfileActivity extends AppCompatActivity {
          * Grab the dialog widgets so we can get info for later
          */
         nameField = (EditText) findViewById(R.id.editName);
-        usernameField = (EditText) findViewById(R.id.editUsername);
+        usernameField = (TextView) findViewById(R.id.editUsername);
         passwordField = (EditText) findViewById(R.id.editPassword);
         emailField = (EditText) findViewById(R.id.editEmail);
         homeAddressField = (EditText) findViewById(R.id.editHomeAddress);
@@ -78,7 +85,6 @@ public class EditProfileActivity extends AppCompatActivity {
         phoneAddressField.setText(currentUser.getPhone());
         int pos = userTitleArrayAdapter.getPosition(currentUser.getTitle());
         userTitleSpinner.setSelection(pos);
-
     }
 
     /**
@@ -106,6 +112,77 @@ public class EditProfileActivity extends AppCompatActivity {
         currentUser.setPhone(phoneAddressField.getText().toString());
         currentUser.setPassword(passwordField.getText().toString());
         currentUser.setTitle((UserTitle) userTitleSpinner.getSelectedItem());
-        finish();
+        updateTask = new UpdateUserTask(currentUser);
+        updateTask.execute((Void) null);
+    }
+
+    public class UpdateUserTask extends AsyncTask<Void, Void, Boolean> {
+
+        private final User user;
+
+        UpdateUserTask(User _user) {
+            user = _user;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            DbHelper uDbHelper = new DbHelper(getApplicationContext());
+            SQLiteDatabase db = uDbHelper.getReadableDatabase();
+
+
+            // Define a projection that specifies which columns from the database
+            // you will actually use after this query.
+            String[] projection = {
+                    UsersTable._ID,
+                    UsersTable.COLUMN_NAME_USERNAME,
+                    UsersTable.COLUMN_NAME_PASSWORD,
+                    UsersTable.COLUMN_NAME_NAME,
+                    UsersTable.COLUMN_NAME_TITLE,
+                    UsersTable.COLUMN_NAME_EMAIL,
+                    UsersTable.COLUMN_NAME_HOME,
+                    UsersTable.COLUMN_NAME_PHONE,
+                    UsersTable.COLUMN_NAME_USER_TYPE
+            };
+
+            // update results WHERE username = mUsername
+
+            String whereClause = UsersTable.COLUMN_NAME_USERNAME + " = ?";
+            String[] whereArgs = {user.getUsername()};
+
+            // Create a new map of values, where column names are the keys
+            ContentValues values = new ContentValues();
+            values.put(UsersTable.COLUMN_NAME_USERNAME, user.getUsername());
+            values.put(UsersTable.COLUMN_NAME_PASSWORD, user.getPassword());
+            values.put(UsersTable.COLUMN_NAME_NAME, user.getName());
+            values.put(UsersTable.COLUMN_NAME_TITLE, user.getTitle().toString());
+            values.put(UsersTable.COLUMN_NAME_EMAIL, user.getEmail());
+            values.put(UsersTable.COLUMN_NAME_HOME, user.getHome());
+            values.put(UsersTable.COLUMN_NAME_PHONE, user.getPhone());
+            values.put(UsersTable.COLUMN_NAME_USER_TYPE, user.getUserType().toString());
+            // Insert the new row, returning the primary key value of the new row
+            long newRowId = db.update(UsersTable.TABLE_NAME, values, whereClause, whereArgs);
+            return true;
+        }
+
+        /**
+         * Transitions to the HomeActivity, passing the current username
+         * using putExtra
+         *
+         * @param success
+         */
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            updateTask = null;
+            if (success) {
+                finish();
+            } else {
+
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            updateTask = null;
+        }
     }
 }

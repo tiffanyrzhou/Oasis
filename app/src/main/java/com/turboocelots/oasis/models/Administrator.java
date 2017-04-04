@@ -27,7 +27,7 @@ public class Administrator extends User {
      * @param title the title of the Administrator
      * @param phone the phone number of the Administrator
      */
-    public Administrator(String username, String name, String password,
+    public Administrator(String username, String password, String name,
                          String email, String home, UserTitle title, String phone) {
         _name = name;
         _username = username;

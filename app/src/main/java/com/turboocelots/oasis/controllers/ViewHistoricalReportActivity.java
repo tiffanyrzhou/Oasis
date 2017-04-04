@@ -50,23 +50,22 @@ public class ViewHistoricalReportActivity extends AppCompatActivity {
         });
         series.setShape(PointsGraphSeries.Shape.POINT);
         for (WaterQualityReport r : Model.getInstance().get_reports_Selected()){
-            if (currentType.equals(PPMType.VIRUS)) {
-                if (datapoints.containsKey(r.getDate().get(Calendar.MONTH) + 1)){
-                    datapoints.put(r.getDate().get(Calendar.MONTH) + 1 , (datapoints.get(r.getDate().get(Calendar.MONTH)+1) +
-                            Double.parseDouble(r.getVirusPPM()))/2);
+                if (currentType.equals(PPMType.VIRUS)) {
+                    if (datapoints.containsKey(r.getMonth() + 1)) {
+                        datapoints.put(r.getMonth() + 1, (datapoints.get(r.getMonth() + 1) + r.getVirusPPM()) / 2);
+                    } else {
+                        datapoints.put(r.getMonth() + 1, r.getVirusPPM());
+                    }
                 } else {
-                    datapoints.put(r.getDate().get(Calendar.MONTH) +1, Double.parseDouble(r.getVirusPPM()));
+                    if (datapoints.containsKey(r.getMonth() + 1)) {
+                        datapoints.put(r.getMonth() + 1, (datapoints.get(r.getMonth() + 1) +
+                                r.getContaminantsPPM()) / 2);
+                    } else {
+                        datapoints.put(r.getMonth() + 1, r.getContaminantsPPM());
+                    }
                 }
-            } else {
-                if (datapoints.containsKey(r.getDate().get(Calendar.MONTH)+1)){
-                    datapoints.put(r.getDate().get(Calendar.MONTH) +1, (datapoints.get(r.getDate().get(Calendar.MONTH) +1) +
-                            Double.parseDouble(r.getContaminantsPPM()))/2);
-                } else {
-                    datapoints.put(r.getDate().get(Calendar.MONTH)+1, Double.parseDouble(r.getContaminantsPPM()));
-                }
-
             }
-        }
+
         for (Integer m : datapoints.keySet()) {
             series.appendData(new DataPoint(m, datapoints.get(m)),true, 20);
         }

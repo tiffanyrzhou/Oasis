@@ -3,9 +3,10 @@ package com.turboocelots.oasis.controllers;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.ContentValues;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
-import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -37,14 +38,16 @@ import android.content.Intent;
 
 
 import com.turboocelots.oasis.R;
-import com.turboocelots.oasis.models.User;
+import com.turboocelots.oasis.databases.DbHelper;
+import com.turboocelots.oasis.databases.UsersTable;
+import com.turboocelots.oasis.models.Administrator;
 import com.turboocelots.oasis.models.Manager;
 import com.turboocelots.oasis.models.Model;
-import com.turboocelots.oasis.models.UserTitle;
-import com.turboocelots.oasis.models.Worker;
 import com.turboocelots.oasis.models.Reporter;
+import com.turboocelots.oasis.models.User;
+import com.turboocelots.oasis.models.UserTitle;
 import com.turboocelots.oasis.models.UserType;
-import com.turboocelots.oasis.models.Administrator;
+import com.turboocelots.oasis.models.Worker;
 
 /**
  * A login screen that offers login via email/password.
@@ -66,7 +69,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     private View mProgressView;
     private View mLoginFormView;
     private Spinner userTypeSpinner;
-    private User currentUser;
+    private String currentUser;
 
     /**
      * Creates the Activity
@@ -192,36 +195,19 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
 
-            //TODO: update database once implemented
-            if (user.equals(UserType.Administrator)) {
-                currentUser = new Administrator(username, "", password, "", "", UserTitle.NA, "");
-            } else if (user.equals(UserType.Manager)) {
-                currentUser = new Manager("", username, password, "", "", UserTitle.NA, "");
-            } else if (user.equals(UserType.Worker)) {
-                currentUser = new Worker("", username, password, "", "", UserTitle.NA, "", UserType.Worker);
-            } else {
-                currentUser = new Reporter(username, password);
-            }
-            Model.getInstance().addUser(currentUser);
             showProgress(true);
-            mAuthTask = new UserLoginTask(username, password);
+            mAuthTask = new UserLoginTask(username, password, user);
             mAuthTask.execute((Void) null);
         }
     }
 
     /**
-     * Checks to see if the username has already been used.
-     * TODO: should probably be moved to its own check, or to UserTaskAuth
+     * Checks if username has valid characters
      * @param username in the username field
      * @return whether the username has been used or not
      */
 
     private boolean isUsernameValid(String username) {
-        for (User user : Model.getInstance().getUsers()) {
-            if (user.getUsername().equals(username)) {
-               return false;
-            }
-        }
         return true;
     }
 
@@ -232,7 +218,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
      */
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return true;
     }
 
@@ -335,10 +320,12 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
         private final String mUsername;
         private final String mPassword;
+        private final UserType user;
 
-        UserLoginTask(String username, String password) {
+        UserLoginTask(String username, String password, UserType userType) {
             mUsername = username;
             mPassword = password;
+            user = userType;
         }
 
         //TODO: actually implement  authentication
@@ -346,14 +333,74 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
+            DbHelper uDbHelper = new DbHelper(getApplicationContext());
+            SQLiteDatabase db = uDbHelper.getReadableDatabase();
 
-            return true;
+
+            // Define a projection that specifies which columns from the database
+            // you will actually use after this query.
+            String[] projection = {
+                    UsersTable._ID,
+                    UsersTable.COLUMN_NAME_USERNAME,
+                    UsersTable.COLUMN_NAME_PASSWORD
+            };
+
+            // Filter results WHERE username = mUsername
+
+            String selection = UsersTable.COLUMN_NAME_USERNAME + " = ?";
+            String[] selectionArgs = { mUsername };
+
+            // Sort by ID
+            String sortOrder =
+                    UsersTable._ID + " DESC";
+
+            Cursor cursor = db.query(
+                    UsersTable.TABLE_NAME,                     // The table to query
+                    projection,                               // The columns to return
+                    selection,                                // The columns for the WHERE clause
+                    selectionArgs,                            // The values for the WHERE clause
+                    null,                                     // don't group the rows
+                    null,                                     // don't filter by row groups
+                    sortOrder                                 // The sort order
+            );
+
+            List itemIds = new ArrayList<>();
+            while(cursor.moveToNext()) {
+                long itemId = cursor.getLong(
+                        cursor.getColumnIndexOrThrow(UsersTable._ID));
+                itemIds.add(itemId);
+            }
+            cursor.close();
+            if (itemIds.size() == 0) { // No users currently have this username
+                // Create a new map of values, where column names are the keys
+                ContentValues values = new ContentValues();
+                values.put(UsersTable.COLUMN_NAME_USERNAME, mUsername);
+                values.put(UsersTable.COLUMN_NAME_PASSWORD, mPassword);
+                values.put(UsersTable.COLUMN_NAME_NAME, "");
+                values.put(UsersTable.COLUMN_NAME_TITLE, UserTitle.NA.toString());
+                values.put(UsersTable.COLUMN_NAME_EMAIL, "");
+                values.put(UsersTable.COLUMN_NAME_HOME, "");
+                values.put(UsersTable.COLUMN_NAME_PHONE, "");
+                values.put(UsersTable.COLUMN_NAME_USER_TYPE, user.toString());
+                // Insert the new row, returning the primary key value of the new row
+                long newRowId = db.insert(UsersTable.TABLE_NAME, null, values);
+                User newUser;
+
+                if (user.equals(UserType.Administrator)) {
+                    newUser = new Administrator(mUsername, mPassword, "", "", "", UserTitle.NA, "");
+                } else if (user.equals(UserType.Worker)) {
+                    newUser = new Worker(mUsername, mPassword, "", "", "", UserTitle.NA, "", user);
+                } else if (user.equals(UserType.Manager)) {
+                    newUser = new Manager(mUsername, mPassword, "", "", "", UserTitle.NA, "");
+                } else {
+                    newUser = new Reporter(mUsername, mPassword, "", "", "", UserTitle.NA, "", user);
+                }
+
+                Model.getInstance().addUser(newUser);
+                currentUser = mUsername;
+                return true;
+            }
+            return false;
         }
 
         /**
@@ -367,11 +414,12 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             showProgress(false);
 
             if (success) {
+                // Add user
                 Intent nextActivity  = new Intent(RegisterActivity.this, HomeActivity.class);
-                nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                nextActivity.putExtra("CurrentUser", currentUser);
                 startActivity(nextActivity);
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.setError(getString(R.string.error_used_username));
                 mPasswordView.requestFocus();
             }
         }
