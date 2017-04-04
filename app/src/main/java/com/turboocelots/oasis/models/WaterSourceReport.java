@@ -1,5 +1,6 @@
 package com.turboocelots.oasis.models;
 
+import java.sql.Timestamp;
 import java.util.Calendar;
 
 /**
@@ -23,9 +24,9 @@ public class WaterSourceReport extends Report {
      * @param waterCondition condition of the water
      * @param waterType type of water
      */
-    public WaterSourceReport(String reportNumber, String dateTime, String reporterName, double reportLat, double reportLong,Calendar date,
-                             ConditionOfWater waterCondition, TypeOfWater waterType){
-        super(reportNumber,dateTime,reporterName,reportLat,reportLong,date);
+    public WaterSourceReport(String reportNumber, Timestamp dateTime, String reporterName, double reportLat, double reportLong,
+                             ConditionOfWater waterCondition, TypeOfWater waterType) {
+        super(reportNumber,dateTime,reporterName,reportLat,reportLong);
         this.waterCondition = waterCondition;
         this.waterType = waterType;
     }

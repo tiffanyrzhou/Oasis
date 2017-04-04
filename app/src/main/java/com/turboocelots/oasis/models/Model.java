@@ -46,8 +46,7 @@ public class Model {
 
     public void generate_reports_Selected(int year, double longtitude, double lat){
         for (Report r: _reports) {
-            if(r.getDate().get(Calendar.YEAR) == year
-                    && r.getReportLat()== lat && r.getReportLong() == longtitude && r instanceof WaterQualityReport){
+                    if (r.getReportLat()== lat && r.getReportLong() == longtitude && r instanceof WaterQualityReport) {
                     selectedReport.add((WaterQualityReport) r);
             }
         }
@@ -92,9 +91,10 @@ public class Model {
      * @param report the waterSourceReport to be added
      */
     public void addReport(Report report) {
+        if (!_reports.contains(report)) {
+            _reports.add(report);
 
-        _reports.add(report);
-
+        }
     }
 
 

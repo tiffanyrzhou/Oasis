@@ -51,18 +51,18 @@ public class ViewHistoricalReportActivity extends AppCompatActivity {
         series.setShape(PointsGraphSeries.Shape.POINT);
         for (WaterQualityReport r : Model.getInstance().get_reports_Selected()){
             if (currentType.equals(PPMType.VIRUS)) {
-                if (datapoints.containsKey(r.getDate().get(Calendar.MONTH) + 1)){
-                    datapoints.put(r.getDate().get(Calendar.MONTH) + 1 , (datapoints.get(r.getDate().get(Calendar.MONTH)+1) +
+                if (datapoints.containsKey(r.getMonth() + 1)){
+                    datapoints.put(r.getMonth() + 1 , (datapoints.get(r.getMonth() +1) +
                             Double.parseDouble(r.getVirusPPM()))/2);
                 } else {
-                    datapoints.put(r.getDate().get(Calendar.MONTH) +1, Double.parseDouble(r.getVirusPPM()));
+                    datapoints.put(r.getMonth() +1, Double.parseDouble(r.getVirusPPM()));
                 }
             } else {
-                if (datapoints.containsKey(r.getDate().get(Calendar.MONTH)+1)){
-                    datapoints.put(r.getDate().get(Calendar.MONTH) +1, (datapoints.get(r.getDate().get(Calendar.MONTH) +1) +
+                if (datapoints.containsKey(r.getMonth()+1)){
+                    datapoints.put(r.getMonth() +1, (datapoints.get(r.getMonth() +1) +
                             Double.parseDouble(r.getContaminantsPPM()))/2);
                 } else {
-                    datapoints.put(r.getDate().get(Calendar.MONTH)+1, Double.parseDouble(r.getContaminantsPPM()));
+                    datapoints.put(r.getMonth() +1, Double.parseDouble(r.getContaminantsPPM()));
                 }
 
             }
