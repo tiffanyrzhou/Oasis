@@ -30,11 +30,11 @@ public class QualityReportsTable implements BaseColumns {
                     COLUMN_NAME_REPORT_NUMBER + " TEXT," +
                     COLUMN_NAME_TIMESTAMP + " DATETIME," +
                     COLUMN_NAME_REPORTER_NAME + " TEXT," +
-                    COLUMN_NAME_LAT + " TEXT," +
-                    COLUMN_NAME_LONG + " TEXT," +
+                    COLUMN_NAME_LAT + " DOUBLE," +
+                    COLUMN_NAME_LONG + " DOUBLE," +
                     COLUMN_NAME_OVERALL_CONDITION + " TEXT," +
-                    COLUMN_NAME_VIRUS_PPM + " TEXT," +
-                    COLUMN_NAME_CONTAMINANTS_PPM + " TEXT" +
+                    COLUMN_NAME_VIRUS_PPM + " DOUBLE," +
+                    COLUMN_NAME_CONTAMINANTS_PPM + " DOUBLE" +
                     ")";
 
     public static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + QualityReportsTable.TABLE_NAME;
@@ -51,12 +51,11 @@ public class QualityReportsTable implements BaseColumns {
         values.put(COLUMN_NAME_LAT, report.getReportLat());
         values.put(COLUMN_NAME_LONG, report.getReportLong());
         values.put(COLUMN_NAME_OVERALL_CONDITION, report.getoCondition().toString());
-        values.put(COLUMN_NAME_VIRUS_PPM, report.getVirusPPM().toString());
-        values.put(COLUMN_NAME_CONTAMINANTS_PPM, report.getContaminantsPPM().toString());
+        values.put(COLUMN_NAME_VIRUS_PPM, report.getVirusPPM());
+        values.put(COLUMN_NAME_CONTAMINANTS_PPM, report.getContaminantsPPM());
         // Insert the new row, returning the primary key value of the new row
         long newRowId = db.replace(TABLE_NAME, null, values);
         return true;
-
     }
 
 

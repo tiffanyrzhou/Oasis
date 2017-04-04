@@ -63,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     private View mProgressView;
     private View mLoginFormView;
     private Spinner userTypeSpinner;
-    private long currentUserID;
+    private String currentUser;
 
     /**
      * Creates the Activity
@@ -378,7 +378,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
                 values.put(UsersTable.COLUMN_NAME_USER_TYPE, user.toString());
                 // Insert the new row, returning the primary key value of the new row
                 long newRowId = db.insert(UsersTable.TABLE_NAME, null, values);
-                currentUserID = newRowId;
+                currentUser = mUsername;
                 return true;
             }
             return false;
@@ -396,8 +396,8 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
             if (success) {
                 // Add user
-                Intent nextActivity  = new Intent(RegisterActivity.this, WelcomeActivity.class);
-                nextActivity.putExtra("CurrentUser", currentUserID);
+                Intent nextActivity  = new Intent(RegisterActivity.this, HomeActivity.class);
+                nextActivity.putExtra("CurrentUser", currentUser);
                 startActivity(nextActivity);
             } else {
                 mPasswordView.setError(getString(R.string.error_used_username));

@@ -25,8 +25,8 @@ public class SourceReportsTable implements BaseColumns {
                     COLUMN_NAME_REPORT_NUMBER + " TEXT, " +
                     COLUMN_NAME_TIMESTAMP + " DATETIME," +
                     COLUMN_NAME_REPORTER_NAME + " TEXT," +
-                    COLUMN_NAME_LAT + " TEXT," +
-                    COLUMN_NAME_LONG + " TEXT," +
+                    COLUMN_NAME_LAT + " DOUBLE," +
+                    COLUMN_NAME_LONG + " DOUBLE," +
                     COLUMN_NAME_WATER_CONDITION + " TEXT," +
                     COLUMN_NAME_WATER_TYPE + " TEXT" +
                     ")";

@@ -9,8 +9,8 @@ import java.util.Calendar;
 
 public class WaterQualityReport extends Report {
     private OverallCondition oCondition;
-    private String virusPPM;
-    private String contaminantsPPM;
+    private double virusPPM;
+    private double contaminantsPPM;
 
     /**
      * Creates an instance of a report
@@ -25,7 +25,7 @@ public class WaterQualityReport extends Report {
      */
     public WaterQualityReport(String reportNumber, Timestamp dateTime, String reporterName,
                               double reportLat, double reportLong,
-                              OverallCondition oCondition, String virusPPM, String contaminantsPPM){
+                              OverallCondition oCondition, double virusPPM, double contaminantsPPM){
         super(reportNumber,dateTime,reporterName,reportLat,reportLong);
         this.oCondition = oCondition;
         this.virusPPM = virusPPM;
@@ -40,19 +40,19 @@ public class WaterQualityReport extends Report {
         this.oCondition = oCondition;
     }
 
-    public String getVirusPPM() {
+    public Double getVirusPPM() {
         return virusPPM;
     }
 
-    public void setVirusPPM(String virusPPM) {
+    public void setVirusPPM(double virusPPM) {
         this.virusPPM = virusPPM;
     }
 
-    public String getContaminantsPPM() {
+    public Double getContaminantsPPM() {
         return contaminantsPPM;
     }
 
-    public void setContaminantsPPM(String contaminantsPPM) {
+    public void setContaminantsPPM(double contaminantsPPM) {
         this.contaminantsPPM = contaminantsPPM;
     }
 

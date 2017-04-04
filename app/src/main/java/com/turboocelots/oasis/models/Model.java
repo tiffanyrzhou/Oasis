@@ -46,7 +46,7 @@ public class Model {
 
     public void generate_reports_Selected(int year, double longtitude, double lat){
         for (Report r: _reports) {
-                    if (r.getReportLat()== lat && r.getReportLong() == longtitude && r instanceof WaterQualityReport) {
+                    if (r.getYear() == year && r.getReportLat()== lat && r.getReportLong() == longtitude && r instanceof WaterQualityReport) {
                     selectedReport.add((WaterQualityReport) r);
             }
         }

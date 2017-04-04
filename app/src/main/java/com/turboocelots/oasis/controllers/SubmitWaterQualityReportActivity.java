@@ -91,12 +91,44 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
      * returns void
      */
     private void addReport(){
+        double parsedVirusPPM = 0.0;
+        double parsedContaminantsPPM = 0.0;
+        double parsedLat = 0.0;
+        double parsedLng = 0.0;
+        try {
+            parsedVirusPPM = Double.parseDouble(virusPPM.getText().toString());
+        } catch (NumberFormatException nfe) {
+
+        } catch (NullPointerException npe) {
+
+        }
+        try {
+            parsedContaminantsPPM = Double.parseDouble(contaminantsPPM.getText().toString());
+        } catch (NumberFormatException nfe) {
+
+        } catch (NullPointerException npe) {
+
+        }
+        try {
+            parsedLat = Double.parseDouble(this.reportLat.getText().toString());
+        } catch (NumberFormatException ne)  {
+
+        } catch (NullPointerException npe) {
+
+        }
+        try {
+            parsedLng = Double.parseDouble(this.reportLat.getText().toString());
+        } catch (NumberFormatException nfe) {
+
+        } catch (NullPointerException npe) {
+
+        }
         WaterQualityReport r =  new WaterQualityReport ((String)this.reportNumber.getText(), new Timestamp(this.currentDate.getTimeInMillis()),
                 (String) this.reporterName.getText(),
-                Double.parseDouble(this.reportLat.getText().toString()),
-                Double.parseDouble(this.reportLong.getText().toString()),
+                parsedLat,
+                parsedLng,
                 (OverallCondition) overallConditionSpinner.getSelectedItem(),
-                virusPPM.getText().toString(), contaminantsPPM.getText().toString());
+                parsedVirusPPM, parsedContaminantsPPM);
         DbHelper uDbHelper = new DbHelper(getApplicationContext());
         SQLiteDatabase db = uDbHelper.getReadableDatabase();
         Model.getInstance().addReport(r);

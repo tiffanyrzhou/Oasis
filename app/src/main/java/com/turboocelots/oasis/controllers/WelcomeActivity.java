@@ -124,7 +124,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 SourceReportsTable._ID,
                 SourceReportsTable.COLUMN_NAME_TIMESTAMP,
                 SourceReportsTable.COLUMN_NAME_REPORTER_NAME,
-                SourceReportsTable.COLUMN_NAME_REPORTER_NAME,
+                SourceReportsTable.COLUMN_NAME_REPORT_NUMBER,
                 SourceReportsTable.COLUMN_NAME_LAT,
                 SourceReportsTable.COLUMN_NAME_LONG,
                 SourceReportsTable.COLUMN_NAME_WATER_CONDITION,
@@ -154,8 +154,8 @@ public class WelcomeActivity extends AppCompatActivity {
             long epochTime = cursor.getLong(cursor.getColumnIndexOrThrow(SourceReportsTable.COLUMN_NAME_TIMESTAMP));
             String reportNumber = cursor.getString(cursor.getColumnIndexOrThrow(SourceReportsTable.COLUMN_NAME_REPORT_NUMBER));
             String reporterName = cursor.getString(cursor.getColumnIndexOrThrow(SourceReportsTable.COLUMN_NAME_REPORTER_NAME));
-            String lat = cursor.getString(cursor.getColumnIndexOrThrow(SourceReportsTable.COLUMN_NAME_LAT));
-            String lng = cursor.getString(cursor.getColumnIndexOrThrow(SourceReportsTable.COLUMN_NAME_LONG));
+            long lat = cursor.getLong(cursor.getColumnIndexOrThrow(SourceReportsTable.COLUMN_NAME_LAT));
+            long lng = cursor.getLong(cursor.getColumnIndexOrThrow(SourceReportsTable.COLUMN_NAME_LONG));
             String conditionString = cursor.getString(cursor.getColumnIndexOrThrow(SourceReportsTable.COLUMN_NAME_WATER_CONDITION));
             String waterTypeString = cursor.getString(cursor.getColumnIndexOrThrow(SourceReportsTable.COLUMN_NAME_WATER_TYPE));
 
@@ -164,7 +164,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
             Timestamp timestamp = new Timestamp(epochTime);
 
-            WaterSourceReport newReport = new WaterSourceReport(reportNumber, timestamp, reporterName, Double.parseDouble(lat), Double.parseDouble(lng), waterCondition, waterType);
+            WaterSourceReport newReport = new WaterSourceReport(reportNumber, timestamp, reporterName, lat, lng, waterCondition, waterType);
 
             Model.getInstance().addReport(newReport);
         }
@@ -208,17 +208,17 @@ public class WelcomeActivity extends AppCompatActivity {
             long epochTime = cursor.getLong(cursor.getColumnIndexOrThrow(QualityReportsTable.COLUMN_NAME_TIMESTAMP));
             String reportNumber = cursor.getString(cursor.getColumnIndexOrThrow(QualityReportsTable.COLUMN_NAME_REPORT_NUMBER));
             String reporterName = cursor.getString(cursor.getColumnIndexOrThrow(QualityReportsTable.COLUMN_NAME_REPORTER_NAME));
-            String lat = cursor.getString(cursor.getColumnIndexOrThrow(QualityReportsTable.COLUMN_NAME_LAT));
-            String lng = cursor.getString(cursor.getColumnIndexOrThrow(QualityReportsTable.COLUMN_NAME_LONG));
+            double lat = cursor.getDouble(cursor.getColumnIndexOrThrow(QualityReportsTable.COLUMN_NAME_LAT));
+            double lng = cursor.getDouble(cursor.getColumnIndexOrThrow(QualityReportsTable.COLUMN_NAME_LONG));
             String conditionString = cursor.getString(cursor.getColumnIndexOrThrow(QualityReportsTable.COLUMN_NAME_OVERALL_CONDITION));
-            String virusPPM = cursor.getString(cursor.getColumnIndexOrThrow(QualityReportsTable.COLUMN_NAME_VIRUS_PPM));
-            String contaminantsPPM = cursor.getString(cursor.getColumnIndexOrThrow(QualityReportsTable.COLUMN_NAME_CONTAMINANTS_PPM));
+            double virusPPM = cursor.getDouble(cursor.getColumnIndexOrThrow(QualityReportsTable.COLUMN_NAME_VIRUS_PPM));
+            double contaminantsPPM = cursor.getDouble(cursor.getColumnIndexOrThrow(QualityReportsTable.COLUMN_NAME_CONTAMINANTS_PPM));
 
             OverallCondition overallCondition = OverallCondition.valueOf(conditionString);
 
             Timestamp timestamp = new Timestamp(epochTime);
 
-            WaterQualityReport newReport = new WaterQualityReport(reportNumber, timestamp, reporterName, Double.parseDouble(lat), Double.parseDouble(lng), overallCondition, virusPPM, contaminantsPPM);
+            WaterQualityReport newReport = new WaterQualityReport(reportNumber, timestamp, reporterName, lat, lng, overallCondition, virusPPM, contaminantsPPM);
             Model.getInstance().addReport(newReport);
         }
         cursor.close();

@@ -35,6 +35,13 @@ public abstract class Report {
         return cal.get(Calendar.MONTH);
     }
 
+    public int getYear() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(this.getDateTime().getTime());
+        return cal.get(Calendar.YEAR);
+    }
+
+
     public String getReporterName() { return reporterName; }
     public void setReporterName(String reporterName) { this.reporterName = reporterName; }
 
