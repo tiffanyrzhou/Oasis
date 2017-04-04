@@ -40,8 +40,14 @@ import android.content.Intent;
 import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.databases.DbHelper;
 import com.turboocelots.oasis.databases.UsersTable;
+import com.turboocelots.oasis.models.Administrator;
+import com.turboocelots.oasis.models.Manager;
+import com.turboocelots.oasis.models.Model;
+import com.turboocelots.oasis.models.Reporter;
+import com.turboocelots.oasis.models.User;
 import com.turboocelots.oasis.models.UserTitle;
 import com.turboocelots.oasis.models.UserType;
+import com.turboocelots.oasis.models.Worker;
 
 /**
  * A login screen that offers login via email/password.
@@ -378,6 +384,19 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
                 values.put(UsersTable.COLUMN_NAME_USER_TYPE, user.toString());
                 // Insert the new row, returning the primary key value of the new row
                 long newRowId = db.insert(UsersTable.TABLE_NAME, null, values);
+                User newUser;
+
+                if (user.equals(UserType.Administrator)) {
+                    newUser = new Administrator(mUsername, mPassword, "", "", "", UserTitle.NA, "");
+                } else if (user.equals(UserType.Worker)) {
+                    newUser = new Worker(mUsername, mPassword, "", "", "", UserTitle.NA, "", user);
+                } else if (user.equals(UserType.Manager)) {
+                    newUser = new Manager(mUsername, mPassword, "", "", "", UserTitle.NA, "");
+                } else {
+                    newUser = new Reporter(mUsername, mPassword, "", "", "", UserTitle.NA, "", user);
+                }
+
+                Model.getInstance().addUser(newUser);
                 currentUser = mUsername;
                 return true;
             }
