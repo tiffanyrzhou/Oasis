@@ -1,6 +1,7 @@
 package com.turboocelots.oasis.controllers;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.turboocelots.oasis.R;
+import com.turboocelots.oasis.databases.DbHelper;
+import com.turboocelots.oasis.databases.QualityReportsTable;
 import com.turboocelots.oasis.models.ConditionOfWater;
 import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.OverallCondition;
@@ -18,6 +21,7 @@ import com.turboocelots.oasis.models.TypeOfWater;
 import com.turboocelots.oasis.models.User;
 import com.turboocelots.oasis.models.WaterQualityReport;
 
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -87,12 +91,47 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
      * returns void
      */
     private void addReport(){
-        WaterQualityReport r =  new WaterQualityReport ((String)this.reportNumber.getText(), (String)this.datetime.getText(),
+        double parsedVirusPPM = 0.0;
+        double parsedContaminantsPPM = 0.0;
+        double parsedLat = 0.0;
+        double parsedLng = 0.0;
+        try {
+            parsedVirusPPM = Double.parseDouble(virusPPM.getText().toString());
+        } catch (NumberFormatException nfe) {
+
+        } catch (NullPointerException npe) {
+
+        }
+        try {
+            parsedContaminantsPPM = Double.parseDouble(contaminantsPPM.getText().toString());
+        } catch (NumberFormatException nfe) {
+
+        } catch (NullPointerException npe) {
+
+        }
+        try {
+            parsedLat = Double.parseDouble(this.reportLat.getText().toString());
+        } catch (NumberFormatException ne)  {
+
+        } catch (NullPointerException npe) {
+
+        }
+        try {
+            parsedLng = Double.parseDouble(this.reportLat.getText().toString());
+        } catch (NumberFormatException nfe) {
+
+        } catch (NullPointerException npe) {
+
+        }
+        WaterQualityReport r =  new WaterQualityReport ((String)this.reportNumber.getText(), new Timestamp(this.currentDate.getTimeInMillis()),
                 (String) this.reporterName.getText(),
-                Double.parseDouble(this.reportLat.getText().toString()),
-                Double.parseDouble(this.reportLong.getText().toString()), currentDate,
+                parsedLat,
+                parsedLng,
                 (OverallCondition) overallConditionSpinner.getSelectedItem(),
-                virusPPM.getText().toString(), contaminantsPPM.getText().toString());
+                parsedVirusPPM, parsedContaminantsPPM);
+        DbHelper uDbHelper = new DbHelper(getApplicationContext());
+        SQLiteDatabase db = uDbHelper.getReadableDatabase();
         Model.getInstance().addReport(r);
+        QualityReportsTable.addQualityReport(db, r);
     }
 }

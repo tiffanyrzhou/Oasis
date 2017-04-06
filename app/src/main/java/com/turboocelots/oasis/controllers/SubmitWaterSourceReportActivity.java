@@ -1,6 +1,7 @@
 package com.turboocelots.oasis.controllers;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,9 +10,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.sql.Timestamp;
 import java.util.Calendar;
 
 import com.turboocelots.oasis.R;
+import com.turboocelots.oasis.databases.DbHelper;
+import com.turboocelots.oasis.databases.QualityReportsTable;
+import com.turboocelots.oasis.databases.SourceReportsTable;
 import com.turboocelots.oasis.models.ConditionOfWater;
 import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.WaterSourceReport;
@@ -91,14 +97,19 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
      * @return void
      */
     private void addReport(){
-        WaterSourceReport r = new WaterSourceReport((String)this.reportNumber.getText(), (String)this.datetime.getText(),
+
+
+        WaterSourceReport r = new WaterSourceReport((String)this.reportNumber.getText(), new Timestamp(this.currentDate.getTimeInMillis()),
                 (String) this.reporterName.getText(),
                 Double.parseDouble(this.reportLat.getText().toString()),
-                Double.parseDouble(this.reportLong.getText().toString()), currentDate,
+                Double.parseDouble(this.reportLong.getText().toString()),
                 (ConditionOfWater) this.waterConditionSpinner.getSelectedItem(),
                 (TypeOfWater) this.waterTypeSpinner.getSelectedItem());
-                 Model.getInstance().addReport(r);
+            Model.getInstance().addReport(r);
+            DbHelper uDbHelper = new DbHelper(getApplicationContext());
+            SQLiteDatabase db = uDbHelper.getReadableDatabase();
+            Model.getInstance().addReport(r);
+            SourceReportsTable.addQualityReport(db, r);
     }
-
 
 }
