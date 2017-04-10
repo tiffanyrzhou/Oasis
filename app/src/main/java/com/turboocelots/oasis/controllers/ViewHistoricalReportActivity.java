@@ -64,7 +64,9 @@ public class ViewHistoricalReportActivity extends AppCompatActivity {
                         datapoints.put(r.getMonth() + 1, r.getContaminantsPPM());
                     }
                 }
-            }
+        }
+        // clearing selectedReport after each generation of Historical Report
+        Model.getInstance().get_reports_Selected().clear();
 
         for (Integer m : datapoints.keySet()) {
             series.appendData(new DataPoint(m, datapoints.get(m)),true, 20);
