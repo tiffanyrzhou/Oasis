@@ -16,7 +16,7 @@ public enum UserType implements Serializable {
     private final String userTypeName;
 
     /**
-     * Default constructer for enum type
+     * Default constructor for enum type
      * @param userTypeName
      */
     UserType(String userTypeName){

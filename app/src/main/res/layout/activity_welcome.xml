@@ -19,20 +19,20 @@
         android:layout_marginStart="10dp">
 
         <TextView
-            android:text="Welcome"
+            android:text="@string/welcome_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/welcomeText_id"
             android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
 
         <Button
-            android:text="Login"
+            android:text="@string/login_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/login_id" />
 
         <Button
-            android:text="Register"
+            android:text="@string/register_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/register_id" />

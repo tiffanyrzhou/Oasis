@@ -277,14 +277,14 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        List<String> usernames = new ArrayList<>();
+        List<String> userNames = new ArrayList<>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            usernames.add(cursor.getString(ProfileQuery.ADDRESS));
+            userNames.add(cursor.getString(ProfileQuery.ADDRESS));
             cursor.moveToNext();
         }
 
-        addUsernamesToAutocomplete(usernames);
+        addUserNamesToAutocomplete(userNames);
     }
 
     @Override
@@ -292,7 +292,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
     }
 
-    private void addUsernamesToAutocomplete(List<String> emailAddressCollection) {
+    private void addUserNamesToAutocomplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<>(RegisterActivity.this,
@@ -338,11 +338,11 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             if (user.equals(UserType.Administrator)) {
                 newUser = new Administrator(mUsername, mPassword, "", "", "", UserTitle.NA, "");
             } else if (user.equals(UserType.Worker)) {
-                newUser = new Worker(mUsername, mPassword, "", "", "", UserTitle.NA, "", user);
+                newUser = new Worker(mUsername, mPassword, "", "", "", UserTitle.NA, "");
             } else if (user.equals(UserType.Manager)) {
                 newUser = new Manager(mUsername, mPassword, "", "", "", UserTitle.NA, "");
             } else {
-                newUser = new Reporter(mUsername, mPassword, "", "", "", UserTitle.NA, "", user);
+                newUser = new Reporter(mUsername, mPassword, "", "", "", UserTitle.NA, "");
             }
 
             boolean successful = UsersTable.registerUser(db, newUser);

@@ -43,7 +43,7 @@ public class SourceReportsTable implements BaseColumns {
 
 
 
-    public static final boolean addQualityReport(SQLiteDatabase db, WaterSourceReport report) {
+    public static boolean addQualityReport(SQLiteDatabase db, WaterSourceReport report) {
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
         // Create a new map of values, where column names are the keys

@@ -9,21 +9,17 @@ import android.widget.Button;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.PPMType;
-import com.turboocelots.oasis.models.Report;
 import com.turboocelots.oasis.models.User;
 import com.turboocelots.oasis.models.WaterQualityReport;
 
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Map;
 
 public class ViewHistoricalReportActivity extends AppCompatActivity {
-    private HashMap<Integer,Double> datapoints = new HashMap<>();
+    private HashMap<Integer,Double> dataPoints = new HashMap<>();
     //private Integer current = 0;
 
     @Override
@@ -51,25 +47,25 @@ public class ViewHistoricalReportActivity extends AppCompatActivity {
         series.setShape(PointsGraphSeries.Shape.POINT);
         for (WaterQualityReport r : Model.getInstance().get_reports_Selected()){
                 if (currentType.equals(PPMType.VIRUS)) {
-                    if (datapoints.containsKey(r.getMonth() + 1)) {
-                        datapoints.put(r.getMonth() + 1, (datapoints.get(r.getMonth() + 1) + r.getVirusPPM()) / 2);
+                    if (dataPoints.containsKey(r.getMonth() + 1)) {
+                        dataPoints.put(r.getMonth() + 1, (dataPoints.get(r.getMonth() + 1) + r.getVirusPPM()) / 2);
                     } else {
-                        datapoints.put(r.getMonth() + 1, r.getVirusPPM());
+                        dataPoints.put(r.getMonth() + 1, r.getVirusPPM());
                     }
                 } else {
-                    if (datapoints.containsKey(r.getMonth() + 1)) {
-                        datapoints.put(r.getMonth() + 1, (datapoints.get(r.getMonth() + 1) +
+                    if (dataPoints.containsKey(r.getMonth() + 1)) {
+                        dataPoints.put(r.getMonth() + 1, (dataPoints.get(r.getMonth() + 1) +
                                 r.getContaminantsPPM()) / 2);
                     } else {
-                        datapoints.put(r.getMonth() + 1, r.getContaminantsPPM());
+                        dataPoints.put(r.getMonth() + 1, r.getContaminantsPPM());
                     }
                 }
         }
         // clearing selectedReport after each generation of Historical Report
         Model.getInstance().get_reports_Selected().clear();
 
-        for (Integer m : datapoints.keySet()) {
-            series.appendData(new DataPoint(m, datapoints.get(m)),true, 20);
+        for (Integer m : dataPoints.keySet()) {
+            series.appendData(new DataPoint(m, dataPoints.get(m)),true, 20);
         }
         graph.addSeries(series);
         graph.getViewport().setScrollableY(true);

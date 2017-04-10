@@ -10,13 +10,13 @@ import java.util.List;
 
 public class Model {
     /* Singleton instance */
-    public static final Model _instance = new Model();
+    private static final Model _instance = new Model();
     public static Model getInstance() {return _instance;}
 
     // Holds a list of all Reporters
-    private List<User> _users;
-    private List<Report> _reports;
-    private List<WaterQualityReport> selectedReport;
+    private final List<User> _users;
+    private final List<Report> _reports;
+    private final List<WaterQualityReport> selectedReport;
 
 
     /**
@@ -44,9 +44,9 @@ public class Model {
         return _reports;
     }
 
-    public void generate_reports_Selected(int year, double longtitude, double lat){
+    public void generate_reports_Selected(int year, double longitude, double lat){
         for (Report r: _reports) {
-                    if (r.getYear() == year && r.getReportLat()== lat && r.getReportLong() == longtitude && r instanceof WaterQualityReport) {
+                    if (r.getYear() == year && r.getReportLat()== lat && r.getReportLong() == longitude && r instanceof WaterQualityReport) {
                     selectedReport.add((WaterQualityReport) r);
             }
         }

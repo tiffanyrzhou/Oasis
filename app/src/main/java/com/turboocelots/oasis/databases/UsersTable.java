@@ -48,7 +48,7 @@ public final class UsersTable implements BaseColumns {
                     UsersTable.COLUMN_NAME_USER_TYPE + " TEXT" +
                     ")";
 
-    public static final void loadUsers(SQLiteDatabase db)  {
+    public static void loadUsers(SQLiteDatabase db)  {
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
         String[] projection = {
@@ -96,11 +96,11 @@ public final class UsersTable implements BaseColumns {
             if (userType.equals(UserType.Administrator)) {
                 newUser = new Administrator(username, password, name, email, home, UserTitle.valueOf(title), phone);
             } else if (userType.equals(UserType.Worker)) {
-                newUser = new Worker(username, password, name, email, home, UserTitle.valueOf(title), phone, userType);
+                newUser = new Worker(username, password, name, email, home, UserTitle.valueOf(title), phone);
             } else if (userType.equals(UserType.Manager)) {
                 newUser = new Manager(username, password, name, email, home, UserTitle.valueOf(title), phone);
             } else {
-                newUser = new Reporter(username, password, name, email, home, UserTitle.valueOf(title), phone, userType);
+                newUser = new Reporter(username, password, name, email, home, UserTitle.valueOf(title), phone);
             }
             Model.getInstance().addUser(newUser);
         }
@@ -161,5 +161,110 @@ public final class UsersTable implements BaseColumns {
         }
         return false;
     }
+
+    public static boolean updateUser(SQLiteDatabase db, User user) {
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = {
+                UsersTable._ID,
+                UsersTable.COLUMN_NAME_USERNAME,
+                UsersTable.COLUMN_NAME_PASSWORD,
+                UsersTable.COLUMN_NAME_NAME,
+                UsersTable.COLUMN_NAME_TITLE,
+                UsersTable.COLUMN_NAME_EMAIL,
+                UsersTable.COLUMN_NAME_HOME,
+                UsersTable.COLUMN_NAME_PHONE,
+                UsersTable.COLUMN_NAME_USER_TYPE
+        };
+
+        // update results WHERE username = mUsername
+
+        String whereClause = UsersTable.COLUMN_NAME_USERNAME + " = ?";
+        String[] whereArgs = {user.getUsername()};
+
+        // Create a new map of values, where column names are the keys
+        ContentValues values = new ContentValues();
+        values.put(UsersTable.COLUMN_NAME_USERNAME, user.getUsername());
+        values.put(UsersTable.COLUMN_NAME_PASSWORD, user.getPassword());
+        values.put(UsersTable.COLUMN_NAME_NAME, user.getName());
+        values.put(UsersTable.COLUMN_NAME_TITLE, user.getTitle().toString());
+        values.put(UsersTable.COLUMN_NAME_EMAIL, user.getEmail());
+        values.put(UsersTable.COLUMN_NAME_HOME, user.getHome());
+        values.put(UsersTable.COLUMN_NAME_PHONE, user.getPhone());
+        values.put(UsersTable.COLUMN_NAME_USER_TYPE, user.getUserType().toString());
+        // Insert the new row, returning the primary key value of the new row
+        long newRowId = db.update(UsersTable.TABLE_NAME, values, whereClause, whereArgs);
+        return true;
+    }
+
+    public static boolean isUserInDatabase(SQLiteDatabase db, String username, String password) {
+
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = {
+                UsersTable._ID,
+                UsersTable.COLUMN_NAME_USERNAME,
+                UsersTable.COLUMN_NAME_PASSWORD,
+                UsersTable.COLUMN_NAME_NAME,
+                UsersTable.COLUMN_NAME_TITLE,
+                UsersTable.COLUMN_NAME_EMAIL,
+                UsersTable.COLUMN_NAME_HOME,
+                UsersTable.COLUMN_NAME_PHONE,
+                UsersTable.COLUMN_NAME_USER_TYPE
+
+        };
+
+        // Filter results WHERE username = mUsername
+
+        String selection = UsersTable.COLUMN_NAME_USERNAME + " = ?";
+        String[] selectionArgs = { username };
+
+        // Sort by ID
+        String sortOrder =
+                UsersTable._ID + " DESC";
+
+        Cursor cursor = db.query(
+                UsersTable.TABLE_NAME,                     // The table to query
+                projection,                               // The columns to return
+                selection,                                // The columns for the WHERE clause
+                selectionArgs,                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                sortOrder                                 // The sort order
+        );
+
+        List<User> itemIds = new ArrayList<User>();
+        while(cursor.moveToNext()) {
+
+            String dbPassword = cursor.getString(cursor.getColumnIndexOrThrow(UsersTable.COLUMN_NAME_PASSWORD));
+
+            if (password.equals(dbPassword)) {
+
+                long itemId = cursor.getLong(cursor.getColumnIndexOrThrow(UsersTable._ID));
+
+                String name = cursor.getString(cursor.getColumnIndexOrThrow(UsersTable.COLUMN_NAME_NAME));
+                String title = cursor.getString(cursor.getColumnIndexOrThrow(UsersTable.COLUMN_NAME_TITLE));
+                String email = cursor.getString(cursor.getColumnIndexOrThrow(UsersTable.COLUMN_NAME_EMAIL));
+                String home = cursor.getString(cursor.getColumnIndexOrThrow(UsersTable.COLUMN_NAME_HOME));
+                String phone = cursor.getString(cursor.getColumnIndexOrThrow(UsersTable.COLUMN_NAME_PHONE));
+                String type = cursor.getString(cursor.getColumnIndexOrThrow(UsersTable.COLUMN_NAME_USER_TYPE));
+                UserType userType = UserType.valueOf(type);
+                User newUser;
+                if (userType.equals(UserType.Administrator)) {
+                    newUser = new Administrator(username, password, name, email, home, UserTitle.valueOf(title), phone);
+                } else if (userType.equals(UserType.Worker)) {
+                    newUser = new Worker(username, password, name, email, home, UserTitle.valueOf(title), phone);
+                } else if (userType.equals(UserType.Manager)) {
+                    newUser = new Manager(username, password, name, email, home, UserTitle.valueOf(title), phone);
+                } else {
+                    newUser = new Reporter(username, password, name, email, home, UserTitle.valueOf(title), phone);
+                }
+                itemIds.add(newUser);
+            }
+        }
+        cursor.close();
+        return (itemIds.size() > 0);
+    }
+
     private UsersTable() {}
 }

@@ -16,7 +16,7 @@ public class Reporter extends User implements Serializable {
      * @param password the password of the Reporter
      */
     public Reporter(String username, String password) {
-        this(username, password, "", "", "", UserTitle.NA, "", UserType.Reporter);
+        this(username, password, "", "", "", UserTitle.NA, "");
     }
 
     /**
@@ -28,9 +28,8 @@ public class Reporter extends User implements Serializable {
      * @param home the home address of the Reporter
      * @param title the title of the Reporter
      * @param phone the phone number of the Reporter
-     * @param usertype the usertype of the Reporter
      */
-    public Reporter(String username, String password, String name, String email, String home, UserTitle title, String phone, UserType usertype) {
+    public Reporter(String username, String password, String name, String email, String home, UserTitle title, String phone) {
         _name = name;
         _username = username;
         _password = password;

@@ -38,7 +38,7 @@ public class EditProfileActivity extends AppCompatActivity {
      * Instantiates the Activity. The activity is implicitly given a reference to the user
      * by username via the getSerializableExtra method
      * This is then used to modify the user via the Model class
-     * @param savedInstanceState
+     * @param savedInstanceState Bundle object that allows this activity to restore to
      */
 
     @Override
@@ -61,9 +61,8 @@ public class EditProfileActivity extends AppCompatActivity {
                 onSavePressed(v);
             }
         });
-        /**
-         * Grab the dialog widgets so we can get info for later
-         */
+
+        // Grab the dialog widgets so we can get info for later
         nameField = (EditText) findViewById(R.id.editName);
         usernameField = (TextView) findViewById(R.id.editUsername);
         passwordField = (EditText) findViewById(R.id.editPassword);
@@ -100,8 +99,7 @@ public class EditProfileActivity extends AppCompatActivity {
     /**
      * Saves all of the updated data to the corresponding User object in the Model class
      * Then, exits the activity
-     * TODO: database arbitration to update
-     * @param view
+     * @param view the EditProfile View
      */
     protected void onSavePressed(View view) {
         final String username = (String) getIntent().getSerializableExtra("CurrentUser");
@@ -128,39 +126,7 @@ public class EditProfileActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
             DbHelper uDbHelper = new DbHelper(getApplicationContext());
             SQLiteDatabase db = uDbHelper.getReadableDatabase();
-
-
-            // Define a projection that specifies which columns from the database
-            // you will actually use after this query.
-            String[] projection = {
-                    UsersTable._ID,
-                    UsersTable.COLUMN_NAME_USERNAME,
-                    UsersTable.COLUMN_NAME_PASSWORD,
-                    UsersTable.COLUMN_NAME_NAME,
-                    UsersTable.COLUMN_NAME_TITLE,
-                    UsersTable.COLUMN_NAME_EMAIL,
-                    UsersTable.COLUMN_NAME_HOME,
-                    UsersTable.COLUMN_NAME_PHONE,
-                    UsersTable.COLUMN_NAME_USER_TYPE
-            };
-
-            // update results WHERE username = mUsername
-
-            String whereClause = UsersTable.COLUMN_NAME_USERNAME + " = ?";
-            String[] whereArgs = {user.getUsername()};
-
-            // Create a new map of values, where column names are the keys
-            ContentValues values = new ContentValues();
-            values.put(UsersTable.COLUMN_NAME_USERNAME, user.getUsername());
-            values.put(UsersTable.COLUMN_NAME_PASSWORD, user.getPassword());
-            values.put(UsersTable.COLUMN_NAME_NAME, user.getName());
-            values.put(UsersTable.COLUMN_NAME_TITLE, user.getTitle().toString());
-            values.put(UsersTable.COLUMN_NAME_EMAIL, user.getEmail());
-            values.put(UsersTable.COLUMN_NAME_HOME, user.getHome());
-            values.put(UsersTable.COLUMN_NAME_PHONE, user.getPhone());
-            values.put(UsersTable.COLUMN_NAME_USER_TYPE, user.getUserType().toString());
-            // Insert the new row, returning the primary key value of the new row
-            long newRowId = db.update(UsersTable.TABLE_NAME, values, whereClause, whereArgs);
+            UsersTable.updateUser(db, user);
             return true;
         }
 

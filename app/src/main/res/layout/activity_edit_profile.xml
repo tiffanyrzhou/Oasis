@@ -22,7 +22,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="Title"
+                android:text="@string/edit_profile_title_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/TitleView"
@@ -41,7 +41,7 @@
                 android:layout_alignEnd="@+id/textView7" />
 
             <TextView
-                android:text="Name"
+                android:text="@string/edit_profile_name_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/EditProfileView"
@@ -58,10 +58,10 @@
                 android:layout_below="@+id/NameView"
                 android:layout_alignParentStart="true"
                 android:layout_marginTop="12dp"
-                android:hint="Enter Name" />
+                android:hint="@string/edit_profile_name_hint" />
 
             <TextView
-                android:text="Home Address"
+                android:text="@string/edit_profile_address_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView8"
@@ -75,12 +75,12 @@
                 android:inputType="textPostalAddress"
                 android:ems="10"
                 android:id="@+id/editHomeAddress"
-                android:text="Enter Home Address"
+                android:text="@string/edit_profile_address_hint"
                 android:layout_below="@+id/textView8"
                 android:layout_alignStart="@+id/textView9" />
 
             <TextView
-                android:text="Username"
+                android:text="@string/edit_profile_username_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="11dp"
@@ -92,14 +92,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:text="Enter username"
+                android:text="@string/edit_profile_username_hint"
                 android:ems="10"
                 android:id="@+id/editUsername"
                 android:layout_below="@+id/UsernameView"
                 android:layout_alignStart="@+id/UsernameView" />
 
             <TextView
-                android:text="Password"
+                android:text="@string/edit_profile_password_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/editUsername"
@@ -115,10 +115,10 @@
                 android:id="@+id/editPassword"
                 android:layout_below="@+id/PasswordView"
                 android:layout_alignStart="@+id/PasswordView"
-                android:text="Enter Password" />
+                android:text="@string/edit_profile_password_hint" />
 
             <TextView
-                android:text="Email Address"
+                android:text="@string/edit_profile_email_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView7"
@@ -132,12 +132,12 @@
                 android:inputType="textEmailAddress"
                 android:ems="10"
                 android:id="@+id/editEmail"
-                android:text="Enter Email Address"
+                android:text="@string/edit_profile_email_hint"
                 android:layout_below="@+id/textView7"
                 android:layout_alignStart="@+id/editPassword" />
 
             <TextView
-                android:text="Phone Number"
+                android:text="@string/edit_profile_phone_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView9"
@@ -151,12 +151,12 @@
                 android:inputType="phone"
                 android:ems="10"
                 android:id="@+id/editPhoneNumber"
-                android:text="Enter Phone Number"
+                android:text="@string/edit_profile_phone_hint"
                 android:layout_below="@+id/textView9"
                 android:layout_toStartOf="@+id/EditProfileCancel" />
 
             <Button
-                android:text="Cancel"
+                android:text="@string/edit_profile_cancel_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/EditProfileSave"
@@ -164,7 +164,7 @@
                 android:id="@+id/EditProfileCancel" />
 
             <Button
-                android:text="Add"
+                android:text="@string/edit_profile_add_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/EditProfileSave"

@@ -11,8 +11,8 @@ import java.util.Calendar;
 public class WaterSourceReport extends Report {
 
 
-    protected ConditionOfWater waterCondition;
-    protected TypeOfWater waterType;
+    private ConditionOfWater waterCondition;
+    private TypeOfWater waterType;
 
     /**
      * Creates an instance of a report

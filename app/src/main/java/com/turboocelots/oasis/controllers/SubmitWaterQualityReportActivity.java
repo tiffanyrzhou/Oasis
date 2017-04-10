@@ -14,16 +14,13 @@ import android.widget.TextView;
 import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.databases.DbHelper;
 import com.turboocelots.oasis.databases.QualityReportsTable;
-import com.turboocelots.oasis.models.ConditionOfWater;
 import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.OverallCondition;
-import com.turboocelots.oasis.models.TypeOfWater;
 import com.turboocelots.oasis.models.User;
 import com.turboocelots.oasis.models.WaterQualityReport;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.Date;
 
 public class SubmitWaterQualityReportActivity extends AppCompatActivity {
 
@@ -61,8 +58,8 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
         overallConditionSpinner.setAdapter(conditionArrayAdapter);
         currentDate = Calendar.getInstance();
         datetime.setText(currentDate.DATE + "" + currentDate.getTime());
-        reporterName.setText("Reporter Username:" + currentUser.getUsername());
-        reportNumber.setText("Report Number:" + Model.getInstance().getReports().size()+"");
+        reporterName.setText(getString(R.string.submit_report_reporter_name, currentUser.getUsername()));
+        reportNumber.setText(getString(R.string.submit_report_report_number, Model.getInstance().getReports().size()));
 
         cancel.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

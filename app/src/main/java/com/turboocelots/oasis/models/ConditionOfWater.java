@@ -17,7 +17,7 @@ public enum ConditionOfWater implements Serializable{
 
     /**
      * Default constructor for ConditionOfWater
-     * @param waterCondition
+     * @param waterCondition the condition of the water
      */
 
     ConditionOfWater(String waterCondition) {this.waterCondition = waterCondition;}

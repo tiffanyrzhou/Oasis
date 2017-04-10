@@ -26,7 +26,7 @@
                 android:id="@+id/status_graph" />
 
             <TextView
-                android:text="Latitude"
+                android:text="@string/latitude_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -38,7 +38,7 @@
                 android:id="@+id/lat_graph" />
 
             <TextView
-                android:text="Longtitude"
+                android:text="@string/longitude_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView10" />
@@ -51,7 +51,7 @@
                 android:id="@+id/long_graph" />
 
             <TextView
-                android:text="Year"
+                android:text="@string/generate_historical_report_activity_year_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -63,7 +63,7 @@
                 android:id="@+id/year_graph" />
 
             <TextView
-                android:text="PPM Type"
+                android:text="@string/generate_historical_report_activity_ppm_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -73,13 +73,13 @@
                 android:id="@+id/PPM_graph" />
 
             <Button
-                android:text="Generate Report"
+                android:text="@string/generate_historical_report_activity_generate_report_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/generate_Report" />
 
             <Button
-                android:text="Cancel"
+                android:text="@string/generate_historical_report_activity_cancel_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/cancel_graph" />

@@ -79,8 +79,8 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
         // initialize text view
         currentDate = Calendar.getInstance();
         datetime.setText( currentDate.DATE + "" + currentDate.getTime());
-        reporterName.setText("Reporter Username:" + currentUser.getUsername());
-        reportNumber.setText("Report Number:" + Model.getInstance().getReports().size()+"");
+        reporterName.setText(getString(R.string.submit_report_reporter_name, currentUser.getUsername()));
+        reportNumber.setText(getString(R.string.submit_report_report_number, Model.getInstance().getReports().size()));
 
         // initialize spinner values
         ArrayAdapter<TypeOfWater> waterTypeArrayAdapter = new ArrayAdapter<TypeOfWater>

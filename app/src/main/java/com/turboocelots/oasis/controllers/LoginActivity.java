@@ -37,14 +37,8 @@ import android.content.Intent;
 import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.databases.DbHelper;
 import com.turboocelots.oasis.databases.UsersTable;
-import com.turboocelots.oasis.models.Administrator;
-import com.turboocelots.oasis.models.Manager;
 import com.turboocelots.oasis.models.Model;
-import com.turboocelots.oasis.models.Reporter;
 import com.turboocelots.oasis.models.User;
-import com.turboocelots.oasis.models.UserTitle;
-import com.turboocelots.oasis.models.UserType;
-import com.turboocelots.oasis.models.Worker;
 
 /**
  * The Activity that controls the Login with username and password
@@ -280,14 +274,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        List<String> usernames = new ArrayList<>();
+        List<String> userNames = new ArrayList<>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            usernames.add(cursor.getString(ProfileQuery.ADDRESS));
+            userNames.add(cursor.getString(ProfileQuery.ADDRESS));
             cursor.moveToNext();
         }
 
-        addUsernamesToAutocomplete(usernames);
+        addUserNamesToAutocomplete(userNames);
     }
 
     @Override
@@ -296,10 +290,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     /**
-     * Add usernames to the autocomplete
-     * @param emailAddressCollection the collection of usernames to add
+     * Add user names to the autocomplete
+     * @param emailAddressCollection the collection of user names to add
      */
-    private void addUsernamesToAutocomplete(List<String> emailAddressCollection) {
+    private void addUserNamesToAutocomplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<>(LoginActivity.this,
@@ -339,73 +333,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             DbHelper uDbHelper = new DbHelper(getApplicationContext());
             SQLiteDatabase db = uDbHelper.getReadableDatabase();
 
-
-            // Define a projection that specifies which columns from the database
-            // you will actually use after this query.
-            String[] projection = {
-                    UsersTable._ID,
-                    UsersTable.COLUMN_NAME_USERNAME,
-                    UsersTable.COLUMN_NAME_PASSWORD,
-                    UsersTable.COLUMN_NAME_NAME,
-                    UsersTable.COLUMN_NAME_TITLE,
-                    UsersTable.COLUMN_NAME_EMAIL,
-                    UsersTable.COLUMN_NAME_HOME,
-                    UsersTable.COLUMN_NAME_PHONE,
-                    UsersTable.COLUMN_NAME_USER_TYPE
-
-            };
-
-            // Filter results WHERE username = mUsername
-
-            String selection = UsersTable.COLUMN_NAME_USERNAME + " = ?";
-            String[] selectionArgs = { mUsername };
-
-            // Sort by ID
-            String sortOrder =
-                    UsersTable._ID + " DESC";
-
-            Cursor cursor = db.query(
-                    UsersTable.TABLE_NAME,                     // The table to query
-                    projection,                               // The columns to return
-                    selection,                                // The columns for the WHERE clause
-                    selectionArgs,                            // The values for the WHERE clause
-                    null,                                     // don't group the rows
-                    null,                                     // don't filter by row groups
-                    sortOrder                                 // The sort order
-            );
-
-            List<User> itemIds = new ArrayList<User>();
-            while(cursor.moveToNext()) {
-                String password = cursor.getString(cursor.getColumnIndexOrThrow(UsersTable.COLUMN_NAME_PASSWORD));
-                if (password.equals(mPassword)) {
-
-                    long itemId = cursor.getLong(cursor.getColumnIndexOrThrow(UsersTable._ID));
-
-                    String name = cursor.getString(cursor.getColumnIndexOrThrow(UsersTable.COLUMN_NAME_NAME));
-                    String title = cursor.getString(cursor.getColumnIndexOrThrow(UsersTable.COLUMN_NAME_TITLE));
-                    String email = cursor.getString(cursor.getColumnIndexOrThrow(UsersTable.COLUMN_NAME_EMAIL));
-                    String home = cursor.getString(cursor.getColumnIndexOrThrow(UsersTable.COLUMN_NAME_HOME));
-                    String phone = cursor.getString(cursor.getColumnIndexOrThrow(UsersTable.COLUMN_NAME_PHONE));
-                    String type = cursor.getString(cursor.getColumnIndexOrThrow(UsersTable.COLUMN_NAME_USER_TYPE));
-                    UserType userType = UserType.valueOf(type);
-                    User newUser;
-                    if (userType.equals(UserType.Administrator)) {
-                        newUser = new Administrator(mUsername, mPassword, name, email, home, UserTitle.valueOf(title), phone);
-                    } else if (userType.equals(UserType.Worker)) {
-                        newUser = new Worker(mUsername, mPassword, name, email, home, UserTitle.valueOf(title), phone, userType);
-                    } else if (userType.equals(UserType.Manager)) {
-                        newUser = new Manager(mUsername, mPassword, name, email, home, UserTitle.valueOf(title), phone);
-                    } else {
-                        newUser = new Reporter(mUsername, mPassword, name, email, home, UserTitle.valueOf(title), phone, userType);
-                    }
-                    itemIds.add(newUser);
-                }
-            }
-            cursor.close();
-            if (itemIds.size() > 0) {
-                return true;
-            }
-            return false;
+            return (UsersTable.isUserInDatabase(db, mUsername, mPassword));
         }
 
         @Override

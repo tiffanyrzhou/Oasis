@@ -23,7 +23,7 @@ import com.turboocelots.oasis.models.User;
 public class GenerateHistoricalReportActivity extends AppCompatActivity {
     private Spinner ppmSpinner;
     private EditText year;
-    private EditText longtitude;
+    private EditText longitude;
     private EditText latitude;
     private  TextView status;
 
@@ -33,7 +33,7 @@ public class GenerateHistoricalReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_historical_report);
         year = (EditText) findViewById(R.id.year_graph);
-        longtitude = (EditText) findViewById(R.id.long_graph);
+        longitude = (EditText) findViewById(R.id.long_graph);
         latitude = (EditText) findViewById(R.id.lat_graph);
         status = (TextView) findViewById(R.id.status_graph);
         ppmSpinner = (Spinner) findViewById(R.id.PPM_graph);
@@ -51,7 +51,7 @@ public class GenerateHistoricalReportActivity extends AppCompatActivity {
         generateButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Model.getInstance().generate_reports_Selected(Integer.parseInt(year.getText().toString()),
-                        Double.parseDouble(longtitude.getText().toString()),
+                        Double.parseDouble(longitude.getText().toString()),
                         Double.parseDouble(latitude.getText().toString()));
                 if(Model.getInstance().get_reports_Selected().size() != 0) {
                     Intent nextActivity  = new Intent(GenerateHistoricalReportActivity.this, ViewHistoricalReportActivity.class);
@@ -61,9 +61,8 @@ public class GenerateHistoricalReportActivity extends AppCompatActivity {
                     nextActivity.putExtra("CurrentUser", currentUser.getUsername());
                     startActivity(nextActivity);
                 } else {
-                    status.setText("No Avaliable Data for current selections");
+                    status.setError(getString(R.string.generate_historical_report_activity_no_available_data));
                 }
-
             }
         });
 

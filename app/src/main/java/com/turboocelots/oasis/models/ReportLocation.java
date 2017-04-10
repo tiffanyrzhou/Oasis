@@ -30,9 +30,9 @@ public class ReportLocation {
             WaterQualityReport wqR = (WaterQualityReport)r;
             this.longitude = wqR.getReportLong();
             this.latitude = wqR.getReportLat();
-            this.title = wqR.getDateTime() + " " + wqR.getoCondition();
+            this.title = wqR.getDateTime() + " " + wqR.getOverallCondition();
             this.description = wqR.getReporterName() + "\n" + wqR.getDateTime() + "\n"
-                    + "Overall Condition:" + wqR.getoCondition() + "\n" +
+                    + "Overall Condition:" + wqR.getOverallCondition() + "\n" +
                     " Virus PPM: "  + wqR.getVirusPPM()+ "\n" +  " Contaminants PPM: "
                     +  wqR.getContaminantsPPM() + "\n"+ wqR.getReportNumber();
 
@@ -90,7 +90,7 @@ public class ReportLocation {
 
     /**
      * gets longitude
-     * @return double represnetation of longitude
+     * @return double representation of longitude
      */
     public double getLongitude() {
         return longitude;

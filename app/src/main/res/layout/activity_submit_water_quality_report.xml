@@ -35,7 +35,7 @@
                 android:id="@+id/reportNumber_WQ" />
 
             <TextView
-                android:text="Latitude"
+                android:text="@string/latitude_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView14" />
@@ -48,7 +48,7 @@
                 android:id="@+id/lat_WQ" />
 
             <TextView
-                android:text="Longitude"
+                android:text="@string/longitude_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView15" />
@@ -66,7 +66,7 @@
                 android:id="@+id/overallCondition_WQ" />
 
             <TextView
-                android:text="Virus PPM"
+                android:text="@string/virus_ppm_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView17" />
@@ -79,7 +79,7 @@
                 android:id="@+id/virus_WQ" />
 
             <TextView
-                android:text="Contaminant PPM"
+                android:text="@string/contaminant_ppm_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView18" />
@@ -92,13 +92,13 @@
                 android:id="@+id/contaminant_WQ" />
 
             <Button
-                android:text="Submit"
+                android:text="@string/submit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/submit_WQ" />
 
             <Button
-                android:text="Cancel"
+                android:text="@string/cancel_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/cancel_WQ" />

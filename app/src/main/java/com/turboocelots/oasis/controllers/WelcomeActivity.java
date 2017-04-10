@@ -115,7 +115,7 @@ public class WelcomeActivity extends AppCompatActivity {
         }
     }
 
-    public class LoadModelTask extends AsyncTask<Void, Void, Boolean> {
+    private class LoadModelTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected Boolean doInBackground(Void... params) {
             DbHelper uDbHelper = new DbHelper(getApplicationContext());

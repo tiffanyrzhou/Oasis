@@ -19,7 +19,7 @@ public class Manager extends Worker {
      */
     public Manager(String username, String password, String name, String email,
                    String home, UserTitle title, String phone){
-        super(username, password, name, email, home, title, phone, UserType.Manager);
+        super(username, password, name, email, home, title, phone);
     }
 
     /**

@@ -8,10 +8,8 @@ import android.provider.BaseColumns;
 import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.OverallCondition;
 import com.turboocelots.oasis.models.WaterQualityReport;
-import com.turboocelots.oasis.models.WaterSourceReport;
 
 import java.sql.Timestamp;
-import java.util.Calendar;
 
 /**
  * This class defines the table that will store our WaterQualityReports.
@@ -48,7 +46,7 @@ public class QualityReportsTable implements BaseColumns {
     public static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + QualityReportsTable.TABLE_NAME;
 
 
-    public static final boolean addQualityReport(SQLiteDatabase db, WaterQualityReport report) {
+    public static boolean addQualityReport(SQLiteDatabase db, WaterQualityReport report) {
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
             // Create a new map of values, where column names are the keys
@@ -58,7 +56,7 @@ public class QualityReportsTable implements BaseColumns {
         values.put(COLUMN_NAME_REPORTER_NAME, report.getReporterName());
         values.put(COLUMN_NAME_LAT, report.getReportLat());
         values.put(COLUMN_NAME_LONG, report.getReportLong());
-        values.put(COLUMN_NAME_OVERALL_CONDITION, report.getoCondition().toString());
+        values.put(COLUMN_NAME_OVERALL_CONDITION, report.getOverallCondition().toString());
         values.put(COLUMN_NAME_VIRUS_PPM, report.getVirusPPM());
         values.put(COLUMN_NAME_CONTAMINANTS_PPM, report.getContaminantsPPM());
         // Insert the new row, returning the primary key value of the new row

@@ -16,7 +16,7 @@ public class HomeActivity extends AppCompatActivity {
 
     /**
      * Creates the HomeActivity
-     * The username of the current user is passesd through "CurrentUser" in getSerializableExtra
+     * The username of the current user is passed through "CurrentUser" in getSerializableExtra
      * @param savedInstanceState
      */
     @Override
@@ -94,7 +94,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-        final Button viewWaterAvailabilityButton = (Button) findViewById(R.id.waterAvaliability_button);
+        final Button viewWaterAvailabilityButton = (Button) findViewById(R.id.waterAvailability_button);
         if (currentUser.getUserType() == UserType.Administrator) {
             viewWaterAvailabilityButton.setVisibility(View.GONE);
         } else {

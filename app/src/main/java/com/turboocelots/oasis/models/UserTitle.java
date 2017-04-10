@@ -23,7 +23,7 @@ public enum UserTitle implements Serializable {
     UserTitle(String userTitleName) { this.userTitleName = userTitleName;}
 
     /**
-     * Returns string represenation of userTitleName
+     * Returns string representation of userTitleName
      * @return userTitleName
      */
     public String getUserTitleName() {return userTitleName; }

@@ -32,11 +32,11 @@ public class WaterQualityReport extends Report {
         this.contaminantsPPM =contaminantsPPM;
     }
 
-    public OverallCondition getoCondition() {
+    public OverallCondition getOverallCondition() {
         return oCondition;
     }
 
-    public void setoCondition(OverallCondition oCondition) {
+    public void setOverallCondition(OverallCondition oCondition) {
         this.oCondition = oCondition;
     }
 
