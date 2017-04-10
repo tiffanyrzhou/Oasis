@@ -33,7 +33,7 @@ public class ViewHistoricalReportActivity extends AppCompatActivity {
         final PPMType currentType = (PPMType) getIntent().getSerializableExtra("CurrentType");
         final  Integer currentYear = (Integer) getIntent().getSerializableExtra("CurrentYear");
         final String username = (String) getIntent().getSerializableExtra("CurrentUser");
-        final User currentUser =  Model.getInstance().getUser(username);;
+        final User currentUser =  Model.getInstance().getUser(username);
 
 
         final Button backButton = (Button) findViewById(R.id.backToHome_button);

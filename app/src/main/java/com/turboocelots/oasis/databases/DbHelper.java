@@ -5,6 +5,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 
+/**
+ * This Class Contains code to manage migrations of the SQLite database
+ * In order to upgrade the version of the database, and trigger a migration (currently
+ * just drops all tables int he database), increment the DATABASE_VERSION variable.
+ *
+ * The corresponding Table configurations are implemented in the table classes also in
+ * this package as static constant strings.
+ */
 
 public class DbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 13;

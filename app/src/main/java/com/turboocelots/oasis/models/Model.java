@@ -93,11 +93,16 @@ public class Model {
      * Adds a waterSourceReport to the app
      * @param report the waterSourceReport to be added
      */
-    public void addReport(Report report) {
+    public boolean addReport(Report report) {
+        if (report == null) return false;
+        if (!Report.validateAttributes(report))  {
+            return false;
+        }
         if (!_reports.contains(report)) {
             _reports.add(report);
-
+            return true;
         }
+        return false;
     }
 
 

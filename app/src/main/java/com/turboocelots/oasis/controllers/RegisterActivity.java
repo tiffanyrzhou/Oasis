@@ -328,79 +328,28 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             user = userType;
         }
 
-        //TODO: actually implement  authentication
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
             DbHelper uDbHelper = new DbHelper(getApplicationContext());
             SQLiteDatabase db = uDbHelper.getReadableDatabase();
 
+            User newUser;
 
-            // Define a projection that specifies which columns from the database
-            // you will actually use after this query.
-            String[] projection = {
-                    UsersTable._ID,
-                    UsersTable.COLUMN_NAME_USERNAME,
-                    UsersTable.COLUMN_NAME_PASSWORD
-            };
-
-            // Filter results WHERE username = mUsername
-
-            String selection = UsersTable.COLUMN_NAME_USERNAME + " = ?";
-            String[] selectionArgs = { mUsername };
-
-            // Sort by ID
-            String sortOrder =
-                    UsersTable._ID + " DESC";
-
-            Cursor cursor = db.query(
-                    UsersTable.TABLE_NAME,                     // The table to query
-                    projection,                               // The columns to return
-                    selection,                                // The columns for the WHERE clause
-                    selectionArgs,                            // The values for the WHERE clause
-                    null,                                     // don't group the rows
-                    null,                                     // don't filter by row groups
-                    sortOrder                                 // The sort order
-            );
-
-            List itemIds = new ArrayList<>();
-            while(cursor.moveToNext()) {
-                long itemId = cursor.getLong(
-                        cursor.getColumnIndexOrThrow(UsersTable._ID));
-                itemIds.add(itemId);
+            if (user.equals(UserType.Administrator)) {
+                newUser = new Administrator(mUsername, mPassword, "", "", "", UserTitle.NA, "");
+            } else if (user.equals(UserType.Worker)) {
+                newUser = new Worker(mUsername, mPassword, "", "", "", UserTitle.NA, "", user);
+            } else if (user.equals(UserType.Manager)) {
+                newUser = new Manager(mUsername, mPassword, "", "", "", UserTitle.NA, "");
+            } else {
+                newUser = new Reporter(mUsername, mPassword, "", "", "", UserTitle.NA, "", user);
             }
-            cursor.close();
-            if (itemIds.size() == 0) { // No users currently have this username
-                // Create a new map of values, where column names are the keys
-                ContentValues values = new ContentValues();
-                values.put(UsersTable.COLUMN_NAME_USERNAME, mUsername);
-                values.put(UsersTable.COLUMN_NAME_PASSWORD, mPassword);
-                values.put(UsersTable.COLUMN_NAME_NAME, "");
-                values.put(UsersTable.COLUMN_NAME_TITLE, UserTitle.NA.toString());
-                values.put(UsersTable.COLUMN_NAME_EMAIL, "");
-                values.put(UsersTable.COLUMN_NAME_HOME, "");
-                values.put(UsersTable.COLUMN_NAME_PHONE, "");
-                values.put(UsersTable.COLUMN_NAME_USER_TYPE, user.toString());
-                // Insert the new row, returning the primary key value of the new row
-                long newRowId = db.insert(UsersTable.TABLE_NAME, null, values);
-                User newUser;
 
-                if (user.equals(UserType.Administrator)) {
-                    newUser = new Administrator(mUsername, mPassword, "", "", "", UserTitle.NA, "");
-                } else if (user.equals(UserType.Worker)) {
-                    newUser = new Worker(mUsername, mPassword, "", "", "", UserTitle.NA, "", user);
-                } else if (user.equals(UserType.Manager)) {
-                    newUser = new Manager(mUsername, mPassword, "", "", "", UserTitle.NA, "");
-                } else {
-                    newUser = new Reporter(mUsername, mPassword, "", "", "", UserTitle.NA, "", user);
-                }
-
-                Model.getInstance().addUser(newUser);
-                currentUser = mUsername;
-                return true;
+            boolean successful = UsersTable.registerUser(db, newUser);
+            if (successful) {
+                currentUser = newUser.getUsername();
             }
-            return false;
+            return successful;
         }
 
         /**
