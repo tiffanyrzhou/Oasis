@@ -77,6 +77,9 @@ public class Model {
      * @return whether or not the user is successfully added
      */
     public boolean addUser(User user) {
+        if(user == null) {
+            return false;
+        }
         for (User u : _users) {
             if (u.equals(user)) {
                 return false;
