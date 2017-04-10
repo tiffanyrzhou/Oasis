@@ -64,7 +64,7 @@ public class ViewHistoricalReportActivity extends AppCompatActivity {
                         datapoints.put(r.getMonth() + 1, r.getContaminantsPPM());
                     }
                 }
-            }
+        }
 
         for (Integer m : datapoints.keySet()) {
             series.appendData(new DataPoint(m, datapoints.get(m)),true, 20);
