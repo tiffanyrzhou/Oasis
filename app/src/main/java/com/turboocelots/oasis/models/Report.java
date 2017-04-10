@@ -41,7 +41,6 @@ public abstract class Report {
         return cal.get(Calendar.YEAR);
     }
 
-
     public String getReporterName() { return reporterName; }
     public void setReporterName(String reporterName) { this.reporterName = reporterName; }
 
@@ -63,11 +62,37 @@ public abstract class Report {
         if ((this.reportNumber == null)  || other.reportNumber == null) {
             return false;
         }
-        if (!this.reportNumber.equals(other.reportNumber)) {
+        return this.reportNumber.equals(other.reportNumber);
+    }
+
+    /**
+     * This method validates whether or not the given Report class
+     * has valid fields
+     * @param report
+     * @return true if valid, false if invalid.
+     */
+    public static boolean validateAttributes(Report report) {
+        return (
+                (report.reportNumber != null)
+                && !report.reportNumber.equals("")
+                && (report.reporterName != null)
+                && !report.reporterName.equals("")
+                && report.dateTime != null
+                && isValidLatLng(report.reportLat, report.reportLong));
+    }
+
+    private static boolean isValidLatLng(double lat, double lng){
+        if(lat < -90 || lat > 90)
+        {
+            return false;
+        }
+        else if(lng < -180 || lng > 180)
+        {
             return false;
         }
         return true;
     }
+
 
 
 }

@@ -37,6 +37,7 @@ public class SourceReportTest {
 
     @Test
     public void addReport_null_param() throws Exception {
+        model = new Model();
         exampleSourceReport.setReporterName(null);
         model.getInstance().addReport(exampleSourceReport);
         assertFalse(model.getInstance().getReports().contains(exampleSourceReport));

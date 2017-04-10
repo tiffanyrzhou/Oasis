@@ -65,11 +65,13 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
 
         submitReport.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                addReport();
-                Intent nextActivity  = new Intent(SubmitWaterSourceReportActivity.this, HomeActivity.class);
-                nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                nextActivity.putExtra("CurrentUser", currentUser.getUsername());
-                startActivity(nextActivity);
+                boolean success = addReport();
+                if (success) {
+                    Intent nextActivity  = new Intent(SubmitWaterSourceReportActivity.this, HomeActivity.class);
+                    nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                    startActivity(nextActivity);
+                }
             }
 
         });
@@ -93,23 +95,48 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
     }
 
     /**
-     * Add waterSourceReports to the Model
-     * @return void
+     * Adds WaterSourceReports to the Model
+     * @return true if successful, false if failed
      */
-    private void addReport(){
-
+    private boolean addReport() {
+        double parsedLat = 0.0;
+        double parsedLng = 0.0;
+        try {
+            parsedLat = Double.parseDouble(this.reportLat.getText().toString());
+        } catch (NumberFormatException ne)  {
+            reportLat.setError(getString(R.string.error_invalid_number));
+            reportLat.requestFocus();
+            return false;
+        } catch (NullPointerException npe) {
+            reportLat.setError(getString(R.string.error_field_required));
+            reportLat.requestFocus();
+            return false;
+        }
+        try {
+            parsedLng = Double.parseDouble(this.reportLong.getText().toString());
+        } catch (NumberFormatException nfe) {
+            reportLong.setError(getString(R.string.error_invalid_number));
+            reportLong.requestFocus();
+            return false;
+        } catch (NullPointerException npe) {
+            reportLong.setError(getString(R.string.error_field_required));
+            reportLong.requestFocus();
+            return false;
+        }
 
         WaterSourceReport r = new WaterSourceReport((String)this.reportNumber.getText(), new Timestamp(this.currentDate.getTimeInMillis()),
                 (String) this.reporterName.getText(),
-                Double.parseDouble(this.reportLat.getText().toString()),
-                Double.parseDouble(this.reportLong.getText().toString()),
+                parsedLat,
+                parsedLng,
                 (ConditionOfWater) this.waterConditionSpinner.getSelectedItem(),
                 (TypeOfWater) this.waterTypeSpinner.getSelectedItem());
-            Model.getInstance().addReport(r);
-            DbHelper uDbHelper = new DbHelper(getApplicationContext());
-            SQLiteDatabase db = uDbHelper.getReadableDatabase();
-            Model.getInstance().addReport(r);
-            SourceReportsTable.addQualityReport(db, r);
+
+        DbHelper uDbHelper = new DbHelper(getApplicationContext());
+        SQLiteDatabase db = uDbHelper.getReadableDatabase();
+        Model.getInstance().addReport(r);
+
+        SourceReportsTable.addQualityReport(db, r);
+        return true;
     }
 
 }

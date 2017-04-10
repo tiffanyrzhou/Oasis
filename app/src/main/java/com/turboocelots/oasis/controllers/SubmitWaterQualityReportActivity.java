@@ -75,11 +75,13 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
 
         submitReport.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                addReport();
-                Intent nextActivity  = new Intent(SubmitWaterQualityReportActivity.this, HomeActivity.class);
-                nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                nextActivity.putExtra("CurrentUser", currentUser.getUsername());
-                startActivity(nextActivity);
+                boolean success = addReport();
+                if (success) {
+                    Intent nextActivity  = new Intent(SubmitWaterQualityReportActivity.this, HomeActivity.class);
+                    nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                    startActivity(nextActivity);
+                }
             }
 
         });
@@ -87,41 +89,58 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
     }
 
     /**
-     * add report to the model
-     * returns void
+     * Adds a WaterQualityReport to the Model
+     * returns true if successful, false if there was an error
      */
-    private void addReport(){
+    private boolean addReport(){
         double parsedVirusPPM = 0.0;
         double parsedContaminantsPPM = 0.0;
         double parsedLat = 0.0;
         double parsedLng = 0.0;
+
+        try {
+            parsedLat = Double.parseDouble(this.reportLat.getText().toString());
+        } catch (NumberFormatException ne)  {
+            reportLat.setError(getString(R.string.error_invalid_number));
+            reportLat.requestFocus();
+            return false;
+        } catch (NullPointerException npe) {
+            reportLat.setError(getString(R.string.error_field_required));
+            reportLat.requestFocus();
+            return false;
+        }
+        try {
+            parsedLng = Double.parseDouble(this.reportLong.getText().toString());
+        } catch (NumberFormatException nfe) {
+            reportLong.setError(getString(R.string.error_invalid_number));
+            reportLong.requestFocus();
+            return false;
+        } catch (NullPointerException npe) {
+            reportLong.setError(getString(R.string.error_field_required));
+            reportLong.requestFocus();
+            return false;
+        }
         try {
             parsedVirusPPM = Double.parseDouble(virusPPM.getText().toString());
         } catch (NumberFormatException nfe) {
-
+            virusPPM.setError(getString(R.string.error_invalid_number));
+            virusPPM.requestFocus();
+            return false;
         } catch (NullPointerException npe) {
-
+            virusPPM.setError(getString(R.string.error_field_required));
+            virusPPM.requestFocus();
+            return false;
         }
         try {
             parsedContaminantsPPM = Double.parseDouble(contaminantsPPM.getText().toString());
         } catch (NumberFormatException nfe) {
-
+            contaminantsPPM.setError(getString(R.string.error_invalid_number));
+            contaminantsPPM.requestFocus();
+            return false;
         } catch (NullPointerException npe) {
-
-        }
-        try {
-            parsedLat = Double.parseDouble(this.reportLat.getText().toString());
-        } catch (NumberFormatException ne)  {
-
-        } catch (NullPointerException npe) {
-
-        }
-        try {
-            parsedLng = Double.parseDouble(this.reportLat.getText().toString());
-        } catch (NumberFormatException nfe) {
-
-        } catch (NullPointerException npe) {
-
+            contaminantsPPM.setError(getString(R.string.error_field_required));
+            contaminantsPPM.requestFocus();
+            return false;
         }
         WaterQualityReport r =  new WaterQualityReport ((String)this.reportNumber.getText(), new Timestamp(this.currentDate.getTimeInMillis()),
                 (String) this.reporterName.getText(),
@@ -133,5 +152,6 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
         SQLiteDatabase db = uDbHelper.getReadableDatabase();
         Model.getInstance().addReport(r);
         QualityReportsTable.addQualityReport(db, r);
+        return true;
     }
 }

@@ -23,4 +23,8 @@
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_view_report_list">ViewReportList</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Strings related to Reports -->
+    <string name="error_invalid_number">Please enter a number.</string>
+
 </resources>
