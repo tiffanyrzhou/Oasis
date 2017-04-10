@@ -32,13 +32,14 @@ public class SourceReportTest {
     @Test
     public void addReport_full_params() throws Exception {
         model.getInstance().addReport(exampleSourceReport);
-        assertTrue(model.getReports().contains(exampleSourceReport));
+        assertTrue(model.getInstance().getReports().contains(exampleSourceReport));
     }
 
     @Test
     public void addReport_null_param() throws Exception {
         exampleSourceReport.setReporterName(null);
-        assertFalse(model.getReports().contains(exampleSourceReport));
+        model.getInstance().addReport(exampleSourceReport);
+        assertFalse(model.getInstance().getReports().contains(exampleSourceReport));
     }
 
     @Test
@@ -46,7 +47,7 @@ public class SourceReportTest {
         Report reportCopy = exampleSourceReport;
         model.getInstance().addReport(exampleSourceReport);
         model.getInstance().addReport(reportCopy);
-        assertFalse(model.getReports().contains(exampleSourceReport) && model.getReports().contains(reportCopy));
+        assertFalse(model.getInstance().getReports().contains(exampleSourceReport) && model.getReports().contains(reportCopy));
     }
 
     @Test
@@ -58,7 +59,7 @@ public class SourceReportTest {
         exampleSourceReport.setDateTime(null);
         exampleSourceReport.setReportNumber("-1");
         model.getInstance().addReport(exampleSourceReport);
-        assertFalse(model.getReports().contains(exampleSourceReport));
+        assertFalse(model.getInstance().getReports().contains(exampleSourceReport));
     }
 
 }
