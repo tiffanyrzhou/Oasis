@@ -23,6 +23,7 @@ public class Administrator extends User {
      * Creates an instance of the Administrator class.
      * @param username the username of the Administrator
      * @param password the password of the Administrator
+     * @param name the name of the Administrator
      * @param email the email of the Administrator
      * @param home the home address of the Administrator
      * @param title the title of the Administrator
@@ -33,6 +34,7 @@ public class Administrator extends User {
         super(username, name, password, email, home, title, phone);
     }
 
+    @Override
     public UserType getUserType(){
         return UserType.Administrator;
     }

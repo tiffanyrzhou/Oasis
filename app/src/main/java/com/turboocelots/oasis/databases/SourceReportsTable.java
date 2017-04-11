@@ -39,8 +39,14 @@ public class SourceReportsTable implements BaseColumns {
                     COLUMN_NAME_WATER_TYPE + " TEXT" +
                     ")";
 
-    public static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + SourceReportsTable.TABLE_NAME;
+    public static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS "
+            + SourceReportsTable.TABLE_NAME;
 
+    /**
+     * Adds a Source Report to the SQLite database
+     * @param db the SQLiteDatabase to query on
+     * @param report the Report to add to the Database
+     */
     public static void addSourceReport(SQLiteDatabase db, WaterSourceReport report) {
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
@@ -57,6 +63,10 @@ public class SourceReportsTable implements BaseColumns {
         db.replace(TABLE_NAME, null, values);
     }
 
+    /**
+     * Loads the Source Reports into the Model object
+     * @param db the SQLiteDatabase context
+     */
     public static void loadSourceReports (SQLiteDatabase db) {
 
         // Define a projection that specifies which columns from the database
@@ -91,20 +101,28 @@ public class SourceReportsTable implements BaseColumns {
 
         while (cursor.moveToNext()) {
             cursor.getLong(cursor.getColumnIndexOrThrow(SourceReportsTable._ID));
-            long epochTime = cursor.getLong(cursor.getColumnIndexOrThrow(SourceReportsTable.COLUMN_NAME_TIMESTAMP));
-            String reportNumber = cursor.getString(cursor.getColumnIndexOrThrow(SourceReportsTable.COLUMN_NAME_REPORT_NUMBER));
-            String reporterName = cursor.getString(cursor.getColumnIndexOrThrow(SourceReportsTable.COLUMN_NAME_REPORTER_NAME));
-            long lat = cursor.getLong(cursor.getColumnIndexOrThrow(SourceReportsTable.COLUMN_NAME_LAT));
-            long lng = cursor.getLong(cursor.getColumnIndexOrThrow(SourceReportsTable.COLUMN_NAME_LONG));
-            String conditionString = cursor.getString(cursor.getColumnIndexOrThrow(SourceReportsTable.COLUMN_NAME_WATER_CONDITION));
-            String waterTypeString = cursor.getString(cursor.getColumnIndexOrThrow(SourceReportsTable.COLUMN_NAME_WATER_TYPE));
+            long epochTime = cursor.getLong(cursor.getColumnIndexOrThrow(
+                    SourceReportsTable.COLUMN_NAME_TIMESTAMP));
+            String reportNumber = cursor.getString(cursor.getColumnIndexOrThrow(
+                    SourceReportsTable.COLUMN_NAME_REPORT_NUMBER));
+            String reporterName = cursor.getString(cursor.getColumnIndexOrThrow(
+                    SourceReportsTable.COLUMN_NAME_REPORTER_NAME));
+            long lat = cursor.getLong(cursor.getColumnIndexOrThrow(
+                    SourceReportsTable.COLUMN_NAME_LAT));
+            long lng = cursor.getLong(cursor.getColumnIndexOrThrow(
+                    SourceReportsTable.COLUMN_NAME_LONG));
+            String conditionString = cursor.getString(cursor.getColumnIndexOrThrow(
+                    SourceReportsTable.COLUMN_NAME_WATER_CONDITION));
+            String waterTypeString = cursor.getString(cursor.getColumnIndexOrThrow(
+                    SourceReportsTable.COLUMN_NAME_WATER_TYPE));
 
             ConditionOfWater waterCondition = ConditionOfWater.valueOf(conditionString);
             TypeOfWater waterType = TypeOfWater.valueOf(waterTypeString);
 
             Timestamp timestamp = new Timestamp(epochTime);
 
-            WaterSourceReport newReport = new WaterSourceReport(reportNumber, timestamp, reporterName, lat, lng, waterCondition, waterType);
+            WaterSourceReport newReport = new WaterSourceReport(reportNumber, timestamp,
+                    reporterName, lat, lng, waterCondition, waterType);
 
             Model.getInstance().addReport(newReport);
         }

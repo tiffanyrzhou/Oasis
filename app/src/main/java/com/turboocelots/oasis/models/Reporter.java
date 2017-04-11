@@ -28,7 +28,8 @@ public class Reporter extends User implements Serializable {
      * @param title the title of the Reporter
      * @param phone the phone number of the Reporter
      */
-    public Reporter(String username, String password, String name, String email, String home, UserTitle title, String phone) {
+    public Reporter(String username, String password, String name,
+                    String email, String home, UserTitle title, String phone) {
         super(username, password, name, email, home, title, phone);
     }
 
@@ -36,6 +37,7 @@ public class Reporter extends User implements Serializable {
      * gets the current user type
      * @return the UserType Enum for Reporter
      */
+    @Override
     public UserType getUserType(){
         return UserType.Reporter;
     }

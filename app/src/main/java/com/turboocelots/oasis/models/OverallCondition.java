@@ -12,14 +12,9 @@ public enum OverallCondition implements Serializable {
     Treatable ("Treatable"),
     Unsafe ("Unsafe");
 
-
-    private final String name;
-
     /**
      * default constructor
      * @param name the name of the condition
      */
-    OverallCondition(String name) {
-        this.name = name;
-    }
+    OverallCondition(String name) {}
 }

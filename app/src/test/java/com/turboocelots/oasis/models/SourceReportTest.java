@@ -52,7 +52,7 @@ public class SourceReportTest {
     @Test
     public void addReport_all_invalid_param() throws Exception {
         //invalid location coordinates
-        exampleSourceReport.setReportLocation(999999999);
+        exampleSourceReport.setReportLat(999999999);
         exampleSourceReport.setReportLong(999999999);
         exampleSourceReport.setReporterName(null);
         exampleSourceReport.setDateTime(null);

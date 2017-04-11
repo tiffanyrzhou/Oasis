@@ -1,22 +1,24 @@
 package com.turboocelots.oasis.models;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 /**
- * Created by mlin on 2/12/17.
- *
- * Singleton design pattern to allow access to Model from each controller
+ * Singleton design pattern to allow access to corresponding
+ * Data repositories from each Activity
  */
-
-public class Model {
+final public class Model {
     /* Singleton instance */
     private static final Model _instance = new Model();
+
+    /**
+     * Returns a singleton instance of the Model
+     * @return the singleton instance of the Model
+     */
     public static Model getInstance() {return _instance;}
 
     // Holds a list of all Reporters
     private final List<User> _users;
     private final List<Report> _reports;
-    private final List<WaterQualityReport> selectedReport;
-
 
     /**
      * Resets the model instance, clearing all Lists
@@ -24,24 +26,22 @@ public class Model {
     public void clear() {
         _users.clear();
         _reports.clear();
-        selectedReport.clear();
     }
 
 
     /**
      * Makes a new model
      */
-    public Model() {
+    private Model() {
         _users = new ArrayList<>();
         _reports = new ArrayList<>();
-        selectedReport = new ArrayList<>();
     }
 
     /**
      * Gets the Reporters
      * @return a List of Reporters in the app
      */
-    public List<User> getUsers() {
+    public Collection<User> getUsers() {
         return _users;
     }
 
@@ -49,22 +49,35 @@ public class Model {
      * Gets the waterSourceReports
       * @return a List of waterSourceReports in the app
      */
-    public  List<Report> getReports(){
-        return _reports;
+    public static List<Report> getReports(){
+        return _instance._reports;
     }
 
-    public void generate_reports_Selected(int year, double longitude, double lat){
+
+    /**
+     * Gets just the Water Quality Reports
+     * @return the water quality reports
+     */
+    public List<WaterQualityReport> getWaterQualityReports() {
+        List<WaterQualityReport> selectedReports = new ArrayList<>();
         for (Report r: _reports) {
-                    if (r.getYear() == year && r.getReportLat()== lat && r.getReportLong() == longitude && r instanceof WaterQualityReport) {
-                    selectedReport.add((WaterQualityReport) r);
+            if (r instanceof WaterQualityReport) {
+                selectedReports.add((WaterQualityReport) r);
             }
         }
+        return selectedReports;
     }
 
-    public List<WaterQualityReport> get_reports_Selected(){
-        return selectedReport;
+    public List<WaterQualityReport> generateSelectedReports(int year, double longitude, double lat){
+        List<WaterQualityReport> selectedReports = new ArrayList<>();
+        for (WaterQualityReport r: getWaterQualityReports()) {
+                    if (r.getYear() == year && (Math.abs(r.getReportLat() - lat) < 0.01) &&
+                            (Math.abs(r.getReportLong() - longitude) < 0.01)) {
+                        selectedReports.add(r);
+            }
+        }
+        return selectedReports;
     }
-
 
     /**
      * gets the current user via username
@@ -101,6 +114,7 @@ public class Model {
     /**
      * Adds a waterSourceReport to the app
      * @param report the waterSourceReport to be added
+     * @return true if successful, false otherwise
      */
     public boolean addReport(Report report) {
         if (report == null) return false;

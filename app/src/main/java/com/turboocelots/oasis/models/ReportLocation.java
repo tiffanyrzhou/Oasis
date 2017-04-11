@@ -16,27 +16,10 @@ public class ReportLocation {
      * @param r the Report object to pull data from
      */
     public ReportLocation(Report r) {
-
-        if (r instanceof WaterSourceReport){
-            WaterSourceReport wsR = (WaterSourceReport)r;
-            this.longitude = wsR.getReportLong();
-            this.latitude = wsR.getReportLat();
-            this.title = wsR.getDateTime() + " " + wsR.getWaterCondition() + " " + wsR.getWaterType();
-            this.description = wsR.getReporterName() + "\n" + wsR.getDateTime() + "\n" + "Water Type: " + wsR.getWaterType() + "\n" +
-                    "Water Condition: " +  wsR.getWaterCondition() + "\n"
-                    + wsR.getReportNumber();
-        } else if (r instanceof WaterQualityReport) {
-            WaterQualityReport wqR = (WaterQualityReport)r;
-            this.longitude = wqR.getReportLong();
-            this.latitude = wqR.getReportLat();
-            this.title = wqR.getDateTime() + " " + wqR.getOverallCondition();
-            this.description = wqR.getReporterName() + "\n" + wqR.getDateTime() + "\n"
-                    + "Overall Condition:" + wqR.getOverallCondition() + "\n" +
-                    " Virus PPM: "  + wqR.getVirusPPM()+ "\n" +  " Contaminants PPM: "
-                    +  wqR.getContaminantsPPM() + "\n"+ wqR.getReportNumber();
-
-        }
-
+        this.longitude = r.getReportLong();
+        this.latitude = r.getReportLat();
+        this.title = r.getTitle();
+        this.description = r.getDescription();
     }
 
     /**

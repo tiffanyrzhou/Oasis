@@ -24,6 +24,7 @@ public class Manager extends Worker {
      * Creates an instance of the Manager class
      * @param username the username of the manager
      * @param password the password of the manager
+     * @param name the name of the manager
      * @param email the email of the manager
      * @param home the home address of the manager
      * @param title the title of the manager
@@ -38,6 +39,7 @@ public class Manager extends Worker {
      * Returns the type of user
      * @return the UserType Enum for Manager
      */
+    @Override
     public UserType getUserType(){
         return UserType.Manager;
     }

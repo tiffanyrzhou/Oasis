@@ -8,11 +8,13 @@
     <string name="action_register">Register</string>
     <string name="action_cancel">Cancel</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_username">This username is invalid. A username cannot have spaces.</string>
+    <string name="error_invalid_username">This username is invalid. A username cannot have spaces.
+    </string>
     <string name="error_used_username">This username has already been used</string>
 
     <string name="error_invalid_password">This password is invalid</string>
-    <string name="error_invalid_combination">This username and password combination is invalid</string>
+    <string name="error_invalid_combination">This username and password combination is invalid
+    </string>
 
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
@@ -45,11 +47,13 @@
     <string name="edit_profile_add_button">Save</string>
 
     <!-- Strings related to Generate Historical Report Activity !-->
-    <string name="generate_historical_report_activity_no_available_data">No available data for the current selections.</string>
+    <string name="generate_historical_report_activity_no_available_data">
+        No available data for the current selections.</string>
 
     <string name="generate_historical_report_activity_year_view">Year</string>
     <string name="generate_historical_report_activity_ppm_view">PPM Type</string>
-    <string name="generate_historical_report_activity_generate_report_button">Generate Report</string>
+    <string name="generate_historical_report_activity_generate_report_button">
+        Generate Report</string>
     <string name="generate_historical_report_activity_cancel_button">Cancel</string>
 
     <!-- Home Activity !-->

@@ -14,8 +14,14 @@ import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.PPMType;
 import com.turboocelots.oasis.models.User;
+import com.turboocelots.oasis.models.WaterQualityReport;
 
+import java.util.List;
 
+/**
+ * Activity for form that allows the user to filter WaterQualityReports
+ * and later graph them
+ */
 public class GenerateHistoricalReportActivity extends AppCompatActivity {
     private Spinner ppmSpinner;
     private EditText year;
@@ -45,27 +51,38 @@ public class GenerateHistoricalReportActivity extends AppCompatActivity {
 
         final Button generateButton = (Button) findViewById(R.id.generate_Report);
         generateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-                Model.getInstance().generate_reports_Selected(Integer.parseInt(year.getText().toString()),
+                List<WaterQualityReport> selectedReports = Model.getInstance().
+                        generateSelectedReports(Integer.parseInt(year.getText().toString()),
                         Double.parseDouble(longitude.getText().toString()),
                         Double.parseDouble(latitude.getText().toString()));
-                if(Model.getInstance().get_reports_Selected().size() != 0) {
-                    Intent nextActivity  = new Intent(GenerateHistoricalReportActivity.this, ViewHistoricalReportActivity.class);
+
+                if(!selectedReports.isEmpty()) {
+                    Intent nextActivity  = new Intent(GenerateHistoricalReportActivity.this,
+                            ViewHistoricalReportActivity.class);
                     nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    nextActivity.putExtra("CurrentType", (PPMType)ppmSpinner.getSelectedItem());
-                    nextActivity.putExtra("CurrentYear", (Integer) Integer.parseInt(year.getText().toString()));
+                    nextActivity.putExtra("CurrentType", (PPMType) ppmSpinner.getSelectedItem());
+                    nextActivity.putExtra("CurrentYear", (Integer) Integer.parseInt(
+                            year.getText().toString()));
+                    nextActivity.putExtra("Lat", Double.parseDouble(latitude.getText().toString()));
+                    nextActivity.putExtra("Lng", Double.parseDouble(
+                            longitude.getText().toString()));
                     nextActivity.putExtra("CurrentUser", currentUser.getUsername());
                     startActivity(nextActivity);
                 } else {
-                    status.setError(getString(R.string.generate_historical_report_activity_no_available_data));
+                    status.setError(getString(R.string.
+                            generate_historical_report_activity_no_available_data));
                 }
             }
         });
 
         final Button cancel = (Button) findViewById(R.id.cancel_graph);
         cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-                Intent nextActivity  = new Intent(GenerateHistoricalReportActivity.this, HomeActivity.class);
+                Intent nextActivity  = new Intent(GenerateHistoricalReportActivity.this,
+                        HomeActivity.class);
                 nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 nextActivity.putExtra("CurrentUser", currentUser.getUsername());
                 startActivity(nextActivity);

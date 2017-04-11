@@ -13,12 +13,9 @@ public enum UserTitle implements Serializable {
     Ms ("Ms."),
     Mrs ("Mrs."),
     Dr ("Dr.");
-
-    private final String userTitleName;
-
     /**
      * Default constructor for UserTitle
      * @param userTitleName the String that represents userTitleName
      */
-    UserTitle(String userTitleName) { this.userTitleName = userTitleName;}
+    UserTitle(String userTitleName) { }
 }

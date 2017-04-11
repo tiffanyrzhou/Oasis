@@ -18,6 +18,12 @@ import com.turboocelots.oasis.databases.QualityReportsTable;
 import com.turboocelots.oasis.databases.SourceReportsTable;
 import com.turboocelots.oasis.databases.UsersTable;
 
+
+/**
+ * Initial Activity
+ * Populates the model with data from the Database
+ * Displays Login and Register buttons
+ */
 public class WelcomeActivity extends AppCompatActivity {
 
     private  LoadModelTask modelTask = null;
@@ -36,6 +42,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 Intent nextActivity  = new Intent(WelcomeActivity.this, LoginActivity.class);
                 startActivity(nextActivity);
@@ -43,6 +50,7 @@ public class WelcomeActivity extends AppCompatActivity {
         });
 
         registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 Intent nextActivity  = new Intent(WelcomeActivity.this, RegisterActivity.class);
                 startActivity(nextActivity);
@@ -65,36 +73,25 @@ public class WelcomeActivity extends AppCompatActivity {
         final Button loginButton = (Button) findViewById(R.id.login_id);
         final Button registerButton = (Button) findViewById(R.id.register_id);
 
+        int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+        loginButton.setVisibility(show ? View.GONE : View.VISIBLE);
+        loginButton.animate().setDuration(shortAnimTime).alpha(
+                show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                loginButton.setVisibility(show ? View.GONE : View.VISIBLE);
+            }
+        });
 
-            loginButton.setVisibility(show ? View.GONE : View.VISIBLE);
-            loginButton.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    loginButton.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
-
-            registerButton.setVisibility(show ? View.GONE : View.VISIBLE);
-            registerButton.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    loginButton.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            loginButton.setVisibility(show ? View.VISIBLE : View.GONE);
-            registerButton.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
+        registerButton.setVisibility(show ? View.GONE : View.VISIBLE);
+        registerButton.animate().setDuration(shortAnimTime).alpha(
+                show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                loginButton.setVisibility(show ? View.GONE : View.VISIBLE);
+            }
+        });
     }
 
     private class LoadModelTask extends AsyncTask<Void, Void, Boolean> {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_edit_profile"
     android:layout_width="match_parent"
@@ -9,12 +9,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.turboocelots.oasis.controllers.EditProfileActivity">
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:orientation="vertical"
@@ -26,26 +20,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/TitleView"
-                tools:text="Title"
-                android:layout_above="@+id/editName"
-                android:layout_alignParentTop="true"
-                android:layout_alignEnd="@+id/PasswordView"
-                android:layout_alignStart="@+id/EditProfileSave" />
-
+                tools:text="Title" />
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/TitleSpinner"
-                android:layout_above="@+id/editName"
-                android:layout_below="@+id/EditProfileView"
-                android:layout_alignEnd="@+id/textView7" />
-
+                android:id="@+id/TitleSpinner" />
             <TextView
                 android:text="@string/edit_profile_name_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/EditProfileView"
-                android:layout_alignStart="@+id/EditProfileView"
                 android:labelFor="@+id/editName"
                 android:layout_marginTop="21dp"
                 android:id="@+id/NameView" />
@@ -56,8 +39,6 @@
                 android:inputType="textPersonName"
                 android:ems="10"
                 android:id="@+id/editName"
-                android:layout_below="@+id/NameView"
-                android:layout_alignParentStart="true"
                 android:layout_marginTop="12dp" />
 
             <TextView
@@ -66,8 +47,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/textView8"
                 android:labelFor="@+id/editHomeAddress"
-                android:layout_below="@+id/editEmail"
-                android:layout_alignStart="@+id/editEmail"
                 android:layout_marginTop="12dp" />
 
             <EditText
@@ -76,9 +55,8 @@
                 android:inputType="textPostalAddress"
                 android:ems="10"
                 android:id="@+id/editHomeAddress"
-                android:text="@string/edit_profile_address_hint"
-                android:layout_below="@+id/textView8"
-                android:layout_alignStart="@+id/textView9" />
+                android:text="@string/edit_profile_address_hint" />
+
 
             <TextView
                 android:text="@string/edit_profile_username_view"
@@ -86,25 +64,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="11dp"
                 android:id="@+id/UsernameView"
-                android:layout_below="@+id/editName"
-                android:labelFor="@+id/editUsername"
-                android:layout_alignStart="@+id/editName" />
+                android:labelFor="@+id/editUsername" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
                 android:text="@string/edit_profile_username_hint"
-                android:id="@+id/editUsername"
-                android:layout_below="@+id/UsernameView"
-                android:layout_alignStart="@+id/UsernameView" />
+                android:id="@+id/editUsername" />
 
             <TextView
                 android:text="@string/edit_profile_password_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/editUsername"
-                android:layout_alignStart="@+id/editUsername"
                 android:labelFor="@+id/editPassword"
                 android:layout_marginTop="10dp"
                 android:id="@+id/PasswordView" />
@@ -115,8 +87,6 @@
                 android:inputType="textPassword"
                 android:ems="10"
                 android:id="@+id/editPassword"
-                android:layout_below="@+id/PasswordView"
-                android:layout_alignStart="@+id/PasswordView"
                 android:text="@string/edit_profile_password_hint" />
 
             <TextView
@@ -125,8 +95,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/textView7"
                 android:labelFor="@+id/editEmail"
-                android:layout_below="@+id/editPassword"
-                android:layout_alignStart="@+id/editEmail"
                 android:layout_marginTop="12dp" />
 
             <EditText
@@ -135,9 +103,7 @@
                 android:inputType="textEmailAddress"
                 android:ems="10"
                 android:id="@+id/editEmail"
-                android:text="@string/edit_profile_email_hint"
-                android:layout_below="@+id/textView7"
-                android:layout_alignStart="@+id/editPassword" />
+                android:text="@string/edit_profile_email_hint" />
 
             <TextView
                 android:text="@string/edit_profile_phone_view"
@@ -145,8 +111,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/textView9"
                 android:labelFor="@+id/editPhoneNumber"
-                android:layout_below="@+id/editHomeAddress"
-                android:layout_alignStart="@+id/editPhoneNumber"
                 android:layout_marginTop="14dp" />
 
             <EditText
@@ -155,27 +119,20 @@
                 android:inputType="phone"
                 android:ems="10"
                 android:id="@+id/editPhoneNumber"
-                android:text="@string/edit_profile_phone_hint"
-                android:layout_below="@+id/textView9"
-                android:layout_toStartOf="@+id/EditProfileCancel" />
+                android:text="@string/edit_profile_phone_hint" />
 
             <Button
                 android:text="@string/edit_profile_cancel_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/EditProfileSave"
-                android:layout_toEndOf="@+id/editPassword"
                 android:id="@+id/EditProfileCancel" />
 
             <Button
                 android:text="@string/edit_profile_add_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/EditProfileSave"
-                android:layout_alignParentBottom="true"
-                android:layout_alignEnd="@+id/textView9" />
+                android:id="@+id/EditProfileSave" />
 
         </LinearLayout>
-    </ScrollView>
 
-</RelativeLayout>
+</ScrollView>

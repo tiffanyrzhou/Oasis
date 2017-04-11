@@ -17,8 +17,6 @@ import java.sql.Timestamp;
  * The CREATE_QUALITY_REPORTS_TABLE and DELETE_ENTRIES are SQL statements that are invoked
  * by DbHelper when the database is initialized or deleted
  */
-
-
 public class QualityReportsTable implements BaseColumns {
     private static final String TABLE_NAME = "quality_reports";
     private static final String COLUMN_NAME_REPORT_NUMBER = "report_number";
@@ -43,9 +41,15 @@ public class QualityReportsTable implements BaseColumns {
                     COLUMN_NAME_CONTAMINANTS_PPM + " DOUBLE" +
                     ")";
 
-    public static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + QualityReportsTable.TABLE_NAME;
+    public static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS "
+            + QualityReportsTable.TABLE_NAME;
 
 
+    /**
+     * Add Quality report to the SQL database
+     * @param db the SQLiteDatabase context
+     * @param report the Report to add
+     */
     public static void addQualityReport(SQLiteDatabase db, WaterQualityReport report) {
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
@@ -63,6 +67,11 @@ public class QualityReportsTable implements BaseColumns {
         db.replace(TABLE_NAME, null, values);
     }
 
+    /**
+     * A function that will populate the Model with the corresponding
+     * QualityReports stored in the SQLite database
+     * @param db the SQLiteDatabase context to query from
+     */
     public static void loadQualityReports (SQLiteDatabase db) {
 
         // Define a projection that specifies which columns from the database
@@ -97,20 +106,29 @@ public class QualityReportsTable implements BaseColumns {
 
         while (cursor.moveToNext()) {
             cursor.getLong(cursor.getColumnIndexOrThrow(QualityReportsTable._ID));
-            long epochTime = cursor.getLong(cursor.getColumnIndexOrThrow(QualityReportsTable.COLUMN_NAME_TIMESTAMP));
-            String reportNumber = cursor.getString(cursor.getColumnIndexOrThrow(QualityReportsTable.COLUMN_NAME_REPORT_NUMBER));
-            String reporterName = cursor.getString(cursor.getColumnIndexOrThrow(QualityReportsTable.COLUMN_NAME_REPORTER_NAME));
-            double lat = cursor.getDouble(cursor.getColumnIndexOrThrow(QualityReportsTable.COLUMN_NAME_LAT));
-            double lng = cursor.getDouble(cursor.getColumnIndexOrThrow(QualityReportsTable.COLUMN_NAME_LONG));
-            String conditionString = cursor.getString(cursor.getColumnIndexOrThrow(QualityReportsTable.COLUMN_NAME_OVERALL_CONDITION));
-            double virusPPM = cursor.getDouble(cursor.getColumnIndexOrThrow(QualityReportsTable.COLUMN_NAME_VIRUS_PPM));
-            double contaminantsPPM = cursor.getDouble(cursor.getColumnIndexOrThrow(QualityReportsTable.COLUMN_NAME_CONTAMINANTS_PPM));
+            long epochTime = cursor.getLong(cursor.getColumnIndexOrThrow(
+                    QualityReportsTable.COLUMN_NAME_TIMESTAMP));
+            String reportNumber = cursor.getString(cursor.getColumnIndexOrThrow(
+                    QualityReportsTable.COLUMN_NAME_REPORT_NUMBER));
+            String reporterName = cursor.getString(cursor.getColumnIndexOrThrow(
+                    QualityReportsTable.COLUMN_NAME_REPORTER_NAME));
+            double lat = cursor.getDouble(cursor.getColumnIndexOrThrow(
+                    QualityReportsTable.COLUMN_NAME_LAT));
+            double lng = cursor.getDouble(cursor.getColumnIndexOrThrow(
+                    QualityReportsTable.COLUMN_NAME_LONG));
+            String conditionString = cursor.getString(cursor.getColumnIndexOrThrow(
+                    QualityReportsTable.COLUMN_NAME_OVERALL_CONDITION));
+            double virusPPM = cursor.getDouble(cursor.getColumnIndexOrThrow(
+                    QualityReportsTable.COLUMN_NAME_VIRUS_PPM));
+            double contaminantsPPM = cursor.getDouble(cursor.getColumnIndexOrThrow(
+                    QualityReportsTable.COLUMN_NAME_CONTAMINANTS_PPM));
 
             OverallCondition overallCondition = OverallCondition.valueOf(conditionString);
 
             Timestamp timestamp = new Timestamp(epochTime);
 
-            WaterQualityReport newReport = new WaterQualityReport(reportNumber, timestamp, reporterName, lat, lng, overallCondition, virusPPM, contaminantsPPM);
+            WaterQualityReport newReport = new WaterQualityReport(reportNumber,
+                    timestamp, reporterName, lat, lng, overallCondition, virusPPM, contaminantsPPM);
             Model.getInstance().addReport(newReport);
         }
         cursor.close();

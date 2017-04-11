@@ -19,11 +19,11 @@ public abstract class User {
      * @param password the password of the User
      */
 
-    public User (String username, String password) {
+    User (String username, String password) {
         this(username, password, "", "", "", UserTitle.NA, "");
     }
 
-    public User (String username, String password, String name,
+    User (String username, String password, String name,
                  String email, String home, UserTitle title, String phone) {
         _name = name;
         _username = username;
@@ -93,6 +93,11 @@ public abstract class User {
      * @return the current user's home address
      */
     public String getHome() { return _home; }
+
+    /**
+     * Sets the home address
+     * @param home the new Home Address
+     */
     public void setHome(String home) { _home = home; }
 
     /**
@@ -133,7 +138,7 @@ public abstract class User {
     public boolean equals(Object o) {
         if (o == null) return false;
         if (o == this) return true;
-        if (!(o instanceof Reporter)) return false;
+        if (!(o instanceof User)) return false;
         User r = (User) o;
         return (r.getUsername().equals(_username));
     }
