@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
 import com.turboocelots.oasis.models.ConditionOfWater;
-import com.turboocelots.oasis.models.Model;
+import com.turboocelots.oasis.models.SourceRepository;
 import com.turboocelots.oasis.models.TypeOfWater;
 import com.turboocelots.oasis.models.WaterSourceReport;
 
@@ -64,7 +64,7 @@ public class SourceReportsTable implements BaseColumns {
     }
 
     /**
-     * Loads the Source Reports into the Model object
+     * Loads the Source Reports into the SourceRepository object
      * @param db the SQLiteDatabase context
      */
     public static void loadSourceReports (SQLiteDatabase db) {
@@ -124,7 +124,7 @@ public class SourceReportsTable implements BaseColumns {
             WaterSourceReport newReport = new WaterSourceReport(reportNumber, timestamp,
                     reporterName, lat, lng, waterCondition, waterType);
 
-            Model.getInstance().addReport(newReport);
+            SourceRepository.addReport(newReport);
         }
         cursor.close();
     }

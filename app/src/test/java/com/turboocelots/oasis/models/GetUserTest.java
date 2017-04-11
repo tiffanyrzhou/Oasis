@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Tests getUser method of the Model class
+ * Tests getUser method of the UserRepository class
  */
 public class GetUserTest {
     private User user1;
@@ -13,20 +13,20 @@ public class GetUserTest {
     private User user3;
     @Before
     public void setUp() throws Exception {
-        Model.getInstance().clear(); // Clear the entire Model instance
+        UserRepository.clear(); // Clear the entire UserRepository instance
         user1 = new Reporter("username1","password1");
         user2 = new Reporter("username2","password2");
         user3 = new Reporter("username3","password3");
-        Model.getInstance().addUser(user1);
-        Model.getInstance().addUser(user2);
-        Model.getInstance().addUser(user3);
+        UserRepository.addUser(user1);
+        UserRepository.addUser(user2);
+        UserRepository.addUser(user3);
     }
 
     @Test
     public void getUser() throws Exception {
-        Assert.assertSame(user1, Model.getInstance().getUser("username1"));
-        Assert.assertSame(user2, Model.getInstance().getUser("username2"));
-        Assert.assertSame(user3, Model.getInstance().getUser("username3"));
+        Assert.assertSame(user1, UserRepository.getUser("username1"));
+        Assert.assertSame(user2, UserRepository.getUser("username2"));
+        Assert.assertSame(user3, UserRepository.getUser("username3"));
     }
 
 }

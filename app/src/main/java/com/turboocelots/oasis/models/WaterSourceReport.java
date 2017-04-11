@@ -57,6 +57,15 @@ public class WaterSourceReport extends Report {
      */
     public void setWaterType(TypeOfWater waterType) { this.waterType = waterType;}
 
+
+    /**
+     * Returns a ReportLocation representation of this object
+     * @return ReportLocation representing this object
+     */
+    public ReportLocation getReportLocation() {
+        return new ReportLocation(this);
+    }
+
     @Override
     public String getTitle() {
         return this.getDateTime() + " " + this.getWaterCondition() + " " + this.getWaterType();

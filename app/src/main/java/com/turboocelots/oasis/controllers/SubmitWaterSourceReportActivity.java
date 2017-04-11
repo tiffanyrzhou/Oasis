@@ -18,7 +18,8 @@ import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.databases.DbHelper;
 import com.turboocelots.oasis.databases.SourceReportsTable;
 import com.turboocelots.oasis.models.ConditionOfWater;
-import com.turboocelots.oasis.models.Model;
+import com.turboocelots.oasis.models.SourceRepository;
+import com.turboocelots.oasis.models.UserRepository;
 import com.turboocelots.oasis.models.WaterSourceReport;
 import com.turboocelots.oasis.models.TypeOfWater;
 import com.turboocelots.oasis.models.User;
@@ -40,13 +41,17 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
     private final static double LOWEST_LNG = -180;
     private final static double HIGHEST_LNG = 180;
 
+    private double parsedLat;
+    private double parsedLng;
 
+    String userName;
+    User currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit_report);
-        final String username = (String) getIntent().getSerializableExtra("CurrentUser");
-        final User currentUser = Model.getInstance().getUser(username);
+        userName = (String) getIntent().getSerializableExtra("CurrentUser");
+        currentUser = UserRepository.getUser(userName);
         //find attributes by ID
         TextView datetime = (TextView) findViewById(R.id.date_time);
         reporterName = (TextView) findViewById(R.id.reporter_name);
@@ -74,7 +79,7 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
                     Intent nextActivity  = new Intent(SubmitWaterSourceReportActivity.this,
                             HomeActivity.class);
                     nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                    nextActivity.putExtra("CurrentUser", userName);
                     startActivity(nextActivity);
                 }
             }
@@ -84,9 +89,10 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
         // initialize text view
         datetime.setText(Calendar.getInstance().getTime().toString());
         reporterName.setText(getString(R.string.submit_report_reporter_name,
-                currentUser.getUsername()));
+                userName));
+
         reportNumber.setText(getString(R.string.submit_report_report_number,
-                Model.getInstance().getReports().size()));
+                SourceRepository.getReports().size()));
 
         // initialize spinner values
         ArrayAdapter<TypeOfWater> waterTypeArrayAdapter = new ArrayAdapter<>
@@ -102,13 +108,7 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
         waterConditionSpinner.setAdapter(waterConditionArrayAdapter);
     }
 
-    /**
-     * Adds WaterSourceReports to the Model
-     * @return true if successful, false if failed
-     */
-    private boolean addReport() {
-        double parsedLat;
-        double parsedLng;
+    private boolean validateInputs() {
         try {
             parsedLat = Double.parseDouble(this.reportLat.getText().toString());
         } catch (NumberFormatException ne)  {
@@ -143,7 +143,16 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
             reportLong.requestFocus();
             return false;
         }
+        return true;
 
+    }
+
+    /**
+     * Adds WaterSourceReports to the SourceRepository
+     * @return true if successful, false if failed
+     */
+    private boolean addReport() {
+        if (!validateInputs()) return false;
         WaterSourceReport r = new WaterSourceReport((String)this.reportNumber.getText(),
                 new Timestamp(Calendar.getInstance().getTimeInMillis()),
                 (String) this.reporterName.getText(),
@@ -154,7 +163,7 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
 
         DbHelper uDbHelper = new DbHelper(getApplicationContext());
         SQLiteDatabase db = uDbHelper.getReadableDatabase();
-        Model.getInstance().addReport(r);
+        SourceRepository.addReport(r);
         SourceReportsTable.addSourceReport(db, r);
         return true;
     }

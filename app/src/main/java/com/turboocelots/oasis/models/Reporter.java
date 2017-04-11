@@ -33,6 +33,11 @@ public class Reporter extends User implements Serializable {
         super(username, password, name, email, home, title, phone);
     }
 
+    @Override
+    public boolean canSubmitWaterSourceReport() {
+        return false;
+    }
+
     /**
      * gets the current user type
      * @return the UserType Enum for Reporter

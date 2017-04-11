@@ -8,8 +8,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.turboocelots.oasis.R;
-import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.User;
+import com.turboocelots.oasis.models.UserRepository;
 import com.turboocelots.oasis.models.UserType;
 
 /**
@@ -18,15 +18,15 @@ import com.turboocelots.oasis.models.UserType;
  */
 public class HomeActivity extends AppCompatActivity {
 
-    private String username;
+
     private User currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        username = (String) getIntent().getSerializableExtra("CurrentUser");
-        currentUser = Model.getInstance().getUser(username);
+        String username = (String) getIntent().getSerializableExtra("CurrentUser");
+        currentUser = UserRepository.getUser(username);
 
         bindSubmitWaterSourceButton();
         bindLogoutButton();
@@ -65,8 +65,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void bindSubmitWaterQualityReportButton() {
         final Button submitWaterQualityReportButton = (Button) findViewById(R.id.submitWaterQuality);
-        if ((currentUser.getUserType() == UserType.Administrator) ||
-                (currentUser.getUserType() == UserType.Reporter)) {
+        if (!currentUser.canSubmitQualityReport()) {
             submitWaterQualityReportButton.setVisibility(View.GONE);
         } else {
             submitWaterQualityReportButton.setVisibility(View.VISIBLE);
@@ -85,7 +84,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void bindSubmitWaterSourceButton() {
         final Button submitReportButton = (Button) findViewById(R.id.submit_report_button);
-        if (currentUser.getUserType() == UserType.Administrator) {
+        if (!currentUser.canSubmitWaterSourceReport()) {
             submitReportButton.setVisibility(View.GONE);
         } else {
             submitReportButton.setVisibility(View.VISIBLE);

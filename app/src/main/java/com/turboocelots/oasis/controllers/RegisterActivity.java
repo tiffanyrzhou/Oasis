@@ -41,6 +41,7 @@ import com.turboocelots.oasis.models.Administrator;
 import com.turboocelots.oasis.models.Manager;
 import com.turboocelots.oasis.models.Reporter;
 import com.turboocelots.oasis.models.User;
+import com.turboocelots.oasis.models.UserRepository;
 import com.turboocelots.oasis.models.UserTitle;
 import com.turboocelots.oasis.models.UserType;
 import com.turboocelots.oasis.models.Worker;
@@ -53,7 +54,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private UserLoginTask mAuthTask = null;
+    private ValidateNewUserTask mAuthTask = null;
 
     // UI references.
     private AutoCompleteTextView usernameView;
@@ -163,7 +164,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             // perform the user login attempt.
 
             showProgress(true);
-            mAuthTask = new UserLoginTask(username, password, user);
+            mAuthTask = new ValidateNewUserTask(username, password, user);
             mAuthTask.execute((Void) null);
         }
     }
@@ -275,13 +276,13 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    public class ValidateNewUserTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mUsername;
         private final String mPassword;
         private final UserType user;
 
-        UserLoginTask(String username, String password, UserType userType) {
+        ValidateNewUserTask(String username, String password, UserType userType) {
             mUsername = username;
             mPassword = password;
             user = userType;
@@ -306,7 +307,8 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
             boolean successful = UsersTable.registerUser(db, newUser);
             if (successful) {
-                currentUser = newUser.getUsername();
+                currentUser = mUsername;
+                UserRepository.addUser(newUser);
             }
             return successful;
         }
@@ -320,9 +322,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
-
             if (success) {
-                // Add user
                 Intent nextActivity  = new Intent(RegisterActivity.this, HomeActivity.class);
                 nextActivity.putExtra("CurrentUser", currentUser);
                 startActivity(nextActivity);

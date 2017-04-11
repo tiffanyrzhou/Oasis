@@ -12,11 +12,11 @@ import static org.junit.Assert.*;
  */
 public class SourceReportTest {
 
-    private Report exampleSourceReport;
+    private WaterSourceReport exampleSourceReport;
 
     @Before
     public void setUp() throws Exception {
-        Model.getInstance().clear(); // Clear the entire Model instance
+        SourceRepository.clear(); // Clear the entire UserRepository instance
         String reportNumber = "0000001";
         Timestamp dateTime = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
         String reporterName = "Cayla";
@@ -30,23 +30,23 @@ public class SourceReportTest {
 
     @Test
     public void addReport_full_params() throws Exception {
-        Model.getInstance().addReport(exampleSourceReport);
-        assertTrue(Model.getInstance().getReports().contains(exampleSourceReport));
+        SourceRepository.addReport(exampleSourceReport);
+        assertTrue(SourceRepository.getReports().contains(exampleSourceReport));
     }
 
     @Test
     public void addReport_null_param() throws Exception {
         exampleSourceReport.setReporterName(null);
-        Model.getInstance().addReport(exampleSourceReport);
-        assertFalse(Model.getInstance().getReports().contains(exampleSourceReport));
+        SourceRepository.addReport(exampleSourceReport);
+        assertFalse(SourceRepository.getReports().contains(exampleSourceReport));
     }
 
     @Test
     public void addReport_same_param() throws Exception {
-        Report reportCopy = exampleSourceReport;
-        Model.getInstance().addReport(exampleSourceReport);
-        Model.getInstance().addReport(reportCopy);
-        assertFalse(Model.getInstance().getReports().size() > 1);
+        WaterSourceReport reportCopy = exampleSourceReport;
+        SourceRepository.addReport(exampleSourceReport);
+        SourceRepository.addReport(reportCopy);
+        assertFalse(SourceRepository.getReports().size() > 1);
     }
 
     @Test
@@ -57,8 +57,7 @@ public class SourceReportTest {
         exampleSourceReport.setReporterName(null);
         exampleSourceReport.setDateTime(null);
         exampleSourceReport.setReportNumber("-1");
-        Model.getInstance().addReport(exampleSourceReport);
-        assertFalse(Model.getInstance().getReports().contains(exampleSourceReport));
+        SourceRepository.addReport(exampleSourceReport);
+        assertFalse(SourceRepository.getReports().contains(exampleSourceReport));
     }
-
 }

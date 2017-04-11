@@ -11,9 +11,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.turboocelots.oasis.R;
-import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.PPMType;
+import com.turboocelots.oasis.models.QualityRepository;
 import com.turboocelots.oasis.models.User;
+import com.turboocelots.oasis.models.UserRepository;
 import com.turboocelots.oasis.models.WaterQualityReport;
 
 import java.util.List;
@@ -28,6 +29,8 @@ public class GenerateHistoricalReportActivity extends AppCompatActivity {
     private EditText longitude;
     private EditText latitude;
     private  TextView status;
+    private String userName;
+    private User currentUser;
 
 
     @Override
@@ -39,9 +42,12 @@ public class GenerateHistoricalReportActivity extends AppCompatActivity {
         latitude = (EditText) findViewById(R.id.lat_graph);
         status = (TextView) findViewById(R.id.status_graph);
         ppmSpinner = (Spinner) findViewById(R.id.PPM_graph);
-        final String username = (String) getIntent().getSerializableExtra("CurrentUser");
-        final User currentUser = Model.getInstance().getUser(username);
+        userName = (String) getIntent().getSerializableExtra("CurrentUser");
+        currentUser = UserRepository.getUser(userName);
 
+        if (currentUser == null) {
+            finish();
+        }
 
         final ArrayAdapter<PPMType> ppmTypeArrayAdapter = new ArrayAdapter<>
                 (this,android.R.layout.simple_spinner_item, PPMType.values());
@@ -53,8 +59,8 @@ public class GenerateHistoricalReportActivity extends AppCompatActivity {
         generateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<WaterQualityReport> selectedReports = Model.getInstance().
-                        generateSelectedReports(Integer.parseInt(year.getText().toString()),
+                List<WaterQualityReport> selectedReports = QualityRepository.
+                        selectReports(Integer.parseInt(year.getText().toString()),
                         Double.parseDouble(longitude.getText().toString()),
                         Double.parseDouble(latitude.getText().toString()));
 
@@ -84,7 +90,7 @@ public class GenerateHistoricalReportActivity extends AppCompatActivity {
                 Intent nextActivity  = new Intent(GenerateHistoricalReportActivity.this,
                         HomeActivity.class);
                 nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                nextActivity.putExtra("CurrentUser", userName);
                 startActivity(nextActivity);
             }
         });

@@ -130,6 +130,24 @@ public abstract class User {
      */
     public abstract UserType getUserType();
 
+
+    /**
+     * Permission for being able to submit Quality Reports
+     * Currently held by Workers
+     */
+
+    public boolean canSubmitQualityReport() {
+        return false;
+    }
+
+    /**
+     * Permission for being able to submit Water Source Reports
+     * Currently held by Reporters
+     */
+    public boolean canSubmitWaterSourceReport() {
+        return false;
+    }
+
     /**
      * Checks equality of users by username
      * @param o the object to compare user to

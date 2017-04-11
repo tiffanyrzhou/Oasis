@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
  */
 
 public class SelectedReportsTest {
-    private Report exampleSourceReport;
+    private WaterQualityReport exampleSourceReport;
     private Calendar date;
 
     @Before
@@ -22,7 +22,7 @@ public class SelectedReportsTest {
         date = Calendar.getInstance();
         date.set(2017, 3, 16);
         Timestamp timestamp = new Timestamp(date.getTimeInMillis());
-        Model.getInstance().clear(); // Clear the entire Model instance
+        QualityRepository.clear(); // Clear the entire UserRepository instance
         String reportNumber = "0000001";
         String reporterName = "Michael";
         double reportLat = 40.7635569;
@@ -38,22 +38,22 @@ public class SelectedReportsTest {
     @Test
     public void checkNearbyPurityReport() throws Exception {
         //valid location coordinates
-        Model.getInstance().addReport(exampleSourceReport);
-        assertTrue(Model.getInstance().generateSelectedReports(date.get(Calendar.YEAR), 40.7635569, -73.972309).size() > 0);
+        QualityRepository.addReport(exampleSourceReport);
+        assertTrue(QualityRepository.selectReports(date.get(Calendar.YEAR), 40.7635569, -73.972309).size() > 0);
     }
 
     @Test
     public void checkWrongYear() throws Exception {
         //invalid location coordinates
-        Model.getInstance().addReport(exampleSourceReport);
-        assertFalse(Model.getInstance().generateSelectedReports(date.get(Calendar.YEAR) - 1, 40.7635569, -73.972309).size() > 0);
+        QualityRepository.addReport(exampleSourceReport);
+        assertFalse(QualityRepository.selectReports(date.get(Calendar.YEAR) - 1, 40.7635569, -73.972309).size() > 0);
     }
 
 
     @Test
     public void checkWrongCoordinate() throws Exception {
         //invalid location coordinates
-        Model.getInstance().addReport(exampleSourceReport);
-        assertFalse(Model.getInstance().generateSelectedReports(date.get(Calendar.YEAR) - 1, 41.7635569, -73.972309).size() > 0);
+        QualityRepository.addReport(exampleSourceReport);
+        assertFalse(QualityRepository.selectReports(date.get(Calendar.YEAR) - 1, 41.7635569, -73.972309).size() > 0);
     }
 }
