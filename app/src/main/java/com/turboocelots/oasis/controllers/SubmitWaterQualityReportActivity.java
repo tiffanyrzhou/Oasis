@@ -65,7 +65,7 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
         overallConditionSpinner.setAdapter(conditionArrayAdapter);
         datetime.setText(Calendar.getInstance().getTime().toString());
         reporterName.setText(getString(R.string.submit_report_reporter_name,
-                currentUser.getUsername()));
+                username));
         reportNumber.setText(getString(R.string.submit_report_report_number,
                 QualityRepository.getReports().size()));
 
@@ -75,7 +75,7 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
                 Intent nextActivity  = new Intent(SubmitWaterQualityReportActivity.this,
                         HomeActivity.class);
                 nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                nextActivity.putExtra("CurrentUser", username);
                 startActivity(nextActivity);
             }
         });
@@ -88,7 +88,7 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
                     Intent nextActivity  = new Intent(SubmitWaterQualityReportActivity.this,
                             HomeActivity.class);
                     nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                    nextActivity.putExtra("CurrentUser", username);
                     startActivity(nextActivity);
                 }
             }

@@ -44,8 +44,8 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
     private double parsedLat;
     private double parsedLng;
 
-    String userName;
-    User currentUser;
+    private String userName;
+    private User currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
