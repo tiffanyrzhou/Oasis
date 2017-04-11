@@ -27,7 +27,6 @@ public class qualityReportTest {
         double contaminantsPPM = 12;
 
         exampleQualityReport = new WaterQualityReport(reportNumber, dateTime, reporterName, reportLat, reportLong, oCondition, virusPPM, contaminantsPPM);
-        model = new Model();
     }
 
     @Test
