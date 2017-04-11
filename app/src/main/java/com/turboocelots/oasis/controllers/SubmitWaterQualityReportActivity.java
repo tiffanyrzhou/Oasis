@@ -89,10 +89,10 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
      * returns true if successful, false if there was an error
      */
     private boolean addReport(){
-        double parsedVirusPPM = 0.0;
-        double parsedContaminantsPPM = 0.0;
-        double parsedLat = 0.0;
-        double parsedLng = 0.0;
+        double parsedVirusPPM;
+        double parsedContaminantsPPM;
+        double parsedLat;
+        double parsedLng;
 
         try {
             parsedLat = Double.parseDouble(this.reportLat.getText().toString());
@@ -138,6 +138,7 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
             contaminantsPPM.requestFocus();
             return false;
         }
+
         WaterQualityReport r =  new WaterQualityReport ((String)this.reportNumber.getText(), new Timestamp(this.currentDate.getTimeInMillis()),
                 (String) this.reporterName.getText(),
                 parsedLat,

@@ -71,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
     /**
      * Creates the Activity
-     * @param savedInstanceState
+     * @param savedInstanceState Bundle saved instance to restore Activity
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +113,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         mProgressView = findViewById(R.id.login_progress);
         userTypeSpinner = (Spinner) findViewById(R.id.userTypeSpinner_id);
 
-        ArrayAdapter<UserType> userTypeArrayAdapter = new ArrayAdapter<UserType>(this,android.R.layout.simple_spinner_item, UserType.values());
+        ArrayAdapter<UserType> userTypeArrayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, UserType.values());
         userTypeArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userTypeSpinner.setAdapter(userTypeArrayAdapter);
     }
@@ -206,17 +206,17 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
      */
 
     private boolean isUsernameValid(String username) {
-        return true;
+        return !username.contains(" ");
     }
 
     /**
      * Should check if the password has illegal characters
      * @param password the entered password
-     * @return
+     * @return whether or not the username is valid
      */
 
     private boolean isPasswordValid(String password) {
-        return true;
+        return !password.contains(" ");
     }
 
     /**
@@ -307,7 +307,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         };
 
         int ADDRESS = 0;
-        int IS_PRIMARY = 1;
     }
 
     /**
@@ -353,7 +352,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         /**
          * Transitions to the HomeActivity, passing the current username
          * using putExtra
-         * @param success
+         * @param success whether or not the was Task was successful
          */
         @Override
         protected void onPostExecute(final Boolean success) {

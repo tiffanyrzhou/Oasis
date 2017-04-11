@@ -4,17 +4,17 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 
 /**
- * Created by Tiffany on 3/7/17.
+ * Abstract class that represents a Report
  */
 
 public abstract class Report {
-    protected String reportNumber;
-    protected Timestamp dateTime;
-    protected String reporterName;
-    protected double reportLat;
-    protected double reportLong;
+    private String reportNumber;
+    private Timestamp dateTime;
+    private String reporterName;
+    private double reportLat;
+    private double reportLong;
 
-    public Report(String reportNumber, Timestamp dateTime, String reporterName, double reportLat, double reportLong){
+    Report(String reportNumber, Timestamp dateTime, String reporterName, double reportLat, double reportLong){
         this.reportNumber = reportNumber;
         this.dateTime = dateTime;
         this.reporterName = reporterName;
@@ -53,31 +53,32 @@ public abstract class Report {
         if (obj == null) {
             return false;
         }
-        if (!Report.class.isAssignableFrom(obj.getClass())) {
+        if (!(obj instanceof Report)) {
             return false;
         }
-        final Report other = (Report) obj;
 
-        if ((this.reportNumber == null)  || other.reportNumber == null) {
+        final Report other = (Report) obj;
+        if ((this.reportNumber == null || other.reportNumber == null)) {
             return false;
         }
-        return this.reportNumber.equals(other.reportNumber);
+        if (this.reportNumber.equals(other.reportNumber)) {
+            return true;
+        }
+        return false;
     }
 
     /**
-     * This method validates whether or not the given Report class
+     * This method validates whether or not the Report
      * has valid fields
-     * @param report
      * @return true if valid, false if invalid.
      */
-    public static boolean validateAttributes(Report report) {
+    public boolean isValid() {
         return (
-                (report.reportNumber != null)
-                && !report.reportNumber.equals("")
-                && (report.reporterName != null)
-                && !report.reporterName.equals("")
-                && report.dateTime != null
-                && isValidLatLng(report.reportLat, report.reportLong));
+                !(this.reportNumber == null)
+                && !this.reportNumber.equals("")
+                && !(this.reporterName == null)
+                && (this.dateTime != null)
+                && isValidLatLng(this.reportLat, this.reportLong));
     }
 
     private static boolean isValidLatLng(double lat, double lng){

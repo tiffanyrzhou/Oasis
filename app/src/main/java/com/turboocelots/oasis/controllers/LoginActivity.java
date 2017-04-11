@@ -106,16 +106,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void populateAutoComplete() {
-        if (!mayRequestContacts()) {
-            return;
-        }
-
         getLoaderManager().initLoader(0, null, this);
     }
 
-    private boolean mayRequestContacts() {
-        return false;
-    }
 
     /**
      * Callback received when a permissions request has been completed.
@@ -191,8 +184,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
 
     private boolean isUsernameValid(String username) {
-        return true;
-
+        return(!username.contains(" "));
     }
 
     /**
@@ -201,7 +193,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * @return whether the password is true or not
      */
     private boolean isPasswordValid(String password) {
-        return true;
+        return (!password.contains(" "));
     }
 
 
@@ -267,8 +259,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     /**
      * Add contacts to the autocomplete
-     * @param cursorLoader
-     * @param cursor
+     * @param cursorLoader the cursorLoader to load
+     * @param cursor the cursor at the current position
      */
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
@@ -308,7 +300,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         };
 
         int ADDRESS = 0;
-        int IS_PRIMARY = 1;
     }
 
     /**
@@ -331,7 +322,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             DbHelper uDbHelper = new DbHelper(getApplicationContext());
             SQLiteDatabase db = uDbHelper.getReadableDatabase();
 
-            return (UsersTable.isUserInDatabase(db, mUsername, mPassword));
+            boolean result = UsersTable.isUserInDatabase(db, mUsername, mPassword);
+            db.close();
+            return result;
         }
 
         @Override

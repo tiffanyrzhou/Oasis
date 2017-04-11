@@ -22,15 +22,15 @@ import java.util.List;
  */
 
 public final class UsersTable implements BaseColumns {
-    public static final String TABLE_NAME = "users";
-    public static final String COLUMN_NAME_USERNAME = "username";
-    public static final String COLUMN_NAME_PASSWORD = "password";
-    public static final String COLUMN_NAME_NAME = "full_name";
-    public static final String COLUMN_NAME_EMAIL = "email";
-    public static final String COLUMN_NAME_HOME = "home";
-    public static final String COLUMN_NAME_TITLE = "title";
-    public static final String COLUMN_NAME_PHONE = "phone";
-    public static final String COLUMN_NAME_USER_TYPE = "user_type";
+    private static final String TABLE_NAME = "users";
+    private static final String COLUMN_NAME_USERNAME = "username";
+    private static final String COLUMN_NAME_PASSWORD = "password";
+    private static final String COLUMN_NAME_NAME = "full_name";
+    private static final String COLUMN_NAME_EMAIL = "email";
+    private static final String COLUMN_NAME_HOME = "home";
+    private static final String COLUMN_NAME_TITLE = "title";
+    private static final String COLUMN_NAME_PHONE = "phone";
+    private static final String COLUMN_NAME_USER_TYPE = "user_type";
 
     public static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + UsersTable.TABLE_NAME;
     // Cannot be instantiated
@@ -79,9 +79,8 @@ public final class UsersTable implements BaseColumns {
                 sortOrder                                 // The sort order
         );
 
-        List<User> itemIds = new ArrayList<User>();
         while (cursor.moveToNext()) {
-            long itemId = cursor.getLong(cursor.getColumnIndexOrThrow(UsersTable._ID));
+            cursor.getLong(cursor.getColumnIndexOrThrow(UsersTable._ID));
             String username = cursor.getString(cursor.getColumnIndexOrThrow(UsersTable.COLUMN_NAME_USERNAME));
             String password = cursor.getString(cursor.getColumnIndexOrThrow(UsersTable.COLUMN_NAME_PASSWORD));
             String name = cursor.getString(cursor.getColumnIndexOrThrow(UsersTable.COLUMN_NAME_NAME));
@@ -136,7 +135,7 @@ public final class UsersTable implements BaseColumns {
                 sortOrder                                 // The sort order
         );
 
-        List<Long> itemIds = new ArrayList<Long>();
+        List<Long> itemIds = new ArrayList<>();
         while(cursor.moveToNext()) {
             long itemId = cursor.getLong(
                     cursor.getColumnIndexOrThrow(UsersTable._ID));
@@ -155,27 +154,14 @@ public final class UsersTable implements BaseColumns {
             values.put(UsersTable.COLUMN_NAME_PHONE, "");
             values.put(UsersTable.COLUMN_NAME_USER_TYPE, newUser.getUserType().toString());
             // Insert the new row, returning the primary key value of the new row
-            long newRowId = db.insert(UsersTable.TABLE_NAME, null, values);
+            db.insert(UsersTable.TABLE_NAME, null, values);
             Model.getInstance().addUser(newUser);
             return true;
         }
         return false;
     }
 
-    public static boolean updateUser(SQLiteDatabase db, User user) {
-        // Define a projection that specifies which columns from the database
-        // you will actually use after this query.
-        String[] projection = {
-                UsersTable._ID,
-                UsersTable.COLUMN_NAME_USERNAME,
-                UsersTable.COLUMN_NAME_PASSWORD,
-                UsersTable.COLUMN_NAME_NAME,
-                UsersTable.COLUMN_NAME_TITLE,
-                UsersTable.COLUMN_NAME_EMAIL,
-                UsersTable.COLUMN_NAME_HOME,
-                UsersTable.COLUMN_NAME_PHONE,
-                UsersTable.COLUMN_NAME_USER_TYPE
-        };
+    public static void updateUser(SQLiteDatabase db, User user) {
 
         // update results WHERE username = mUsername
 
@@ -192,9 +178,8 @@ public final class UsersTable implements BaseColumns {
         values.put(UsersTable.COLUMN_NAME_HOME, user.getHome());
         values.put(UsersTable.COLUMN_NAME_PHONE, user.getPhone());
         values.put(UsersTable.COLUMN_NAME_USER_TYPE, user.getUserType().toString());
-        // Insert the new row, returning the primary key value of the new row
-        long newRowId = db.update(UsersTable.TABLE_NAME, values, whereClause, whereArgs);
-        return true;
+        // Update the user
+        db.update(UsersTable.TABLE_NAME, values, whereClause, whereArgs);
     }
 
     public static boolean isUserInDatabase(SQLiteDatabase db, String username, String password) {
@@ -233,14 +218,14 @@ public final class UsersTable implements BaseColumns {
                 sortOrder                                 // The sort order
         );
 
-        List<User> itemIds = new ArrayList<User>();
+        List<User> itemIds = new ArrayList<>();
         while(cursor.moveToNext()) {
 
             String dbPassword = cursor.getString(cursor.getColumnIndexOrThrow(UsersTable.COLUMN_NAME_PASSWORD));
 
             if (password.equals(dbPassword)) {
 
-                long itemId = cursor.getLong(cursor.getColumnIndexOrThrow(UsersTable._ID));
+                cursor.getLong(cursor.getColumnIndexOrThrow(UsersTable._ID));
 
                 String name = cursor.getString(cursor.getColumnIndexOrThrow(UsersTable.COLUMN_NAME_NAME));
                 String title = cursor.getString(cursor.getColumnIndexOrThrow(UsersTable.COLUMN_NAME_TITLE));

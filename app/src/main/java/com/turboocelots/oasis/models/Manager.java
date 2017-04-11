@@ -2,12 +2,24 @@ package com.turboocelots.oasis.models;
 
 import com.turboocelots.oasis.models.Worker;
 
+
 /**
- * Created by jacobspeed on 2/20/17.
+ * A manager user
+ * Managers can do anything a Worker can do.
+ * Can view historical reports and trends of water purity.
+ * Can delete reports they deem inaccurate
  */
 
-
 public class Manager extends Worker {
+
+    /**
+     * Two parameter constructor representing bare minimum
+     * @param username the username of the new Manager
+     * @param password the password of the new Manager
+     */
+    public Manager(String username, String password) {
+        super(username, password);
+    }
     /**
      * Creates an instance of the Manager class
      * @param username the username of the manager

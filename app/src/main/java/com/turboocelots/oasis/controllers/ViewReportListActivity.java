@@ -15,10 +15,6 @@ import com.turboocelots.oasis.models.User;
 import java.util.List;
 
 public class ViewReportListActivity extends AppCompatActivity {
-    public List<String> reportDisplay;
-    public List<Report> waterSourceReports;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,10 +24,8 @@ public class ViewReportListActivity extends AppCompatActivity {
         final String username = (String) getIntent().getSerializableExtra("CurrentUser");
         final User currentUser = Model.getInstance().getUser(username);
 
-
-
         //Create listAdapter for ListView
-        ArrayAdapter<Report> reportListAdapter = new ArrayAdapter<Report>(this, android.R.layout.simple_list_item_1,
+        ArrayAdapter<Report> reportListAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
                 Model.getInstance().getReports());
         reportList.setAdapter(reportListAdapter);
 

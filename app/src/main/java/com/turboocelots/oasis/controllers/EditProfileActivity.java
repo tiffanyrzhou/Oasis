@@ -89,7 +89,7 @@ public class EditProfileActivity extends AppCompatActivity {
      *
      * @param view the button pressed
      */
-    protected void onCancelPressed(View view) {
+    private void onCancelPressed(View view) {
         finish();
     }
 
@@ -99,7 +99,7 @@ public class EditProfileActivity extends AppCompatActivity {
      * Then, exits the activity
      * @param view the EditProfile View
      */
-    protected void onSavePressed(View view) {
+    private void onSavePressed(View view) {
         final String username = (String) getIntent().getSerializableExtra("CurrentUser");
         final User currentUser = Model.getInstance().getUser(username);
         currentUser.setHome(homeAddressField.getText().toString());
@@ -139,8 +139,6 @@ public class EditProfileActivity extends AppCompatActivity {
             updateTask = null;
             if (success) {
                 finish();
-            } else {
-
             }
         }
 

@@ -19,13 +19,13 @@ import com.turboocelots.oasis.databases.SourceReportsTable;
 import com.turboocelots.oasis.databases.UsersTable;
 
 public class WelcomeActivity extends AppCompatActivity {
-    /**
-     * Instantiates the Welcome activity
-     * @param savedInstanceState
-     */
 
     private  LoadModelTask modelTask = null;
 
+    /**
+     * Instantiates the Welcome activity
+     * @param savedInstanceState Bundle saved instance to restore Activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,12 +111,6 @@ public class WelcomeActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(final Boolean success) {
             showProgress(false);
-
-            if (success) {
-
-            } else {
-                // TODO: print error
-            }
         }
 
         @Override

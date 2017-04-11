@@ -40,8 +40,8 @@ public class WaterSourceReport extends Report {
 
     @Override
     public String toString() {
-        return "Water Source Report: \n" + reporterName + "\n" + dateTime +"\n" + reportNumber + "\n" +
-                "Latitude: " + reportLat + "\n" + "Longitude: " + reportLong + "\n"
+        return "Water Source Report: \n" + this.getReporterName() + "\n" + this.getDateTime() +"\n" + this.getReportNumber() + "\n" +
+                "Latitude: " + this.getReportLat() + "\n" + "Longitude: " + this.getReportLong() + "\n"
                 + "Water Condition:" + waterCondition.toString() + "\n" +
                   " Water Type: "  + waterType.toString();
     }

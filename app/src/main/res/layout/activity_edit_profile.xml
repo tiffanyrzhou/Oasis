@@ -46,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/EditProfileView"
                 android:layout_alignStart="@+id/EditProfileView"
+                android:labelFor="@+id/editName"
                 android:layout_marginTop="21dp"
                 android:id="@+id/NameView" />
 
@@ -57,8 +58,7 @@
                 android:id="@+id/editName"
                 android:layout_below="@+id/NameView"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="12dp"
-                android:hint="@string/edit_profile_name_hint" />
+                android:layout_marginTop="12dp" />
 
             <TextView
                 android:text="@string/edit_profile_address_view"
@@ -90,12 +90,11 @@
                 android:labelFor="@+id/editUsername"
                 android:layout_alignStart="@+id/editName" />
 
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
+                android:inputType="none"
                 android:text="@string/edit_profile_username_hint"
-                android:ems="10"
                 android:id="@+id/editUsername"
                 android:layout_below="@+id/UsernameView"
                 android:layout_alignStart="@+id/UsernameView" />

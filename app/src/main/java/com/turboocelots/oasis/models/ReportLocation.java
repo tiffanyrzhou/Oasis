@@ -12,9 +12,8 @@ public class ReportLocation {
     private String description;
 
     /**
-     * constructor of  report location
-     * uses r to parse information
-     * @param r
+     * ReportLocation constructor
+     * @param r the Report object to pull data from
      */
     public ReportLocation(Report r) {
 
@@ -50,7 +49,7 @@ public class ReportLocation {
 
     /**
      * set the latitude of the report
-     * @param latitude
+     * @param latitude the latitude of the Report
      */
     public void setLatitude(double latitude) {
         this.latitude = latitude;
@@ -65,8 +64,8 @@ public class ReportLocation {
     }
 
     /**
-     * using title to set the title of report location
-     * @param title
+     * Using title to set the title of report location
+     * @param title the Title of the Report Location
      */
     public void setTitle(String title) {
         this.title = title;
@@ -81,8 +80,8 @@ public class ReportLocation {
     }
 
     /**
-     * set the description using the param
-     * @param description
+     * Set the description using the param
+     * @param description The description of the ReportLocation
      */
     public void setDescription(String description) {
         this.description = description;
@@ -97,8 +96,8 @@ public class ReportLocation {
     }
 
     /**
-     * sets the longitude
-     * @param longitude
+     * Sets the longitude
+     * @param longitude The longitude of the ReportLocation
      */
     public void setLongitude(double longitude) {
         this.longitude = longitude;

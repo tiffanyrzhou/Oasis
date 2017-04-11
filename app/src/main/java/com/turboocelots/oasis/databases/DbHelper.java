@@ -15,7 +15,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 
 public class DbHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 13;
+    private static final int DATABASE_VERSION = 15;
     private static final String DATABASE_NAME = "oasis.db";
 
 

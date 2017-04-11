@@ -1,10 +1,19 @@
 package com.turboocelots.oasis.models;
 
 /**
- * Created by Shane on 2/20/17.
+ * Represents a Worker
+ * Workers can create reports on water purity levels
  */
 
 public class Worker extends Reporter {
+    /**
+     * Two parameter constructor representing bare minimum Worker
+     * @param username the username of the new Worker
+     * @param password the password of the new Worker
+     */
+    public Worker(String username, String password) {
+        super(username, password);
+    }
 
     /**
      * Creates an instance of the Worker class.

@@ -81,12 +81,12 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
         reportNumber.setText(getString(R.string.submit_report_report_number, Model.getInstance().getReports().size()));
 
         // initialize spinner values
-        ArrayAdapter<TypeOfWater> waterTypeArrayAdapter = new ArrayAdapter<TypeOfWater>
+        ArrayAdapter<TypeOfWater> waterTypeArrayAdapter = new ArrayAdapter<>
                 (this,android.R.layout.simple_spinner_item, TypeOfWater.values());
         waterTypeArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         waterTypeSpinner.setAdapter(waterTypeArrayAdapter);
 
-        ArrayAdapter<ConditionOfWater> waterConditionArrayAdapter = new ArrayAdapter<ConditionOfWater>
+        ArrayAdapter<ConditionOfWater> waterConditionArrayAdapter = new ArrayAdapter<>
                 (this,android.R.layout.simple_spinner_item, ConditionOfWater.values());
         waterConditionArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         waterConditionSpinner.setAdapter(waterConditionArrayAdapter);
@@ -97,8 +97,8 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
      * @return true if successful, false if failed
      */
     private boolean addReport() {
-        double parsedLat = 0.0;
-        double parsedLng = 0.0;
+        double parsedLat;
+        double parsedLng;
         try {
             parsedLat = Double.parseDouble(this.reportLat.getText().toString());
         } catch (NumberFormatException ne)  {
@@ -122,6 +122,18 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
             return false;
         }
 
+        if (parsedLat < -90 || parsedLat > 90) {
+            reportLat.setError(getString(R.string.submit_report_lat_out_of_range));
+            reportLat.requestFocus();
+            return false;
+        }
+
+        if (parsedLng < -180 || parsedLat > 180) {
+            reportLong.setError(getString(R.string.submit_report_lng_out_of_range));
+            reportLong.requestFocus();
+            return false;
+        }
+
         WaterSourceReport r = new WaterSourceReport((String)this.reportNumber.getText(), new Timestamp(this.currentDate.getTimeInMillis()),
                 (String) this.reporterName.getText(),
                 parsedLat,
@@ -132,8 +144,7 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
         DbHelper uDbHelper = new DbHelper(getApplicationContext());
         SQLiteDatabase db = uDbHelper.getReadableDatabase();
         Model.getInstance().addReport(r);
-
-        SourceReportsTable.addQualityReport(db, r);
+        SourceReportsTable.addSourceReport(db, r);
         return true;
     }
 

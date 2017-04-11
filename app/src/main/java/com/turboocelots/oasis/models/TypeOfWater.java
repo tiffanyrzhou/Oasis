@@ -3,7 +3,8 @@ package com.turboocelots.oasis.models;
 import java.io.Serializable;
 
 /**
- * Created by Shane on 2/23/17.
+ * Enum that represents the water type.
+ * Currently includes Bottled, Well, Stream, Lake, Spring, Other
  */
 
 public enum TypeOfWater implements Serializable {
@@ -13,18 +14,9 @@ public enum TypeOfWater implements Serializable {
     LAKE ("Lake"),
     SPRING ("Spring"),
     OTHER ("Other");
-
-    private final String waterType;
-
     /**
      * Default constructor for TypeOfWater
-     * @param waterType
+     * @param waterType the String representation of the waterType
      */
-    TypeOfWater(String waterType) { this.waterType = waterType; }
-
-    /**
-     * Returns a String representation of waterType
-     * @return waterType
-     */
-    public String getWaterType() { return waterType; }
+    TypeOfWater(String waterType) {}
 }

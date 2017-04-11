@@ -3,26 +3,23 @@ package com.turboocelots.oasis.models;
 import java.io.Serializable;
 
 /**
- * Created by Tiffany on 3/7/17.
+ * Enum that represents the Overall Condition of the water
+ * Three categories: Safe, Treatable, Unsafe
  */
 
 public enum OverallCondition implements Serializable {
     Safe ("Safe"),
     Treatable ("Treatable"),
-    Unsafe ("Safe");
+    Unsafe ("Unsafe");
 
 
     private final String name;
 
     /**
      * default constructor
-     * @param name
+     * @param name the name of the condition
      */
     OverallCondition(String name) {
         this.name = name;
-    }
-
-    public String getName() {
-        return name;
     }
 }

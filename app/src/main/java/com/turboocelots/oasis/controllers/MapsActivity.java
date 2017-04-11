@@ -69,8 +69,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             googleMap.setMyLocationEnabled(true);
-        } else {
-
         }
         List<ReportLocation> locationList = getLocationList();
 
@@ -137,7 +135,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-    public Action getIndexApiAction() {
+    private Action getIndexApiAction() {
         Thing object = new Thing.Builder()
                 .setName("Maps Page") // TODO: Define a title for the content shown.
                 // TODO: Make sure this auto-generated URL is correct.

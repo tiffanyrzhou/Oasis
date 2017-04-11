@@ -68,7 +68,7 @@
 
         <activity android:name=".controllers.SubmitWaterQualityReportActivity" />
         <activity android:name=".controllers.GenerateHistoricalReportActivity" />
-        <activity android:name=".controllers.ViewHistoricalReportActivity"></activity>
+        <activity android:name=".controllers.ViewHistoricalReportActivity"/>
     </application>
 
 </manifest>

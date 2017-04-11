@@ -19,12 +19,22 @@ public class Model {
 
 
     /**
+     * Resets the model instance, clearing all Lists
+     */
+    public void clear() {
+        _users.clear();
+        _reports.clear();
+        selectedReport.clear();
+    }
+
+
+    /**
      * Makes a new model
      */
     public Model() {
-        _users = new ArrayList<User>();
-        _reports = new ArrayList<Report>();
-        selectedReport = new ArrayList<WaterQualityReport>();
+        _users = new ArrayList<>();
+        _reports = new ArrayList<>();
+        selectedReport = new ArrayList<>();
     }
 
     /**
@@ -94,7 +104,7 @@ public class Model {
      */
     public boolean addReport(Report report) {
         if (report == null) return false;
-        if (!Report.validateAttributes(report))  {
+        if (!report.isValid())  {
             return false;
         }
         if (!_reports.contains(report)) {
@@ -103,6 +113,4 @@ public class Model {
         }
         return false;
     }
-
-
 }

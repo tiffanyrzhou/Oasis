@@ -19,7 +19,7 @@ import com.turboocelots.oasis.models.WaterQualityReport;
 import java.util.HashMap;
 
 public class ViewHistoricalReportActivity extends AppCompatActivity {
-    private HashMap<Integer,Double> dataPoints = new HashMap<>();
+    private final HashMap<Integer,Double> dataPoints = new HashMap<>();
     //private Integer current = 0;
 
     @Override

@@ -3,7 +3,8 @@ package com.turboocelots.oasis.models;
 import java.sql.Timestamp;
 
 /**
- * Created by Tiffany on 3/7/17.
+ * Represents a WaterQualityReport
+ * A report that includes OverallCondition, virusPPm, and contaminantsPPM
  */
 
 public class WaterQualityReport extends Report {
@@ -24,7 +25,7 @@ public class WaterQualityReport extends Report {
      */
     public WaterQualityReport(String reportNumber, Timestamp dateTime, String reporterName,
                               double reportLat, double reportLong,
-                              OverallCondition oCondition, double virusPPM, double contaminantsPPM){
+                              OverallCondition oCondition, double virusPPM, double contaminantsPPM) {
         super(reportNumber,dateTime,reporterName,reportLat,reportLong);
         this.oCondition = oCondition;
         this.virusPPM = virusPPM;
@@ -57,11 +58,10 @@ public class WaterQualityReport extends Report {
 
     @Override
     public String toString(){
-        return   "Water Quality Report: \n "+reporterName + "\n" + dateTime +"\n" + reportNumber + "\n" +
-                "Latitude: " + reportLat + "\n" + "Longitude: " + reportLong + "\n"
+        return   "Water Quality Report: \n "+this.getReporterName() + "\n" + this.getDateTime() +"\n" + this.getReportNumber() + "\n" +
+                "Latitude: " + this.getReportLat() + "\n" + "Longitude: " + this.getReportLong() + "\n"
                 + "Overall Condition:" + oCondition.toString() + "\n" +
                 " Virus PPM: "  +virusPPM+ "\n" +  " Contaminants PPM: "  + contaminantsPPM;
-
     }
 
 

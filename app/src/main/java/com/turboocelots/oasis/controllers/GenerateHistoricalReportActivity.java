@@ -37,7 +37,7 @@ public class GenerateHistoricalReportActivity extends AppCompatActivity {
         final User currentUser = Model.getInstance().getUser(username);
 
 
-        final ArrayAdapter<PPMType> ppmTypeArrayAdapter = new ArrayAdapter<PPMType>
+        final ArrayAdapter<PPMType> ppmTypeArrayAdapter = new ArrayAdapter<>
                 (this,android.R.layout.simple_spinner_item, PPMType.values());
         ppmTypeArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ppmSpinner.setAdapter(ppmTypeArrayAdapter);

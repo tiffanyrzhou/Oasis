@@ -18,13 +18,7 @@ public enum UserTitle implements Serializable {
 
     /**
      * Default constructor for UserTitle
-     * @param userTitleName
+     * @param userTitleName the String that represents userTitleName
      */
     UserTitle(String userTitleName) { this.userTitleName = userTitleName;}
-
-    /**
-     * Returns string representation of userTitleName
-     * @return userTitleName
-     */
-    public String getUserTitleName() {return userTitleName; }
 }
