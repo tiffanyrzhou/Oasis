@@ -11,12 +11,13 @@ import static org.junit.Assert.*;
  * Created by jacobspeed on 4/10/17.
  */
 
-public class qualityReportTest {
-    Model model;
-    Report exampleQualityReport;
+public class QualityReportTest {
+
+    WaterQualityReport exampleQualityReport;
 
     @Before
     public void setUp() throws Exception {
+        QualityRepository.clear();
         String reportNumber = "000001";
         Timestamp dateTime = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
         String reporterName = "Jacob";
@@ -27,38 +28,37 @@ public class qualityReportTest {
         double contaminantsPPM = 12;
 
         exampleQualityReport = new WaterQualityReport(reportNumber, dateTime, reporterName, reportLat, reportLong, oCondition, virusPPM, contaminantsPPM);
-        model = new Model();
     }
 
     @Test
     public void addReport_full_parameters() throws Exception {
-        model.getInstance().addReport(exampleQualityReport);
-        assertTrue(model.getInstance().getReports().contains(exampleQualityReport));
+        QualityRepository.addReport(exampleQualityReport);
+        assertTrue(QualityRepository.getReports().contains(exampleQualityReport));
     }
 
     @Test
     public void addReport_null_parameters() throws Exception {
         exampleQualityReport.setReporterName(null);
-        model.getInstance().addReport(exampleQualityReport);
-        assertFalse(model.getInstance().getReports().contains(exampleQualityReport));
+        QualityRepository.addReport(exampleQualityReport);
+        assertFalse(QualityRepository.getReports().contains(exampleQualityReport));
     }
 
     @Test
     public void addReport_same_parameters() throws Exception {
-        Report reportCopy = exampleQualityReport;
-        model.getInstance().addReport(exampleQualityReport);
-        model.getInstance().addReport(reportCopy);
-        assertFalse(model.getInstance().getReports().contains(exampleQualityReport) && model.getReports().contains(reportCopy));
+        WaterQualityReport reportCopy = exampleQualityReport;
+        QualityRepository.addReport(exampleQualityReport);
+        QualityRepository.addReport(reportCopy);
+        assertFalse(QualityRepository.getReports().contains(exampleQualityReport) && QualityRepository.getReports().contains(reportCopy));
     }
 
     @Test
     public void addReport_all_invalid_parameters() throws Exception {
-        exampleQualityReport.setReportLocation(495875437);
+        exampleQualityReport.setReportLat(495875437);
         exampleQualityReport.setReportLong(354354332);
         exampleQualityReport.setReporterName(null);
         exampleQualityReport.setDateTime(null);
         exampleQualityReport.setReportNumber("-5");
-        model.getInstance().addReport(exampleQualityReport);
-        assertFalse(model.getInstance().getReports().contains(exampleQualityReport));
+        QualityRepository.addReport(exampleQualityReport);
+        assertFalse(QualityRepository.getReports().contains(exampleQualityReport));
     }
 }
