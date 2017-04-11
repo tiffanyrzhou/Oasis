@@ -1,27 +1,29 @@
 package com.turboocelots.oasis.models;
 
-import com.turboocelots.oasis.models.Manager;
-
 /**
- * Created by Shane on 2/20/17.
+ * The Administrator class.
+ * Special account for maintenance of system.
+ * Can Delete any accounts, ban a user, and unblock an account
+ * that has been locked.
+ * Can view security logs
  */
 
 public class Administrator extends User {
 
     /**
-     * Legacy constructor for Reporter class
-     * Fills in extra parameters with empty strings
-     * @param username the username of the Reporter
-     * @param password the password of the Reporter
+     * Two parameter constructor representing bare minimum
+     * @param username the username of the new Administrator
+     * @param password the password of the new Administrator
      */
     public Administrator(String username, String password) {
-        this("", username, password, "", "", UserTitle.NA, "");
+        super(username, password);
     }
 
     /**
      * Creates an instance of the Administrator class.
      * @param username the username of the Administrator
      * @param password the password of the Administrator
+     * @param name the name of the Administrator
      * @param email the email of the Administrator
      * @param home the home address of the Administrator
      * @param title the title of the Administrator
@@ -29,16 +31,10 @@ public class Administrator extends User {
      */
     public Administrator(String username, String password, String name,
                          String email, String home, UserTitle title, String phone) {
-        _name = name;
-        _username = username;
-        _password = password;
-        _email = email;
-        _home = home;
-        _title = title;
-        _phone = phone;
-        _userType = UserType.Administrator;
+        super(username, name, password, email, home, title, phone);
     }
 
+    @Override
     public UserType getUserType(){
         return UserType.Administrator;
     }

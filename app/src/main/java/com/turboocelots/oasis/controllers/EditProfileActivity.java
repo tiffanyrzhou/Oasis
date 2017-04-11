@@ -1,6 +1,5 @@
 package com.turboocelots.oasis.controllers;
 
-import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -16,16 +15,20 @@ import android.widget.ArrayAdapter;
 import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.databases.DbHelper;
 import com.turboocelots.oasis.databases.UsersTable;
-import com.turboocelots.oasis.models.*;
+import com.turboocelots.oasis.models.Model;
+import com.turboocelots.oasis.models.User;
+import com.turboocelots.oasis.models.UserTitle;
 
-
+/**
+ * Activity for EditProfile
+ * Allows the User to modify their profile information
+ */
 public class EditProfileActivity extends AppCompatActivity {
 
     /* ************************
      Widgets we will need for binding and getting information
   */
     private EditText nameField;
-    private TextView usernameField;
     private EditText passwordField;
     private EditText emailField;
     private EditText homeAddressField;
@@ -47,9 +50,13 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
         final String username = (String) getIntent().getSerializableExtra("CurrentUser");
         final User currentUser = Model.getInstance().getUser(username);
+        if (currentUser == null) {
+            finish();
+        }
 
         final Button cancelButton = (Button) findViewById(R.id.EditProfileCancel);
         cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 onCancelPressed(v);
             }
@@ -57,6 +64,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         final Button saveButton = (Button) findViewById(R.id.EditProfileSave);
         saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 onSavePressed(v);
             }
@@ -64,7 +72,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         // Grab the dialog widgets so we can get info for later
         nameField = (EditText) findViewById(R.id.editName);
-        usernameField = (TextView) findViewById(R.id.editUsername);
+        TextView usernameField = (TextView) findViewById(R.id.editUsername);
         passwordField = (EditText) findViewById(R.id.editPassword);
         emailField = (EditText) findViewById(R.id.editEmail);
         homeAddressField = (EditText) findViewById(R.id.editHomeAddress);
@@ -72,8 +80,10 @@ public class EditProfileActivity extends AppCompatActivity {
 
         userTitleSpinner = (Spinner)findViewById(R.id.TitleSpinner);
 
-        ArrayAdapter<UserTitle> userTitleArrayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, UserTitle.values());
-        userTitleArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<UserTitle> userTitleArrayAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, UserTitle.values());
+        userTitleArrayAdapter.setDropDownViewResource(
+                android.R.layout.simple_spinner_dropdown_item);
         userTitleSpinner.setAdapter(userTitleArrayAdapter);
 
         usernameField.setText(currentUser.getUsername());
@@ -86,12 +96,7 @@ public class EditProfileActivity extends AppCompatActivity {
         userTitleSpinner.setSelection(pos);
     }
 
-    /**
-     * Button handler for cancel
-     *
-     * @param view the button pressed
-     */
-    protected void onCancelPressed(View view) {
+    private void onCancelPressed(View view) {
         finish();
     }
 
@@ -101,7 +106,7 @@ public class EditProfileActivity extends AppCompatActivity {
      * Then, exits the activity
      * @param view the EditProfile View
      */
-    protected void onSavePressed(View view) {
+    private void onSavePressed(View view) {
         final String username = (String) getIntent().getSerializableExtra("CurrentUser");
         final User currentUser = Model.getInstance().getUser(username);
         currentUser.setHome(homeAddressField.getText().toString());
@@ -134,15 +139,13 @@ public class EditProfileActivity extends AppCompatActivity {
          * Transitions to the HomeActivity, passing the current username
          * using putExtra
          *
-         * @param success
+         * @param success whether or not the task was successful
          */
         @Override
         protected void onPostExecute(final Boolean success) {
             updateTask = null;
             if (success) {
                 finish();
-            } else {
-
             }
         }
 

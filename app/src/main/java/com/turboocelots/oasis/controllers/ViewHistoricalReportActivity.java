@@ -1,6 +1,5 @@
 package com.turboocelots.oasis.controllers;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,13 +12,16 @@ import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.PPMType;
-import com.turboocelots.oasis.models.User;
 import com.turboocelots.oasis.models.WaterQualityReport;
 
 import java.util.HashMap;
+import java.util.List;
 
+/**
+ * Activity that allows you to graph Historical Water Quality Data
+ */
 public class ViewHistoricalReportActivity extends AppCompatActivity {
-    private HashMap<Integer,Double> dataPoints = new HashMap<>();
+    private final HashMap<Integer,Double> dataPoints = new HashMap<>();
     //private Integer current = 0;
 
     @Override
@@ -27,42 +29,24 @@ public class ViewHistoricalReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_historical_report);
         final PPMType currentType = (PPMType) getIntent().getSerializableExtra("CurrentType");
-        final  Integer currentYear = (Integer) getIntent().getSerializableExtra("CurrentYear");
-        final String username = (String) getIntent().getSerializableExtra("CurrentUser");
-        final User currentUser =  Model.getInstance().getUser(username);
-
+        final Integer currentYear = (Integer) getIntent().getSerializableExtra("CurrentYear");
+        final Double lat = (Double) getIntent().getSerializableExtra("Lat");
+        final Double lng = (Double) getIntent().getSerializableExtra("Lng");
 
         final Button backButton = (Button) findViewById(R.id.backToHome_button);
         backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-                Intent nextActivity  = new Intent(ViewHistoricalReportActivity.this, HomeActivity.class);
-                nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                nextActivity.putExtra("CurrentUser", currentUser.getUsername());
-                startActivity(nextActivity);
+                finish();
             }
         });
         GraphView graph = (GraphView) findViewById(R.id.graph);
         PointsGraphSeries<DataPoint> series = new PointsGraphSeries<>(new DataPoint[] {
         });
         series.setShape(PointsGraphSeries.Shape.POINT);
-        for (WaterQualityReport r : Model.getInstance().get_reports_Selected()){
-                if (currentType.equals(PPMType.VIRUS)) {
-                    if (dataPoints.containsKey(r.getMonth() + 1)) {
-                        dataPoints.put(r.getMonth() + 1, (dataPoints.get(r.getMonth() + 1) + r.getVirusPPM()) / 2);
-                    } else {
-                        dataPoints.put(r.getMonth() + 1, r.getVirusPPM());
-                    }
-                } else {
-                    if (dataPoints.containsKey(r.getMonth() + 1)) {
-                        dataPoints.put(r.getMonth() + 1, (dataPoints.get(r.getMonth() + 1) +
-                                r.getContaminantsPPM()) / 2);
-                    } else {
-                        dataPoints.put(r.getMonth() + 1, r.getContaminantsPPM());
-                    }
-                }
-        }
-        // clearing selectedReport after each generation of Historical Report
-        Model.getInstance().get_reports_Selected().clear();
+        List<WaterQualityReport> selectedReports =
+                Model.getInstance().generateSelectedReports(currentYear, lat, lng);
+        getDataPoints(currentType, selectedReports);
 
         for (Integer m : dataPoints.keySet()) {
             series.appendData(new DataPoint(m, dataPoints.get(m)),true, 20);
@@ -77,7 +61,26 @@ public class ViewHistoricalReportActivity extends AppCompatActivity {
         glr.setPadding(32);
         glr.setHorizontalAxisTitle("Month " + currentYear);
         glr.setVerticalAxisTitle("PPM Level: " + currentType.toString());
+    }
 
+    private void getDataPoints(PPMType type, Iterable<WaterQualityReport> selectedReports) {
+        for (WaterQualityReport r : selectedReports){
+            if (type.equals(PPMType.VIRUS)) {
+                if (dataPoints.containsKey(r.getMonth() + 1)) {
+                    dataPoints.put(r.getMonth() + 1, (dataPoints.get(r.getMonth() + 1) + r.
+                            getVirusPPM()) / 2);
+                } else {
+                    dataPoints.put(r.getMonth() + 1, r.getVirusPPM());
+                }
+            } else {
+                if (dataPoints.containsKey(r.getMonth() + 1)) {
+                    dataPoints.put(r.getMonth() + 1, (dataPoints.get(r.getMonth() + 1) +
+                            r.getContaminantsPPM()) / 2);
+                } else {
+                    dataPoints.put(r.getMonth() + 1, r.getContaminantsPPM());
+                }
+            }
+        }
 
     }
 }

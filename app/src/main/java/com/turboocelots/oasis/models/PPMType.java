@@ -3,24 +3,17 @@ package com.turboocelots.oasis.models;
 import java.io.Serializable;
 
 /**
- * Created by jacobspeed on 3/27/17.
+ * Enum that represents the metrics the PPM represents
+ * Currently includes Viruses and Contaminants
  */
 
 public enum PPMType implements Serializable {
     VIRUS ("Viruses"),
     CONTAM ("Contaminants");
 
-    private final String ppmType;
-
     /**
      * Default constructor for PPMType
-     * @param ppmType
+     * @param ppmType the string representation of ppmType
      */
-    PPMType(String ppmType) { this.ppmType = ppmType; }
-
-    /**
-     * Returns a String representation of ppmType
-     * @return ppmType
-     */
-    public String getPPMType() { return ppmType; }
+    PPMType(String ppmType) { }
 }

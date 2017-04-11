@@ -1,10 +1,10 @@
 package com.turboocelots.oasis.models;
 
 import java.sql.Timestamp;
-import java.util.Calendar;
 
 /**
- * Created by Tiffany on 3/7/17.
+ * Represents a WaterQualityReport
+ * A report that includes OverallCondition, virusPPm, and contaminantsPPM
  */
 
 public class WaterQualityReport extends Report {
@@ -25,44 +25,83 @@ public class WaterQualityReport extends Report {
      */
     public WaterQualityReport(String reportNumber, Timestamp dateTime, String reporterName,
                               double reportLat, double reportLong,
-                              OverallCondition oCondition, double virusPPM, double contaminantsPPM){
+                              OverallCondition oCondition, double virusPPM,
+                              double contaminantsPPM) {
         super(reportNumber,dateTime,reporterName,reportLat,reportLong);
         this.oCondition = oCondition;
         this.virusPPM = virusPPM;
         this.contaminantsPPM =contaminantsPPM;
     }
 
+    /**
+     * Gets the overall condition
+     * @return the OverallCondition
+     */
     public OverallCondition getOverallCondition() {
         return oCondition;
     }
 
+    /**
+     * Sets the overall Condition
+     * @param oCondition the new OverallCondition
+     */
     public void setOverallCondition(OverallCondition oCondition) {
         this.oCondition = oCondition;
     }
 
+    /**
+     * Gets the virus ppm
+     * @return the virus ppm
+     */
     public Double getVirusPPM() {
         return virusPPM;
     }
 
+    /**
+     * Sets the virus ppm
+     * @param virusPPM the new PPM to set
+     */
     public void setVirusPPM(double virusPPM) {
         this.virusPPM = virusPPM;
     }
 
+    /**
+     * Gets the contaminants PPM
+     * @return the contaminantsPPM
+     */
     public Double getContaminantsPPM() {
         return contaminantsPPM;
     }
 
+    /**
+     * Sets the contaminants PPM
+     * @param contaminantsPPM the ppm to set
+     */
     public void setContaminantsPPM(double contaminantsPPM) {
         this.contaminantsPPM = contaminantsPPM;
     }
 
     @Override
+    public String getTitle() {
+        return this.getDateTime() + " " + this.getOverallCondition();
+    }
+
+    @Override
+    public String getDescription() {
+        return this.getReporterName() + "\n" + this.getDateTime() + "\n"
+                + "Overall Condition:" + this.getOverallCondition() + "\n" +
+                " Virus PPM: "  + this.getVirusPPM()+ "\n" +  " Contaminants PPM: "
+                +  this.getContaminantsPPM() + "\n"+ this.getReportNumber();
+    }
+
+    @Override
     public String toString(){
-        return   "Water Quality Report: \n "+reporterName + "\n" + dateTime +"\n" + reportNumber + "\n" +
-                "Latitude: " + reportLat + "\n" + "Longitude: " + reportLong + "\n"
+        return   "Water Quality Report: \n "+this.getReporterName() + "\n" + this.getDateTime() +
+                "\n" + this.getReportNumber() + "\n" +
+                "Latitude: " + this.getReportLat() + "\n" + "Longitude: "
+                + this.getReportLong() + "\n"
                 + "Overall Condition:" + oCondition.toString() + "\n" +
                 " Virus PPM: "  +virusPPM+ "\n" +  " Contaminants PPM: "  + contaminantsPPM;
-
     }
 
 

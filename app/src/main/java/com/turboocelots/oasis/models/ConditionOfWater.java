@@ -12,20 +12,10 @@ public enum ConditionOfWater implements Serializable{
     CLEAR ("Treatable-Clear"),
     MUDDY ("Treatable-Muddy"),
     POTABLE ("Potable");
-
-    private final String waterCondition;
-
     /**
      * Default constructor for ConditionOfWater
      * @param waterCondition the condition of the water
      */
 
-    ConditionOfWater(String waterCondition) {this.waterCondition = waterCondition;}
-
-    /**
-     * Returns string representation of waterCondition
-     * @return waterCondition
-     */
-
-    public String getWaterCondition() {return waterCondition;}
+    ConditionOfWater(String waterCondition) {}
 }

@@ -28,15 +28,16 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.Report;
-import com.turboocelots.oasis.models.WaterSourceReport;
 import com.turboocelots.oasis.models.ReportLocation;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity for visualizing all Report locations on Google Maps
+ */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -68,20 +69,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-            mMap.setMyLocationEnabled(true);
-        } else {
-
+            googleMap.setMyLocationEnabled(true);
         }
         List<ReportLocation> locationList = getLocationList();
 
         for (ReportLocation loc : locationList) {
             LatLng latLong = new LatLng(loc.getLatitude(), loc.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(latLong).title(loc.getTitle()).snippet(loc.getDescription()));
+            googleMap.addMarker(new MarkerOptions().position(latLong).title(
+                    loc.getTitle()).snippet(loc.getDescription()));
 
-            mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+            googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
                 @Override
                 public View getInfoWindow(Marker arg0) {
@@ -91,7 +90,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 @Override
                 public View getInfoContents(Marker marker) {
 
-                    Context context = getApplicationContext(); //or getActivity(), YourActivity.this, etc.
+                    Context context = getApplicationContext();
 
                     LinearLayout info = new LinearLayout(context);
                     info.setOrientation(LinearLayout.VERTICAL);
@@ -113,10 +112,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             });
         }
-        if(locationList.size()>0) {
+        if(!locationList.isEmpty()) {
             ReportLocation lastLocation = locationList.get(locationList.size() - 1);
             LatLng lastLatLng = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(lastLatLng));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(lastLatLng));
 
         }
     }
@@ -131,7 +130,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (Report r : reports) {
             ReportLocation l = new ReportLocation(r);
             listLoc.add(l);
-
         }
         return listLoc;
     }
@@ -140,10 +138,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-    public Action getIndexApiAction() {
+    private Action getIndexApiAction() {
         Thing object = new Thing.Builder()
-                .setName("Maps Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
+                .setName("Maps Page")
                 .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
                 .build();
         return new Action.Builder(Action.TYPE_VIEW)

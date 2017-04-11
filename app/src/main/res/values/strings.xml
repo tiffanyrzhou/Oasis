@@ -8,11 +8,13 @@
     <string name="action_register">Register</string>
     <string name="action_cancel">Cancel</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_username">This username is invalid. A username cannot have spaces.</string>
+    <string name="error_invalid_username">This username is invalid. A username cannot have spaces.
+    </string>
     <string name="error_used_username">This username has already been used</string>
 
     <string name="error_invalid_password">This password is invalid</string>
-    <string name="error_invalid_combination">This username and password combination is invalid</string>
+    <string name="error_invalid_combination">This username and password combination is invalid
+    </string>
 
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
@@ -28,7 +30,7 @@
     <string name="error_invalid_number">Please enter a number.</string>
 
     <!-- Strings Related to Register Form -->
-    <string name="edit_profile_title_view">Register</string>
+    <string name="edit_profile_title_view">Title</string>
     <string name="edit_profile_name_view">Name</string>
     <string name="edit_profile_name_hint">Enter Name</string>
     <string name="edit_profile_address_view">Home Address</string>
@@ -42,14 +44,16 @@
     <string name="edit_profile_phone_view">Phone Number</string>
     <string name="edit_profile_phone_hint">Enter Phone Number</string>
     <string name="edit_profile_cancel_button">Cancel</string>
-    <string name="edit_profile_add_button">Add</string>
+    <string name="edit_profile_add_button">Save</string>
 
     <!-- Strings related to Generate Historical Report Activity !-->
-    <string name="generate_historical_report_activity_no_available_data">No available data for the current selections.</string>
+    <string name="generate_historical_report_activity_no_available_data">
+        No available data for the current selections.</string>
 
     <string name="generate_historical_report_activity_year_view">Year</string>
     <string name="generate_historical_report_activity_ppm_view">PPM Type</string>
-    <string name="generate_historical_report_activity_generate_report_button">Generate Report</string>
+    <string name="generate_historical_report_activity_generate_report_button">
+        Generate Report</string>
     <string name="generate_historical_report_activity_cancel_button">Cancel</string>
 
     <!-- Home Activity !-->
@@ -82,7 +86,8 @@
     <!-- Submit Water Quality Report Activity !-->
     <string name="submit_report_reporter_name">Reporter Username: %s</string>
     <string name="submit_report_report_number">Report Number: %d</string>
-
+    <string name="submit_report_lat_out_of_range">Latitude must be between -90 and 90</string>
+    <string name="submit_report_lng_out_of_range">Longitude must be between -180 and 180</string>
 
 
 </resources>

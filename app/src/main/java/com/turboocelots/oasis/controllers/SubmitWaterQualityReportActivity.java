@@ -22,9 +22,11 @@ import com.turboocelots.oasis.models.WaterQualityReport;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
+/**
+ * Activity that controls the form for submitting the WaterQualityReports
+ */
 public class SubmitWaterQualityReportActivity extends AppCompatActivity {
 
-    private TextView datetime;
     private TextView reporterName;
     private TextView reportNumber;
     private EditText reportLat;
@@ -32,7 +34,10 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
     private Spinner overallConditionSpinner;
     private EditText virusPPM;
     private  EditText contaminantsPPM;
-    private Calendar currentDate;
+    private double parsedVirusPPM;
+    private double parsedContaminantsPPM;
+    private double parsedLat;
+    private double parsedLng;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +45,7 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
         final String username = (String) getIntent().getSerializableExtra("CurrentUser");
         final User currentUser = Model.getInstance().getUser(username);
 
-        datetime = (TextView) findViewById(R.id.dateTime_WQ);
+        TextView datetime = (TextView) findViewById(R.id.dateTime_WQ);
         reporterName = (TextView) findViewById(R.id.reporterName_WQ);
         reportNumber = (TextView) findViewById(R.id.reportNumber_WQ);
         reportLat = (EditText) findViewById(R.id.lat_WQ);
@@ -52,18 +57,22 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
         Button cancel = (Button) findViewById(R.id.cancel_WQ);
 
         overallConditionSpinner = (Spinner) findViewById(R.id.overallCondition_WQ);
-        ArrayAdapter<OverallCondition> conditionArrayAdapter = new ArrayAdapter<OverallCondition>
+        ArrayAdapter<OverallCondition> conditionArrayAdapter = new ArrayAdapter<>
                 (this,android.R.layout.simple_spinner_item, OverallCondition.values());
-        conditionArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        conditionArrayAdapter.setDropDownViewResource(
+                android.R.layout.simple_spinner_dropdown_item);
         overallConditionSpinner.setAdapter(conditionArrayAdapter);
-        currentDate = Calendar.getInstance();
-        datetime.setText(currentDate.DATE + "" + currentDate.getTime());
-        reporterName.setText(getString(R.string.submit_report_reporter_name, currentUser.getUsername()));
-        reportNumber.setText(getString(R.string.submit_report_report_number, Model.getInstance().getReports().size()));
+        datetime.setText(Calendar.getInstance().getTime().toString());
+        reporterName.setText(getString(R.string.submit_report_reporter_name,
+                currentUser.getUsername()));
+        reportNumber.setText(getString(R.string.submit_report_report_number,
+                Model.getInstance().getReports().size()));
 
         cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-                Intent nextActivity  = new Intent(SubmitWaterQualityReportActivity.this, HomeActivity.class);
+                Intent nextActivity  = new Intent(SubmitWaterQualityReportActivity.this,
+                        HomeActivity.class);
                 nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 nextActivity.putExtra("CurrentUser", currentUser.getUsername());
                 startActivity(nextActivity);
@@ -71,10 +80,12 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
         });
 
         submitReport.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 boolean success = addReport();
                 if (success) {
-                    Intent nextActivity  = new Intent(SubmitWaterQualityReportActivity.this, HomeActivity.class);
+                    Intent nextActivity  = new Intent(SubmitWaterQualityReportActivity.this,
+                            HomeActivity.class);
                     nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     nextActivity.putExtra("CurrentUser", currentUser.getUsername());
                     startActivity(nextActivity);
@@ -90,19 +101,29 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
      * returns true if successful, false if there was an error
      */
     private boolean addReport(){
-        double parsedVirusPPM = 0.0;
-        double parsedContaminantsPPM = 0.0;
-        double parsedLat = 0.0;
-        double parsedLng = 0.0;
+        if (!parseFields()) return false;
+        WaterQualityReport r =  new WaterQualityReport ((String)this.reportNumber.getText(),
+                new Timestamp(Calendar.getInstance().getTimeInMillis()),
+                (String) this.reporterName.getText(),
+                parsedLat,
+                parsedLng,
+                (OverallCondition) overallConditionSpinner.getSelectedItem(),
+                parsedVirusPPM, parsedContaminantsPPM);
+        DbHelper uDbHelper = new DbHelper(getApplicationContext());
+        SQLiteDatabase db = uDbHelper.getReadableDatabase();
+        boolean success = Model.getInstance().addReport(r);
+        if (success) {
+            QualityReportsTable.addQualityReport(db, r);
+        }
+        return success;
+    }
+
+    private boolean parseFields(){
 
         try {
             parsedLat = Double.parseDouble(this.reportLat.getText().toString());
         } catch (NumberFormatException ne)  {
             reportLat.setError(getString(R.string.error_invalid_number));
-            reportLat.requestFocus();
-            return false;
-        } catch (NullPointerException npe) {
-            reportLat.setError(getString(R.string.error_field_required));
             reportLat.requestFocus();
             return false;
         }
@@ -112,19 +133,11 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
             reportLong.setError(getString(R.string.error_invalid_number));
             reportLong.requestFocus();
             return false;
-        } catch (NullPointerException npe) {
-            reportLong.setError(getString(R.string.error_field_required));
-            reportLong.requestFocus();
-            return false;
         }
         try {
             parsedVirusPPM = Double.parseDouble(virusPPM.getText().toString());
         } catch (NumberFormatException nfe) {
             virusPPM.setError(getString(R.string.error_invalid_number));
-            virusPPM.requestFocus();
-            return false;
-        } catch (NullPointerException npe) {
-            virusPPM.setError(getString(R.string.error_field_required));
             virusPPM.requestFocus();
             return false;
         }
@@ -134,21 +147,7 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
             contaminantsPPM.setError(getString(R.string.error_invalid_number));
             contaminantsPPM.requestFocus();
             return false;
-        } catch (NullPointerException npe) {
-            contaminantsPPM.setError(getString(R.string.error_field_required));
-            contaminantsPPM.requestFocus();
-            return false;
         }
-        WaterQualityReport r =  new WaterQualityReport ((String)this.reportNumber.getText(), new Timestamp(this.currentDate.getTimeInMillis()),
-                (String) this.reporterName.getText(),
-                parsedLat,
-                parsedLng,
-                (OverallCondition) overallConditionSpinner.getSelectedItem(),
-                parsedVirusPPM, parsedContaminantsPPM);
-        DbHelper uDbHelper = new DbHelper(getApplicationContext());
-        SQLiteDatabase db = uDbHelper.getReadableDatabase();
-        Model.getInstance().addReport(r);
-        QualityReportsTable.addQualityReport(db, r);
         return true;
     }
 }

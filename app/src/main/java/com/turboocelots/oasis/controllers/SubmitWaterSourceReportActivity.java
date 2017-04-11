@@ -16,7 +16,6 @@ import java.util.Calendar;
 
 import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.databases.DbHelper;
-import com.turboocelots.oasis.databases.QualityReportsTable;
 import com.turboocelots.oasis.databases.SourceReportsTable;
 import com.turboocelots.oasis.models.ConditionOfWater;
 import com.turboocelots.oasis.models.Model;
@@ -24,16 +23,22 @@ import com.turboocelots.oasis.models.WaterSourceReport;
 import com.turboocelots.oasis.models.TypeOfWater;
 import com.turboocelots.oasis.models.User;
 
+/**
+ * Activity that controls Submitting the WaterSourceReports
+ */
 public class SubmitWaterSourceReportActivity extends AppCompatActivity {
-    private TextView datetime;
     private TextView reporterName;
     private TextView reportNumber;
     private EditText reportLat;
     private EditText reportLong;
     private Spinner waterTypeSpinner;
     private Spinner waterConditionSpinner;
-    private Calendar currentDate;
 
+
+    private final static double LOWEST_LAT = -90;
+    private final static double HIGHEST_LAT = 90;
+    private final static double LOWEST_LNG = -180;
+    private final static double HIGHEST_LNG = 180;
 
 
     @Override
@@ -43,7 +48,7 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
         final String username = (String) getIntent().getSerializableExtra("CurrentUser");
         final User currentUser = Model.getInstance().getUser(username);
         //find attributes by ID
-        datetime = (TextView) findViewById(R.id.date_time);
+        TextView datetime = (TextView) findViewById(R.id.date_time);
         reporterName = (TextView) findViewById(R.id.reporter_name);
         reportNumber = (TextView) findViewById(R.id.report_number);
         reportLat = (EditText) findViewById(R.id.lat_address);
@@ -55,19 +60,19 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
 
         //initialize buttons
         cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-                Intent nextActivity  = new Intent(SubmitWaterSourceReportActivity.this, HomeActivity.class);
-                nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                nextActivity.putExtra("CurrentUser", currentUser.getUsername());
-                startActivity(nextActivity);
+                finish();
             }
         });
 
         submitReport.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 boolean success = addReport();
-                if (success) {
-                    Intent nextActivity  = new Intent(SubmitWaterSourceReportActivity.this, HomeActivity.class);
+                if (success && (currentUser != null)) {
+                    Intent nextActivity  = new Intent(SubmitWaterSourceReportActivity.this,
+                            HomeActivity.class);
                     nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     nextActivity.putExtra("CurrentUser", currentUser.getUsername());
                     startActivity(nextActivity);
@@ -77,20 +82,23 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
         });
 
         // initialize text view
-        currentDate = Calendar.getInstance();
-        datetime.setText( currentDate.DATE + "" + currentDate.getTime());
-        reporterName.setText(getString(R.string.submit_report_reporter_name, currentUser.getUsername()));
-        reportNumber.setText(getString(R.string.submit_report_report_number, Model.getInstance().getReports().size()));
+        datetime.setText(Calendar.getInstance().getTime().toString());
+        reporterName.setText(getString(R.string.submit_report_reporter_name,
+                currentUser.getUsername()));
+        reportNumber.setText(getString(R.string.submit_report_report_number,
+                Model.getInstance().getReports().size()));
 
         // initialize spinner values
-        ArrayAdapter<TypeOfWater> waterTypeArrayAdapter = new ArrayAdapter<TypeOfWater>
+        ArrayAdapter<TypeOfWater> waterTypeArrayAdapter = new ArrayAdapter<>
                 (this,android.R.layout.simple_spinner_item, TypeOfWater.values());
-        waterTypeArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        waterTypeArrayAdapter.setDropDownViewResource(
+                android.R.layout.simple_spinner_dropdown_item);
         waterTypeSpinner.setAdapter(waterTypeArrayAdapter);
 
-        ArrayAdapter<ConditionOfWater> waterConditionArrayAdapter = new ArrayAdapter<ConditionOfWater>
+        ArrayAdapter<ConditionOfWater> waterConditionArrayAdapter = new ArrayAdapter<>
                 (this,android.R.layout.simple_spinner_item, ConditionOfWater.values());
-        waterConditionArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        waterConditionArrayAdapter.setDropDownViewResource(
+                android.R.layout.simple_spinner_dropdown_item);
         waterConditionSpinner.setAdapter(waterConditionArrayAdapter);
     }
 
@@ -99,8 +107,8 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
      * @return true if successful, false if failed
      */
     private boolean addReport() {
-        double parsedLat = 0.0;
-        double parsedLng = 0.0;
+        double parsedLat;
+        double parsedLng;
         try {
             parsedLat = Double.parseDouble(this.reportLat.getText().toString());
         } catch (NumberFormatException ne)  {
@@ -124,7 +132,20 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
             return false;
         }
 
-        WaterSourceReport r = new WaterSourceReport((String)this.reportNumber.getText(), new Timestamp(this.currentDate.getTimeInMillis()),
+        if ((parsedLat < LOWEST_LAT) || (parsedLat > HIGHEST_LAT)) {
+            reportLat.setError(getString(R.string.submit_report_lat_out_of_range));
+            reportLat.requestFocus();
+            return false;
+        }
+
+        if ((parsedLng < LOWEST_LNG) || (parsedLat > HIGHEST_LNG)) {
+            reportLong.setError(getString(R.string.submit_report_lng_out_of_range));
+            reportLong.requestFocus();
+            return false;
+        }
+
+        WaterSourceReport r = new WaterSourceReport((String)this.reportNumber.getText(),
+                new Timestamp(Calendar.getInstance().getTimeInMillis()),
                 (String) this.reporterName.getText(),
                 parsedLat,
                 parsedLng,
@@ -134,8 +155,7 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
         DbHelper uDbHelper = new DbHelper(getApplicationContext());
         SQLiteDatabase db = uDbHelper.getReadableDatabase();
         Model.getInstance().addReport(r);
-
-        SourceReportsTable.addQualityReport(db, r);
+        SourceReportsTable.addSourceReport(db, r);
         return true;
     }
 
