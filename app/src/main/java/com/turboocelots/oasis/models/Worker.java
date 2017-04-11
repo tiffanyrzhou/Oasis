@@ -38,4 +38,9 @@ public class Worker extends Reporter {
     public UserType getUserType(){
         return UserType.Worker;
     }
+
+    @Override
+    public boolean canSubmitQualityReport() {
+        return true;
+    }
 }

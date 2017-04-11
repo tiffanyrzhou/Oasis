@@ -7,9 +7,9 @@ import android.provider.BaseColumns;
 
 import com.turboocelots.oasis.models.Administrator;
 import com.turboocelots.oasis.models.Manager;
-import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.Reporter;
 import com.turboocelots.oasis.models.User;
+import com.turboocelots.oasis.models.UserRepository;
 import com.turboocelots.oasis.models.UserTitle;
 import com.turboocelots.oasis.models.UserType;
 import com.turboocelots.oasis.models.Worker;
@@ -117,7 +117,7 @@ public final class UsersTable implements BaseColumns {
                 newUser = new Reporter(username, password, name, email, home,
                         UserTitle.valueOf(title), phone);
             }
-            Model.getInstance().addUser(newUser);
+            UserRepository.addUser(newUser);
         }
         cursor.close();
     }
@@ -177,7 +177,6 @@ public final class UsersTable implements BaseColumns {
             values.put(UsersTable.COLUMN_NAME_USER_TYPE, newUser.getUserType().toString());
             // Insert the new row, returning the primary key value of the new row
             db.insert(UsersTable.TABLE_NAME, null, values);
-            Model.getInstance().addUser(newUser);
             return true;
         }
         return false;
@@ -217,7 +216,7 @@ public final class UsersTable implements BaseColumns {
      * @param password password of the user
      * @return true if user is in the database
      */
-    public static boolean isUserInDatabase(SQLiteDatabase db, String username, String password) {
+    public static boolean attemptLogin(SQLiteDatabase db, String username, String password) {
 
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.

@@ -3,9 +3,7 @@ package com.turboocelots.oasis.controllers;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -37,8 +35,6 @@ import android.content.Intent;
 import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.databases.DbHelper;
 import com.turboocelots.oasis.databases.UsersTable;
-import com.turboocelots.oasis.models.Model;
-import com.turboocelots.oasis.models.User;
 
 /**
  * The Activity that controls the Login with username and password
@@ -297,8 +293,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             DbHelper uDbHelper = new DbHelper(getApplicationContext());
             SQLiteDatabase db = uDbHelper.getReadableDatabase();
-
-            boolean result = UsersTable.isUserInDatabase(db, mUsername, mPassword);
+            boolean result = UsersTable.attemptLogin(db, mUsername, mPassword);
             db.close();
             return result;
         }
@@ -309,14 +304,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                System.out.println(Model.getInstance().getUsers().size());
-                for (User user : Model.getInstance().getUsers()) {
-                    System.out.println(user.getUsername());
-                }
-                User currentUser = Model.getInstance().getUser(mUsername);
                 Intent nextActivity  = new Intent(LoginActivity.this, HomeActivity.class);
                 nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                nextActivity.putExtra("CurrentUser", mUsername);
                 startActivity(nextActivity);
             } else {
                 usernameView.setError(getString(R.string.error_invalid_combination));

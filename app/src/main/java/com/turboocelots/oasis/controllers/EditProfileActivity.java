@@ -15,8 +15,8 @@ import android.widget.ArrayAdapter;
 import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.databases.DbHelper;
 import com.turboocelots.oasis.databases.UsersTable;
-import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.User;
+import com.turboocelots.oasis.models.UserRepository;
 import com.turboocelots.oasis.models.UserTitle;
 
 /**
@@ -36,20 +36,20 @@ public class EditProfileActivity extends AppCompatActivity {
     private Spinner userTitleSpinner;
 
     private UpdateUserTask updateTask = null;
-
+    private String userName;
+    private User currentUser;
     /**
      * Instantiates the Activity. The activity is implicitly given a reference to the user
      * by username via the getSerializableExtra method
-     * This is then used to modify the user via the Model class
+     * This is then used to modify the user via the UserRepository class
      * @param savedInstanceState Bundle object that allows this activity to restore to
      */
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-        final String username = (String) getIntent().getSerializableExtra("CurrentUser");
-        final User currentUser = Model.getInstance().getUser(username);
+        userName = (String) getIntent().getSerializableExtra("CurrentUser");
+        currentUser = UserRepository.getUser(userName);
         if (currentUser == null) {
             finish();
         }
@@ -102,13 +102,11 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
     /**
-     * Saves all of the updated data to the corresponding User object in the Model class
+     * Saves all of the updated data to the corresponding User object in the UserRepository class
      * Then, exits the activity
      * @param view the EditProfile View
      */
     private void onSavePressed(View view) {
-        final String username = (String) getIntent().getSerializableExtra("CurrentUser");
-        final User currentUser = Model.getInstance().getUser(username);
         currentUser.setHome(homeAddressField.getText().toString());
         currentUser.setEmail(emailField.getText().toString());
         currentUser.setName(nameField.getText().toString());

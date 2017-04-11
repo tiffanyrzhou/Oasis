@@ -26,7 +26,7 @@ import com.turboocelots.oasis.databases.UsersTable;
  */
 public class WelcomeActivity extends AppCompatActivity {
 
-    private  LoadModelTask modelTask = null;
+    private loadModelsTask modelTask = null;
 
     /**
      * Instantiates the Welcome activity
@@ -58,7 +58,7 @@ public class WelcomeActivity extends AppCompatActivity {
         });
 
         showProgress(true);
-        modelTask = new LoadModelTask();
+        modelTask = new loadModelsTask();
         modelTask.execute((Void) null);
 
         // We should load everything from the model
@@ -94,7 +94,7 @@ public class WelcomeActivity extends AppCompatActivity {
         });
     }
 
-    private class LoadModelTask extends AsyncTask<Void, Void, Boolean> {
+    private class loadModelsTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected Boolean doInBackground(Void... params) {
             DbHelper uDbHelper = new DbHelper(getApplicationContext());

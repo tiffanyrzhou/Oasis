@@ -5,8 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
-import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.OverallCondition;
+import com.turboocelots.oasis.models.QualityRepository;
 import com.turboocelots.oasis.models.WaterQualityReport;
 
 import java.sql.Timestamp;
@@ -68,7 +68,7 @@ public class QualityReportsTable implements BaseColumns {
     }
 
     /**
-     * A function that will populate the Model with the corresponding
+     * A function that will populate the QualityRepository with the corresponding
      * QualityReports stored in the SQLite database
      * @param db the SQLiteDatabase context to query from
      */
@@ -129,7 +129,7 @@ public class QualityReportsTable implements BaseColumns {
 
             WaterQualityReport newReport = new WaterQualityReport(reportNumber,
                     timestamp, reporterName, lat, lng, overallCondition, virusPPM, contaminantsPPM);
-            Model.getInstance().addReport(newReport);
+            QualityRepository.addReport(newReport);
         }
         cursor.close();
     }

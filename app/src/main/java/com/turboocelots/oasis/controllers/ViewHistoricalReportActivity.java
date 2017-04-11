@@ -10,8 +10,8 @@ import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.turboocelots.oasis.R;
-import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.PPMType;
+import com.turboocelots.oasis.models.QualityRepository;
 import com.turboocelots.oasis.models.WaterQualityReport;
 
 import java.util.HashMap;
@@ -45,7 +45,7 @@ public class ViewHistoricalReportActivity extends AppCompatActivity {
         });
         series.setShape(PointsGraphSeries.Shape.POINT);
         List<WaterQualityReport> selectedReports =
-                Model.getInstance().generateSelectedReports(currentYear, lat, lng);
+                QualityRepository.selectReports(currentYear, lat, lng);
         getDataPoints(currentType, selectedReports);
 
         for (Integer m : dataPoints.keySet()) {

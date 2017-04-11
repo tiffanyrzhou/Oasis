@@ -26,9 +26,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.turboocelots.oasis.R;
-import com.turboocelots.oasis.models.Model;
-import com.turboocelots.oasis.models.Report;
 import com.turboocelots.oasis.models.ReportLocation;
+import com.turboocelots.oasis.models.SourceRepository;
+import com.turboocelots.oasis.models.WaterSourceReport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,11 +125,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * @return List<ReportLocation>
      */
     private List<ReportLocation> getLocationList() {
-        List<Report> reports = Model.getInstance().getReports();
+        List<WaterSourceReport> reports = SourceRepository.getReports();
         List<ReportLocation> listLoc = new ArrayList<>();
-        for (Report r : reports) {
-            ReportLocation l = new ReportLocation(r);
-            listLoc.add(l);
+        for (WaterSourceReport r : reports) {
+            listLoc.add(r.getReportLocation());
         }
         return listLoc;
     }

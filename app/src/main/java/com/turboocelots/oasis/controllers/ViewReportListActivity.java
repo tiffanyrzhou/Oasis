@@ -8,9 +8,9 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import com.turboocelots.oasis.R;
-import com.turboocelots.oasis.models.Model;
+import com.turboocelots.oasis.models.SourceRepository;
 
- /**
+/**
  * Activity that allows you to view all Reports
  */
 public class ViewReportListActivity extends AppCompatActivity {
@@ -24,7 +24,7 @@ public class ViewReportListActivity extends AppCompatActivity {
         //Create listAdapter for ListView
         ListAdapter reportListAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
-                Model.getInstance().getReports());
+                SourceRepository.getReports());
         reportList.setAdapter(reportListAdapter);
 
         //Initializes Buttons

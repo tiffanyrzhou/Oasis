@@ -14,9 +14,10 @@ import android.widget.TextView;
 import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.databases.DbHelper;
 import com.turboocelots.oasis.databases.QualityReportsTable;
-import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.OverallCondition;
+import com.turboocelots.oasis.models.QualityRepository;
 import com.turboocelots.oasis.models.User;
+import com.turboocelots.oasis.models.UserRepository;
 import com.turboocelots.oasis.models.WaterQualityReport;
 
 import java.sql.Timestamp;
@@ -43,7 +44,7 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit_water_quality_report);
         final String username = (String) getIntent().getSerializableExtra("CurrentUser");
-        final User currentUser = Model.getInstance().getUser(username);
+        final User currentUser = UserRepository.getUser(username);
 
         TextView datetime = (TextView) findViewById(R.id.dateTime_WQ);
         reporterName = (TextView) findViewById(R.id.reporterName_WQ);
@@ -64,9 +65,9 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
         overallConditionSpinner.setAdapter(conditionArrayAdapter);
         datetime.setText(Calendar.getInstance().getTime().toString());
         reporterName.setText(getString(R.string.submit_report_reporter_name,
-                currentUser.getUsername()));
+                username));
         reportNumber.setText(getString(R.string.submit_report_report_number,
-                Model.getInstance().getReports().size()));
+                QualityRepository.getReports().size()));
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +75,7 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
                 Intent nextActivity  = new Intent(SubmitWaterQualityReportActivity.this,
                         HomeActivity.class);
                 nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                nextActivity.putExtra("CurrentUser", username);
                 startActivity(nextActivity);
             }
         });
@@ -87,7 +88,7 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
                     Intent nextActivity  = new Intent(SubmitWaterQualityReportActivity.this,
                             HomeActivity.class);
                     nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                    nextActivity.putExtra("CurrentUser", username);
                     startActivity(nextActivity);
                 }
             }
@@ -97,7 +98,7 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
     }
 
     /**
-     * Adds a WaterQualityReport to the Model
+     * Adds a WaterQualityReport to the QualityRepository
      * returns true if successful, false if there was an error
      */
     private boolean addReport(){
@@ -111,7 +112,7 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
                 parsedVirusPPM, parsedContaminantsPPM);
         DbHelper uDbHelper = new DbHelper(getApplicationContext());
         SQLiteDatabase db = uDbHelper.getReadableDatabase();
-        boolean success = Model.getInstance().addReport(r);
+        boolean success = QualityRepository.addReport(r);
         if (success) {
             QualityReportsTable.addQualityReport(db, r);
         }
