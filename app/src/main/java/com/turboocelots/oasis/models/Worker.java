@@ -11,7 +11,7 @@ public class Worker extends Reporter {
      * @param username the username of the new Worker
      * @param password the password of the new Worker
      */
-    public Worker(String username, String password) {
+    Worker(String username, String password) {
         super(username, password);
     }
 

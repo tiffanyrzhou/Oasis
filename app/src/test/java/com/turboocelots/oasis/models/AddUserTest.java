@@ -6,6 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
+ * created by Tiffany Zhou
  * Test Case for Adding Users
  */
 public class AddUserTest {

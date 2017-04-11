@@ -16,15 +16,10 @@
     <string name="error_invalid_combination">This username and password combination is invalid
     </string>
 
-    <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
     <string name="title_activity_register">Register</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_view_report_list">ViewReportList</string>
-    <string name="action_settings">Settings</string>
 
     <!-- Strings related to Reports -->
     <string name="error_invalid_number">Please enter a number.</string>
@@ -32,7 +27,6 @@
     <!-- Strings Related to Register Form -->
     <string name="edit_profile_title_view">Title</string>
     <string name="edit_profile_name_view">Name</string>
-    <string name="edit_profile_name_hint">Enter Name</string>
     <string name="edit_profile_address_view">Home Address</string>
     <string name="edit_profile_address_hint">Enter Home Address</string>
     <string name="edit_profile_username_view">Username</string>

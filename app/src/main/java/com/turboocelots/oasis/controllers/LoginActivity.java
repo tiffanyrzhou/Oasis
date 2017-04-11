@@ -3,9 +3,7 @@ package com.turboocelots.oasis.controllers;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -316,7 +314,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 User currentUser = Model.getInstance().getUser(mUsername);
                 Intent nextActivity  = new Intent(LoginActivity.this, HomeActivity.class);
                 nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                if(currentUser != null) {
+                    nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                }
                 startActivity(nextActivity);
             } else {
                 usernameView.setError(getString(R.string.error_invalid_combination));

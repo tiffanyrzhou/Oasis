@@ -68,7 +68,9 @@ public class GenerateHistoricalReportActivity extends AppCompatActivity {
                     nextActivity.putExtra("Lat", Double.parseDouble(latitude.getText().toString()));
                     nextActivity.putExtra("Lng", Double.parseDouble(
                             longitude.getText().toString()));
-                    nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                    if(currentUser != null) {
+                        nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                    }
                     startActivity(nextActivity);
                 } else {
                     status.setError(getString(R.string.
@@ -84,7 +86,9 @@ public class GenerateHistoricalReportActivity extends AppCompatActivity {
                 Intent nextActivity  = new Intent(GenerateHistoricalReportActivity.this,
                         HomeActivity.class);
                 nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                if(currentUser!= null) {
+                    nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                }
                 startActivity(nextActivity);
             }
         });

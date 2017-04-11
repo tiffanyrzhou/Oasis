@@ -45,6 +45,7 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
         final String username = (String) getIntent().getSerializableExtra("CurrentUser");
         final User currentUser = Model.getInstance().getUser(username);
 
+
         TextView datetime = (TextView) findViewById(R.id.dateTime_WQ);
         reporterName = (TextView) findViewById(R.id.reporterName_WQ);
         reportNumber = (TextView) findViewById(R.id.reportNumber_WQ);
@@ -63,10 +64,12 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_dropdown_item);
         overallConditionSpinner.setAdapter(conditionArrayAdapter);
         datetime.setText(Calendar.getInstance().getTime().toString());
-        reporterName.setText(getString(R.string.submit_report_reporter_name,
-                currentUser.getUsername()));
-        reportNumber.setText(getString(R.string.submit_report_report_number,
-                Model.getInstance().getReports().size()));
+        if(currentUser != null) {
+            reporterName.setText(getString(R.string.submit_report_reporter_name,
+                    currentUser.getUsername()));
+            reportNumber.setText(getString(R.string.submit_report_report_number,
+                    Model.getInstance().getReports().size()));
+        }
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +77,9 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
                 Intent nextActivity  = new Intent(SubmitWaterQualityReportActivity.this,
                         HomeActivity.class);
                 nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                if(currentUser != null) {
+                    nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                }
                 startActivity(nextActivity);
             }
         });
@@ -87,7 +92,9 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
                     Intent nextActivity  = new Intent(SubmitWaterQualityReportActivity.this,
                             HomeActivity.class);
                     nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                    if(currentUser!= null) {
+                        nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                    }
                     startActivity(nextActivity);
                 }
             }

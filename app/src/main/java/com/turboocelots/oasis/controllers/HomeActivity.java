@@ -18,14 +18,13 @@ import com.turboocelots.oasis.models.UserType;
  */
 public class HomeActivity extends AppCompatActivity {
 
-    private String username;
     private User currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        username = (String) getIntent().getSerializableExtra("CurrentUser");
+        String username = (String) getIntent().getSerializableExtra("CurrentUser");
         currentUser = Model.getInstance().getUser(username);
 
         bindSubmitWaterSourceButton();

@@ -58,7 +58,7 @@ final public class Model {
      * Gets just the Water Quality Reports
      * @return the water quality reports
      */
-    public List<WaterQualityReport> getWaterQualityReports() {
+    private List<WaterQualityReport> getWaterQualityReports() {
         List<WaterQualityReport> selectedReports = new ArrayList<>();
         for (Report r: _reports) {
             if (r instanceof WaterQualityReport) {

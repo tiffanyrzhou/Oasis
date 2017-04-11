@@ -86,14 +86,17 @@ public class EditProfileActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_dropdown_item);
         userTitleSpinner.setAdapter(userTitleArrayAdapter);
 
-        usernameField.setText(currentUser.getUsername());
-        nameField.setText(currentUser.getName());
-        passwordField.setText(currentUser.getPassword());
-        emailField.setText(currentUser.getEmail());
-        homeAddressField.setText(currentUser.getHome());
-        phoneAddressField.setText(currentUser.getPhone());
-        int pos = userTitleArrayAdapter.getPosition(currentUser.getTitle());
-        userTitleSpinner.setSelection(pos);
+        if(currentUser != null) {
+            usernameField.setText(currentUser.getUsername());
+            nameField.setText(currentUser.getName());
+            passwordField.setText(currentUser.getPassword());
+            emailField.setText(currentUser.getEmail());
+            homeAddressField.setText(currentUser.getHome());
+            phoneAddressField.setText(currentUser.getPhone());
+            int pos = userTitleArrayAdapter.getPosition(currentUser.getTitle());
+            userTitleSpinner.setSelection(pos);
+        }
+
     }
 
     private void onCancelPressed(View view) {
@@ -109,14 +112,16 @@ public class EditProfileActivity extends AppCompatActivity {
     private void onSavePressed(View view) {
         final String username = (String) getIntent().getSerializableExtra("CurrentUser");
         final User currentUser = Model.getInstance().getUser(username);
-        currentUser.setHome(homeAddressField.getText().toString());
-        currentUser.setEmail(emailField.getText().toString());
-        currentUser.setName(nameField.getText().toString());
-        currentUser.setPhone(phoneAddressField.getText().toString());
-        currentUser.setPassword(passwordField.getText().toString());
-        currentUser.setTitle((UserTitle) userTitleSpinner.getSelectedItem());
-        updateTask = new UpdateUserTask(currentUser);
-        updateTask.execute((Void) null);
+        if(currentUser!= null) {
+            currentUser.setHome(homeAddressField.getText().toString());
+            currentUser.setEmail(emailField.getText().toString());
+            currentUser.setName(nameField.getText().toString());
+            currentUser.setPhone(phoneAddressField.getText().toString());
+            currentUser.setPassword(passwordField.getText().toString());
+            currentUser.setTitle((UserTitle) userTitleSpinner.getSelectedItem());
+            updateTask = new UpdateUserTask(currentUser);
+            updateTask.execute((Void) null);
+        }
     }
 
     public class UpdateUserTask extends AsyncTask<Void, Void, Boolean> {
