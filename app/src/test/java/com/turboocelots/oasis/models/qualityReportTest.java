@@ -53,7 +53,7 @@ public class qualityReportTest {
 
     @Test
     public void addReport_all_invalid_parameters() throws Exception {
-        exampleQualityReport.setReportLocation(495875437);
+        exampleQualityReport.setReportLat(495875437);
         exampleQualityReport.setReportLong(354354332);
         exampleQualityReport.setReporterName(null);
         exampleQualityReport.setDateTime(null);
