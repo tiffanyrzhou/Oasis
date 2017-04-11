@@ -28,7 +28,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.Report;
-import com.turboocelots.oasis.models.WaterSourceReport;
 import com.turboocelots.oasis.models.ReportLocation;
 
 import java.util.ArrayList;
@@ -36,7 +35,6 @@ import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -68,10 +66,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-            mMap.setMyLocationEnabled(true);
+            googleMap.setMyLocationEnabled(true);
         } else {
 
         }
@@ -79,9 +76,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         for (ReportLocation loc : locationList) {
             LatLng latLong = new LatLng(loc.getLatitude(), loc.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(latLong).title(loc.getTitle()).snippet(loc.getDescription()));
+            googleMap.addMarker(new MarkerOptions().position(latLong).title(loc.getTitle()).snippet(loc.getDescription()));
 
-            mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+            googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
                 @Override
                 public View getInfoWindow(Marker arg0) {
@@ -116,7 +113,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if(locationList.size()>0) {
             ReportLocation lastLocation = locationList.get(locationList.size() - 1);
             LatLng lastLatLng = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(lastLatLng));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(lastLatLng));
 
         }
     }

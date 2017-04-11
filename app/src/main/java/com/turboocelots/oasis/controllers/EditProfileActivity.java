@@ -1,6 +1,5 @@
 package com.turboocelots.oasis.controllers;
 
-import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +24,6 @@ public class EditProfileActivity extends AppCompatActivity {
      Widgets we will need for binding and getting information
   */
     private EditText nameField;
-    private TextView usernameField;
     private EditText passwordField;
     private EditText emailField;
     private EditText homeAddressField;
@@ -64,7 +62,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         // Grab the dialog widgets so we can get info for later
         nameField = (EditText) findViewById(R.id.editName);
-        usernameField = (TextView) findViewById(R.id.editUsername);
+        TextView usernameField = (TextView) findViewById(R.id.editUsername);
         passwordField = (EditText) findViewById(R.id.editPassword);
         emailField = (EditText) findViewById(R.id.editEmail);
         homeAddressField = (EditText) findViewById(R.id.editHomeAddress);
@@ -134,7 +132,7 @@ public class EditProfileActivity extends AppCompatActivity {
          * Transitions to the HomeActivity, passing the current username
          * using putExtra
          *
-         * @param success
+         * @param success whether or not the task was successful
          */
         @Override
         protected void onPostExecute(final Boolean success) {

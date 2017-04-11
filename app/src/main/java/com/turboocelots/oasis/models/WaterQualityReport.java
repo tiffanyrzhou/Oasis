@@ -1,7 +1,6 @@
 package com.turboocelots.oasis.models;
 
 import java.sql.Timestamp;
-import java.util.Calendar;
 
 /**
  * Created by Tiffany on 3/7/17.

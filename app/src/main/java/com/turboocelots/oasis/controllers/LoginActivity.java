@@ -61,11 +61,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
-    private User currentUser;
-
     /**
      * Creates the activity.
-     * @param savedInstanceState
+     * @param savedInstanceState Bundle saved instance to restore Activity
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -246,9 +244,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     /**
      * Load contact's email addresses
-     * @param i
-     * @param bundle
-     * @return
+     * @param i the position
+     * @param bundle Bundle saved instance to restore Activity
+     * @return return the Cursor for the email
      */
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
@@ -346,7 +344,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 for (User user : Model.getInstance().getUsers()) {
                     System.out.println(user.getUsername());
                 }
-                currentUser = Model.getInstance().getUser(mUsername);
+                User currentUser = Model.getInstance().getUser(mUsername);
                 Intent nextActivity  = new Intent(LoginActivity.this, HomeActivity.class);
                 nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 nextActivity.putExtra("CurrentUser", currentUser.getUsername());

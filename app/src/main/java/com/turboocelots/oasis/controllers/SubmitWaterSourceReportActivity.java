@@ -16,7 +16,6 @@ import java.util.Calendar;
 
 import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.databases.DbHelper;
-import com.turboocelots.oasis.databases.QualityReportsTable;
 import com.turboocelots.oasis.databases.SourceReportsTable;
 import com.turboocelots.oasis.models.ConditionOfWater;
 import com.turboocelots.oasis.models.Model;
@@ -25,7 +24,6 @@ import com.turboocelots.oasis.models.TypeOfWater;
 import com.turboocelots.oasis.models.User;
 
 public class SubmitWaterSourceReportActivity extends AppCompatActivity {
-    private TextView datetime;
     private TextView reporterName;
     private TextView reportNumber;
     private EditText reportLat;
@@ -43,7 +41,7 @@ public class SubmitWaterSourceReportActivity extends AppCompatActivity {
         final String username = (String) getIntent().getSerializableExtra("CurrentUser");
         final User currentUser = Model.getInstance().getUser(username);
         //find attributes by ID
-        datetime = (TextView) findViewById(R.id.date_time);
+        TextView datetime = (TextView) findViewById(R.id.date_time);
         reporterName = (TextView) findViewById(R.id.reporter_name);
         reportNumber = (TextView) findViewById(R.id.report_number);
         reportLat = (EditText) findViewById(R.id.lat_address);

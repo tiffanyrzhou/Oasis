@@ -24,7 +24,6 @@ import java.util.Calendar;
 
 public class SubmitWaterQualityReportActivity extends AppCompatActivity {
 
-    private TextView datetime;
     private TextView reporterName;
     private TextView reportNumber;
     private EditText reportLat;
@@ -40,7 +39,7 @@ public class SubmitWaterQualityReportActivity extends AppCompatActivity {
         final String username = (String) getIntent().getSerializableExtra("CurrentUser");
         final User currentUser = Model.getInstance().getUser(username);
 
-        datetime = (TextView) findViewById(R.id.dateTime_WQ);
+        TextView datetime = (TextView) findViewById(R.id.dateTime_WQ);
         reporterName = (TextView) findViewById(R.id.reporterName_WQ);
         reportNumber = (TextView) findViewById(R.id.reportNumber_WQ);
         reportLat = (EditText) findViewById(R.id.lat_WQ);

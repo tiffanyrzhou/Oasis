@@ -65,6 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView8"
+                android:labelFor="@+id/editHomeAddress"
                 android:layout_below="@+id/editEmail"
                 android:layout_alignStart="@+id/editEmail"
                 android:layout_marginTop="12dp" />
@@ -86,9 +87,10 @@
                 android:layout_marginTop="11dp"
                 android:id="@+id/UsernameView"
                 android:layout_below="@+id/editName"
+                android:labelFor="@+id/editUsername"
                 android:layout_alignStart="@+id/editName" />
 
-            <TextView
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
@@ -104,6 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/editUsername"
                 android:layout_alignStart="@+id/editUsername"
+                android:labelFor="@+id/editPassword"
                 android:layout_marginTop="10dp"
                 android:id="@+id/PasswordView" />
 
@@ -122,6 +125,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView7"
+                android:labelFor="@+id/editEmail"
                 android:layout_below="@+id/editPassword"
                 android:layout_alignStart="@+id/editEmail"
                 android:layout_marginTop="12dp" />
@@ -141,6 +145,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView9"
+                android:labelFor="@+id/editPhoneNumber"
                 android:layout_below="@+id/editHomeAddress"
                 android:layout_alignStart="@+id/editPhoneNumber"
                 android:layout_marginTop="14dp" />

@@ -17,7 +17,7 @@ public class HomeActivity extends AppCompatActivity {
     /**
      * Creates the HomeActivity
      * The username of the current user is passed through "CurrentUser" in getSerializableExtra
-     * @param savedInstanceState
+     * @param savedInstanceState Bundle saved instance to restore Activity
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

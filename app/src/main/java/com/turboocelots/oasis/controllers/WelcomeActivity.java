@@ -3,7 +3,6 @@ package com.turboocelots.oasis.controllers;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -18,23 +17,6 @@ import com.turboocelots.oasis.databases.DbHelper;
 import com.turboocelots.oasis.databases.QualityReportsTable;
 import com.turboocelots.oasis.databases.SourceReportsTable;
 import com.turboocelots.oasis.databases.UsersTable;
-import com.turboocelots.oasis.models.Administrator;
-import com.turboocelots.oasis.models.ConditionOfWater;
-import com.turboocelots.oasis.models.Manager;
-import com.turboocelots.oasis.models.Model;
-import com.turboocelots.oasis.models.OverallCondition;
-import com.turboocelots.oasis.models.Reporter;
-import com.turboocelots.oasis.models.TypeOfWater;
-import com.turboocelots.oasis.models.User;
-import com.turboocelots.oasis.models.UserTitle;
-import com.turboocelots.oasis.models.UserType;
-import com.turboocelots.oasis.models.WaterQualityReport;
-import com.turboocelots.oasis.models.WaterSourceReport;
-import com.turboocelots.oasis.models.Worker;
-
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 public class WelcomeActivity extends AppCompatActivity {
     /**

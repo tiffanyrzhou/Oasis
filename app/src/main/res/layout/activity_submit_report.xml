@@ -40,6 +40,7 @@
                 android:text="@string/latitude_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:labelFor="@+id/lat_address"
                 android:id="@+id/textView4" />
 
             <EditText
@@ -53,6 +54,7 @@
                 android:text="@string/longitude_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:labelFor="@+id/long_address"
                 android:id="@+id/textView2" />
 
             <EditText

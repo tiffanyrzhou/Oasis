@@ -1,12 +1,8 @@
 package com.turboocelots.oasis.models;
 
-import android.graphics.PorterDuff;
-
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static java.lang.Boolean.FALSE;
 import static org.junit.Assert.*;
 
 /**
