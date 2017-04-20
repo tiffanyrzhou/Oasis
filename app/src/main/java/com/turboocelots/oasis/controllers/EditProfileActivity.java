@@ -71,8 +71,7 @@ public class EditProfileActivity extends AppCompatActivity {
         });
 
         // Grab the dialog widgets so we can get info for later
-        nameField = (EditText) findViewById(R.id.editName);
-        TextView usernameField = (TextView) findViewById(R.id.editUsername);
+        nameField = (EditText) findViewById(R.id.editProfile);
         passwordField = (EditText) findViewById(R.id.editPassword);
         emailField = (EditText) findViewById(R.id.editEmail);
         homeAddressField = (EditText) findViewById(R.id.editHomeAddress);
@@ -86,7 +85,6 @@ public class EditProfileActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_dropdown_item);
         userTitleSpinner.setAdapter(userTitleArrayAdapter);
 
-        usernameField.setText(currentUser.getUsername());
         nameField.setText(currentUser.getName());
         passwordField.setText(currentUser.getPassword());
         emailField.setText(currentUser.getEmail());
