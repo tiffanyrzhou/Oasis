@@ -13,21 +13,9 @@ public enum UserType implements Serializable {
     Manager("Manager"),
     Administrator ("Administrator");
 
-    private final String userTypeName;
 
     /**
-     * Default constructer for enum type
-     * @param userTypeName
+     * Default constructor for enum type
      */
-    UserType(String userTypeName){
-        this.userTypeName = userTypeName;
-    }
-
-    /**
-     *  Returns a String representation of the UserType
-     * @return the UserTypeName
-     */
-    private String getUserTypeName(){
-        return userTypeName;
-    }
+    UserType(String userTypeName){}
 }

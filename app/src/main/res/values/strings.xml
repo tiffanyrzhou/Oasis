@@ -8,11 +8,13 @@
     <string name="action_register">Register</string>
     <string name="action_cancel">Cancel</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_username">This username is invalid. A username cannot have spaces.</string>
+    <string name="error_invalid_username">This username is invalid. A username cannot have spaces.
+    </string>
     <string name="error_used_username">This username has already been used</string>
 
     <string name="error_invalid_password">This password is invalid</string>
-    <string name="error_invalid_combination">This username and password combination is invalid</string>
+    <string name="error_invalid_combination">This username and password combination is invalid
+    </string>
 
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
@@ -24,4 +26,69 @@
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_view_report_list">ViewReportList</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Strings related to Reports -->
+    <string name="error_invalid_number">Please enter a number.</string>
+
+    <!-- Strings Related to Register Form -->
+    <string name="edit_profile_title_view">Title</string>
+    <string name="edit_profile_name_view">Name</string>
+    <string name="edit_profile_name_hint">Enter Name</string>
+    <string name="edit_profile_address_view">Home Address</string>
+    <string name="edit_profile_address_hint">Enter Home Address</string>
+    <string name="edit_profile_username_view">Username</string>
+    <string name="edit_profile_username_hint">Enter Username</string>
+    <string name="edit_profile_password_view">Password</string>
+    <string name="edit_profile_password_hint">Enter Password</string>
+    <string name="edit_profile_email_view">Email Address</string>
+    <string name="edit_profile_email_hint">Enter Email Address</string>
+    <string name="edit_profile_phone_view">Phone Number</string>
+    <string name="edit_profile_phone_hint">Enter Phone Number</string>
+    <string name="edit_profile_cancel_button">Cancel</string>
+    <string name="edit_profile_add_button">Save</string>
+
+    <!-- Strings related to Generate Historical Report Activity !-->
+    <string name="generate_historical_report_activity_no_available_data">
+        No available data for the current selections.</string>
+
+    <string name="generate_historical_report_activity_year_view">Year</string>
+    <string name="generate_historical_report_activity_ppm_view">PPM Type</string>
+    <string name="generate_historical_report_activity_generate_report_button">
+        Generate Report</string>
+    <string name="generate_historical_report_activity_cancel_button">Cancel</string>
+
+    <!-- Home Activity !-->
+    <string name="activity_home_submit_water_source_button">Submit Water Source Report</string>
+    <string name="activity_home_submit_water_quality_button">Submit Water Quality Report</string>
+    <string name="activity_home_view_all_button">View All Existing Reports</string>
+    <string name="activity_home_historical_button">View Historical Purity Report</string>
+    <string name="activity_home_water_availability_button">View Water Availability</string>
+    <string name="activity_home_edit_profile_button">Edit Profile</string>
+    <string name="activity_home_logout_button">Logout</string>
+
+    <!-- Register Activity !-->
+    <string name="register_activity_select_user">Select User Type</string>
+    <string name="latitude_text">Latitude</string>
+    <string name="longitude_text">Longitude</string>
+    <string name="virus_ppm_text">Virus PPM</string>
+    <string name="contaminant_ppm_text">Contaminant PPM</string>
+    <string name="submit_text">Submit</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="welcome_text">Welcome</string>
+    <string name="login_text">Login</string>
+    <string name="register_text">Register</string>
+    <string name="type_of_water_text">Type of Water</string>
+    <string name="condition_of_water_text">Condition of Water</string>
+    <string name="back_to_home_button">Back to Home</string>
+    <string name="go_back_button">Go Back</string>
+    <string name="existing_reports_text">Existing Reports</string>
+
+
+    <!-- Submit Water Quality Report Activity !-->
+    <string name="submit_report_reporter_name">Reporter Username: %s</string>
+    <string name="submit_report_report_number">Report Number: %d</string>
+    <string name="submit_report_lat_out_of_range">Latitude must be between -90 and 90</string>
+    <string name="submit_report_lng_out_of_range">Longitude must be between -180 and 180</string>
+
+
 </resources>

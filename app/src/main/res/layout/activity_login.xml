@@ -54,8 +54,7 @@
                     android:backgroundTint="@color/almost_white"
                     android:hint="@string/prompt_username"
                     android:inputType="textEmailAddress"
-                    android:maxLines="1"
-                    android:singleLine="true" />
+                    android:maxLines="1" />
 
                 <ImageView
                     android:id="@+id/imageView3"
@@ -83,8 +82,7 @@
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:singleLine="true" />
+                    android:maxLines="1" />
 
             </android.support.design.widget.TextInputLayout>
 

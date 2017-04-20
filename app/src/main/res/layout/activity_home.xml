@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_home"
     android:layout_width="match_parent"
@@ -8,73 +8,55 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+
     tools:context="com.turboocelots.oasis.controllers.HomeActivity">
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="140dp">
-
-        <ScrollView
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:id="@+id/userText_id" />
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+        <Button
+            android:text="@string/activity_home_submit_water_source_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/submit_report_button" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/userText_id" />
+        <Button
+            android:text="@string/activity_home_submit_water_quality_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/submitWaterQuality" />
 
-                <Button
-                    android:text="Submit Water Source Report"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/submit_report_button" />
+        <Button
+            android:text="@string/activity_home_view_all_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/view_report_list_button" />
 
-                <Button
-                    android:text="Submit Water Quality Report"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/submitWaterQuality" />
+        <Button
+            android:text="@string/activity_home_historical_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/view_historical_button" />
 
-                <Button
-                    android:text="View All Existing Reports"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/view_report_list_button" />
+        <Button
+            android:text="@string/activity_home_water_availability_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/waterAvailability_button" />
 
-                <Button
-                    android:text="View Historical Purity Report"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/view_historical_button" />
+        <Button
+            android:text="@string/activity_home_edit_profile_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_profile_button" />
 
-                <Button
-                    android:text="View Water Availability"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/waterAvaliability_button" />
+        <Button
+            android:text="@string/activity_home_logout_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/logout_id" />
 
-                <Button
-                    android:text="Edit Profile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/edit_profile_button" />
+</LinearLayout>
 
-                <Button
-                    android:text="logout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/logout_id" />
-
-            </LinearLayout>
-        </ScrollView>
-
-    </FrameLayout>
-</RelativeLayout>

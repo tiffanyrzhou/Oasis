@@ -3,12 +3,8 @@ package com.turboocelots.oasis.controllers;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.ContentValues;
-import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
-import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -44,9 +40,9 @@ import com.turboocelots.oasis.databases.DbHelper;
 import com.turboocelots.oasis.databases.UsersTable;
 import com.turboocelots.oasis.models.Administrator;
 import com.turboocelots.oasis.models.Manager;
-import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.Reporter;
 import com.turboocelots.oasis.models.User;
+import com.turboocelots.oasis.models.UserRepository;
 import com.turboocelots.oasis.models.UserTitle;
 import com.turboocelots.oasis.models.UserType;
 import com.turboocelots.oasis.models.Worker;
@@ -57,13 +53,9 @@ import com.turboocelots.oasis.models.Worker;
 public class RegisterActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     /**
-     * Id to identity READ_CONTACTS permission request.
-     */
-    private static final int REQUEST_READ_CONTACTS = 0;
-    /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private UserLoginTask mAuthTask = null;
+    private ValidateNewUserTask mAuthTask = null;
 
     // UI references.
     private AutoCompleteTextView usernameView;
@@ -75,7 +67,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
     /**
      * Creates the Activity
-     * @param savedInstanceState
+     * @param savedInstanceState Bundle saved instance to restore Activity
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,13 +75,12 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         setContentView(R.layout.activity_register);
         // Set up the login form.
         usernameView = (AutoCompleteTextView) findViewById(R.id.username);
-        populateAutoComplete();
 
         mPasswordView = (TextInputEditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                if ((id == R.id.login) || (id == EditorInfo.IME_NULL)) {
                     attemptRegister();
                     return true;
                 }
@@ -117,34 +108,10 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         mProgressView = findViewById(R.id.login_progress);
         userTypeSpinner = (Spinner) findViewById(R.id.userTypeSpinner_id);
 
-        ArrayAdapter<UserType> userTypeArrayAdapter = new ArrayAdapter<UserType>(this,android.R.layout.simple_spinner_item, UserType.values());
+        ArrayAdapter<UserType> userTypeArrayAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, UserType.values());
         userTypeArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userTypeSpinner.setAdapter(userTypeArrayAdapter);
-    }
-
-    private void populateAutoComplete() {
-        if (!mayRequestContacts()) {
-            return;
-        }
-
-        getLoaderManager().initLoader(0, null, this);
-    }
-
-    private boolean mayRequestContacts() {
-        return false;
-    }
-
-    /**
-     * Callback received when a permissions request has been completed.
-     */
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_READ_CONTACTS) {
-            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                populateAutoComplete();
-            }
-        }
     }
 
     /**
@@ -198,7 +165,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             // perform the user login attempt.
 
             showProgress(true);
-            mAuthTask = new UserLoginTask(username, password, user);
+            mAuthTask = new ValidateNewUserTask(username, password, user);
             mAuthTask.execute((Void) null);
         }
     }
@@ -210,17 +177,17 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
      */
 
     private boolean isUsernameValid(String username) {
-        return true;
+        return !username.contains(" ");
     }
 
     /**
      * Should check if the password has illegal characters
      * @param password the entered password
-     * @return
+     * @return whether or not the username is valid
      */
 
     private boolean isPasswordValid(String password) {
-        return true;
+        return !password.contains(" ");
     }
 
     /**
@@ -231,32 +198,25 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
         // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+        int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
+        mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        mLoginFormView.animate().setDuration(shortAnimTime).alpha(
+                show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            }
+        });
 
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
+        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+        mProgressView.animate().setDuration(shortAnimTime).alpha(
+                show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            }
+        });
     }
 
 
@@ -279,14 +239,14 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        List<String> usernames = new ArrayList<>();
+        List<String> userNames = new ArrayList<>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            usernames.add(cursor.getString(ProfileQuery.ADDRESS));
+            userNames.add(cursor.getString(ProfileQuery.ADDRESS));
             cursor.moveToNext();
         }
 
-        addUsernamesToAutocomplete(usernames);
+        addUserNamesToAutocomplete(userNames);
     }
 
     @Override
@@ -294,7 +254,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
     }
 
-    private void addUsernamesToAutocomplete(List<String> emailAddressCollection) {
+    private void addUserNamesToAutocomplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<>(RegisterActivity.this,
@@ -311,112 +271,59 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         };
 
         int ADDRESS = 0;
-        int IS_PRIMARY = 1;
     }
 
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    public class ValidateNewUserTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mUsername;
         private final String mPassword;
         private final UserType user;
 
-        UserLoginTask(String username, String password, UserType userType) {
+        ValidateNewUserTask(String username, String password, UserType userType) {
             mUsername = username;
             mPassword = password;
             user = userType;
         }
 
-        //TODO: actually implement  authentication
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
             DbHelper uDbHelper = new DbHelper(getApplicationContext());
             SQLiteDatabase db = uDbHelper.getReadableDatabase();
 
+            User newUser;
 
-            // Define a projection that specifies which columns from the database
-            // you will actually use after this query.
-            String[] projection = {
-                    UsersTable._ID,
-                    UsersTable.COLUMN_NAME_USERNAME,
-                    UsersTable.COLUMN_NAME_PASSWORD
-            };
-
-            // Filter results WHERE username = mUsername
-
-            String selection = UsersTable.COLUMN_NAME_USERNAME + " = ?";
-            String[] selectionArgs = { mUsername };
-
-            // Sort by ID
-            String sortOrder =
-                    UsersTable._ID + " DESC";
-
-            Cursor cursor = db.query(
-                    UsersTable.TABLE_NAME,                     // The table to query
-                    projection,                               // The columns to return
-                    selection,                                // The columns for the WHERE clause
-                    selectionArgs,                            // The values for the WHERE clause
-                    null,                                     // don't group the rows
-                    null,                                     // don't filter by row groups
-                    sortOrder                                 // The sort order
-            );
-
-            List itemIds = new ArrayList<>();
-            while(cursor.moveToNext()) {
-                long itemId = cursor.getLong(
-                        cursor.getColumnIndexOrThrow(UsersTable._ID));
-                itemIds.add(itemId);
+            if (user.equals(UserType.Administrator)) {
+                newUser = new Administrator(mUsername, mPassword, "", "", "", UserTitle.NA, "");
+            } else if (user.equals(UserType.Worker)) {
+                newUser = new Worker(mUsername, mPassword, "", "", "", UserTitle.NA, "");
+            } else if (user.equals(UserType.Manager)) {
+                newUser = new Manager(mUsername, mPassword, "", "", "", UserTitle.NA, "");
+            } else {
+                newUser = new Reporter(mUsername, mPassword, "", "", "", UserTitle.NA, "");
             }
-            cursor.close();
-            if (itemIds.size() == 0) { // No users currently have this username
-                // Create a new map of values, where column names are the keys
-                ContentValues values = new ContentValues();
-                values.put(UsersTable.COLUMN_NAME_USERNAME, mUsername);
-                values.put(UsersTable.COLUMN_NAME_PASSWORD, mPassword);
-                values.put(UsersTable.COLUMN_NAME_NAME, "");
-                values.put(UsersTable.COLUMN_NAME_TITLE, UserTitle.NA.toString());
-                values.put(UsersTable.COLUMN_NAME_EMAIL, "");
-                values.put(UsersTable.COLUMN_NAME_HOME, "");
-                values.put(UsersTable.COLUMN_NAME_PHONE, "");
-                values.put(UsersTable.COLUMN_NAME_USER_TYPE, user.toString());
-                // Insert the new row, returning the primary key value of the new row
-                long newRowId = db.insert(UsersTable.TABLE_NAME, null, values);
-                User newUser;
 
-                if (user.equals(UserType.Administrator)) {
-                    newUser = new Administrator(mUsername, mPassword, "", "", "", UserTitle.NA, "");
-                } else if (user.equals(UserType.Worker)) {
-                    newUser = new Worker(mUsername, mPassword, "", "", "", UserTitle.NA, "", user);
-                } else if (user.equals(UserType.Manager)) {
-                    newUser = new Manager(mUsername, mPassword, "", "", "", UserTitle.NA, "");
-                } else {
-                    newUser = new Reporter(mUsername, mPassword, "", "", "", UserTitle.NA, "", user);
-                }
-
-                Model.getInstance().addUser(newUser);
+            boolean successful = UsersTable.registerUser(db, newUser);
+            if (successful) {
                 currentUser = mUsername;
-                return true;
+                UserRepository.addUser(newUser);
             }
-            return false;
+            return successful;
         }
 
         /**
          * Transitions to the HomeActivity, passing the current username
          * using putExtra
-         * @param success
+         * @param success whether or not the was Task was successful
          */
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
-
             if (success) {
-                // Add user
                 Intent nextActivity  = new Intent(RegisterActivity.this, HomeActivity.class);
                 nextActivity.putExtra("CurrentUser", currentUser);
                 startActivity(nextActivity);

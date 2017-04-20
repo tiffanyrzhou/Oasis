@@ -12,32 +12,14 @@ public class ReportLocation {
     private String description;
 
     /**
-     * constructor of  report location
-     * uses r to parse information
-     * @param r
+     * ReportLocation constructor
+     * @param r the Report object to pull data from
      */
     public ReportLocation(Report r) {
-
-        if (r instanceof WaterSourceReport){
-            WaterSourceReport wsR = (WaterSourceReport)r;
-            this.longitude = wsR.getReportLong();
-            this.latitude = wsR.getReportLat();
-            this.title = wsR.getDateTime() + " " + wsR.getWaterCondition() + " " + wsR.getWaterType();
-            this.description = wsR.getReporterName() + "\n" + wsR.getDateTime() + "\n" + "Water Type: " + wsR.getWaterType() + "\n" +
-                    "Water Condition: " +  wsR.getWaterCondition() + "\n"
-                    + wsR.getReportNumber();
-        } else if (r instanceof WaterQualityReport) {
-            WaterQualityReport wqR = (WaterQualityReport)r;
-            this.longitude = wqR.getReportLong();
-            this.latitude = wqR.getReportLat();
-            this.title = wqR.getDateTime() + " " + wqR.getoCondition();
-            this.description = wqR.getReporterName() + "\n" + wqR.getDateTime() + "\n"
-                    + "Overall Condition:" + wqR.getoCondition() + "\n" +
-                    " Virus PPM: "  + wqR.getVirusPPM()+ "\n" +  " Contaminants PPM: "
-                    +  wqR.getContaminantsPPM() + "\n"+ wqR.getReportNumber();
-
-        }
-
+        this.longitude = r.getReportLong();
+        this.latitude = r.getReportLat();
+        this.title = r.getTitle();
+        this.description = r.getDescription();
     }
 
     /**
@@ -50,7 +32,7 @@ public class ReportLocation {
 
     /**
      * set the latitude of the report
-     * @param latitude
+     * @param latitude the latitude of the Report
      */
     public void setLatitude(double latitude) {
         this.latitude = latitude;
@@ -65,8 +47,8 @@ public class ReportLocation {
     }
 
     /**
-     * using title to set the title of report location
-     * @param title
+     * Using title to set the title of report location
+     * @param title the Title of the Report Location
      */
     public void setTitle(String title) {
         this.title = title;
@@ -81,8 +63,8 @@ public class ReportLocation {
     }
 
     /**
-     * set the description using the param
-     * @param description
+     * Set the description using the param
+     * @param description The description of the ReportLocation
      */
     public void setDescription(String description) {
         this.description = description;
@@ -90,15 +72,15 @@ public class ReportLocation {
 
     /**
      * gets longitude
-     * @return double represnetation of longitude
+     * @return double representation of longitude
      */
     public double getLongitude() {
         return longitude;
     }
 
     /**
-     * sets the longitude
-     * @param longitude
+     * Sets the longitude
+     * @param longitude The longitude of the ReportLocation
      */
     public void setLongitude(double longitude) {
         this.longitude = longitude;

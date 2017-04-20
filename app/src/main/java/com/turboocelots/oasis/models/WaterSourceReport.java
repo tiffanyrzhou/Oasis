@@ -1,7 +1,6 @@
 package com.turboocelots.oasis.models;
 
 import java.sql.Timestamp;
-import java.util.Calendar;
 
 /**
  * Created by Tiffany on 2/25/17.
@@ -11,8 +10,8 @@ import java.util.Calendar;
 public class WaterSourceReport extends Report {
 
 
-    protected ConditionOfWater waterCondition;
-    protected TypeOfWater waterType;
+    private ConditionOfWater waterCondition;
+    private TypeOfWater waterType;
 
     /**
      * Creates an instance of a report
@@ -24,7 +23,8 @@ public class WaterSourceReport extends Report {
      * @param waterCondition condition of the water
      * @param waterType type of water
      */
-    public WaterSourceReport(String reportNumber, Timestamp dateTime, String reporterName, double reportLat, double reportLong,
+    public WaterSourceReport(String reportNumber, Timestamp dateTime, String reporterName,
+                             double reportLat, double reportLong,
                              ConditionOfWater waterCondition, TypeOfWater waterType) {
         super(reportNumber,dateTime,reporterName,reportLat,reportLong);
         this.waterCondition = waterCondition;
@@ -32,17 +32,60 @@ public class WaterSourceReport extends Report {
     }
 
 
-
+    /**
+     * Gets the water condition
+     * @return the current water condition
+     */
     public ConditionOfWater getWaterCondition() { return waterCondition; }
-    public void setWaterCondition(ConditionOfWater waterCondition) { this.waterCondition = waterCondition; }
 
+    /**
+     * Sets the water condition
+     * @param waterCondition the new water condition to set
+     */
+    public void setWaterCondition(ConditionOfWater waterCondition) {
+        this.waterCondition = waterCondition; }
+
+    /**
+     * Gets the water type
+     * @return the water type
+     */
     public TypeOfWater getWaterType() { return waterType; }
+
+    /**
+     * Sets the water type
+     * @param waterType the new WaterType
+     */
     public void setWaterType(TypeOfWater waterType) { this.waterType = waterType;}
+
+
+    /**
+     * Returns a ReportLocation representation of this object
+     * @return ReportLocation representing this object
+     */
+    public ReportLocation getReportLocation() {
+        return new ReportLocation(this);
+    }
+
+    @Override
+    public String getTitle() {
+        return this.getDateTime() + " " + this.getWaterCondition() + " " + this.getWaterType();
+    }
+
+    @Override
+    public String getDescription() {
+        return this.getReporterName() + "\n" + this.getDateTime() + "\n" + "Water Type: "
+                + this.getWaterType() + "\n" +
+                "Water Condition: " +  this.getWaterCondition() + "\n"
+                + this.getReportNumber();
+    }
+
 
     @Override
     public String toString() {
-        return "Water Source Report: \n" + reporterName + "\n" + dateTime +"\n" + reportNumber + "\n" +
-                "Latitude: " + reportLat + "\n" + "Longitude: " + reportLong + "\n"
+        return "Water Source Report: \n" + this.getReporterName() + "\n" + this.getDateTime()
+                +"\n" + this.getReportNumber() + "\n" +
+                "Latitude: " + this.getReportLat() + "\n" + "Longitude: " + this.getReportLong()
+                + "\n"
                 + "Water Condition:" + waterCondition.toString() + "\n" +
                   " Water Type: "  + waterType.toString();
     }

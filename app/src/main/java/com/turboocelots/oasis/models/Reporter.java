@@ -10,13 +10,12 @@ import java.io.Serializable;
 public class Reporter extends User implements Serializable {
 
     /**
-     * Legacy constructor for Reporter class
-     * Fills in extra parameters with empty strings
-     * @param username the username of the Reporter
-     * @param password the password of the Reporter
+     * Two parameter constructor representing basic user
+     * @param username username of the new Reporter
+     * @param password password of the new Reporter
      */
     public Reporter(String username, String password) {
-        this(username, password, "", "", "", UserTitle.NA, "", UserType.Reporter);
+        super(username, password);
     }
 
     /**
@@ -28,23 +27,22 @@ public class Reporter extends User implements Serializable {
      * @param home the home address of the Reporter
      * @param title the title of the Reporter
      * @param phone the phone number of the Reporter
-     * @param usertype the usertype of the Reporter
      */
-    public Reporter(String username, String password, String name, String email, String home, UserTitle title, String phone, UserType usertype) {
-        _name = name;
-        _username = username;
-        _password = password;
-        _email = email;
-        _home = home;
-        _title = title;
-        _phone = phone;
-        _userType = UserType.Reporter;
+    public Reporter(String username, String password, String name,
+                    String email, String home, UserTitle title, String phone) {
+        super(username, password, name, email, home, title, phone);
+    }
+
+    @Override
+    public boolean canSubmitWaterSourceReport() {
+        return false;
     }
 
     /**
      * gets the current user type
      * @return the UserType Enum for Reporter
      */
+    @Override
     public UserType getUserType(){
         return UserType.Reporter;
     }
@@ -57,7 +55,7 @@ public class Reporter extends User implements Serializable {
     public boolean equals(Object o) {
         if(o instanceof Reporter) {
             Reporter r = (Reporter) o;
-            return (r.getUsername().equals(_username));
+            return (r.getUsername().equals(this.getUsername()));
         } else {
             return false;
         }

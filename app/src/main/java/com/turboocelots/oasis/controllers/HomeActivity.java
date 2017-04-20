@@ -8,36 +8,52 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.turboocelots.oasis.R;
-import com.turboocelots.oasis.models.Model;
 import com.turboocelots.oasis.models.User;
+import com.turboocelots.oasis.models.UserRepository;
 import com.turboocelots.oasis.models.UserType;
 
+/**
+ * The Home screen after the User Logs in
+ * Provides a portal for access to all functions of the app
+ */
 public class HomeActivity extends AppCompatActivity {
 
-    /**
-     * Creates the HomeActivity
-     * The username of the current user is passesd through "CurrentUser" in getSerializableExtra
-     * @param savedInstanceState
-     */
+
+    private User currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        final String username = (String) getIntent().getSerializableExtra("CurrentUser");
-        final User currentUser = Model.getInstance().getUser(username);
 
+        String username = (String) getIntent().getSerializableExtra("CurrentUser");
+        currentUser = UserRepository.getUser(username);
+
+        bindSubmitWaterSourceButton();
+        bindLogoutButton();
+        bindEditProfileButton();
+        bindSubmitWaterQualityReportButton();
+        bindViewHistoricalPurityReportButton();
+        bindViewReportButton();
+        bindViewWaterSourceReportButton();
+
+        final TextView userTypeText = (TextView) findViewById(R.id.userText_id);
+        userTypeText.setText(currentUser.getUserType().toString());
+    }
+    private void bindLogoutButton() {
         final Button logoutButton = (Button) findViewById(R.id.logout_id);
         logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 Intent nextActivity  = new Intent(HomeActivity.this, WelcomeActivity.class);
-//                nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                nextActivity.putExtra("CurrentUser", currentUser.getUsername());
                 startActivity(nextActivity);
             }
         });
+    }
 
+    private void bindEditProfileButton() {
         final Button editProfileButton = (Button) findViewById(R.id.edit_profile_button);
         editProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 Intent nextActivity  = new Intent(HomeActivity.this, EditProfileActivity.class);
                 nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -45,45 +61,58 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(nextActivity);
             }
         });
+    }
 
+    private void bindSubmitWaterQualityReportButton() {
         final Button submitWaterQualityReportButton = (Button) findViewById(R.id.submitWaterQuality);
-        if (currentUser.getUserType() == UserType.Administrator || currentUser.getUserType() == UserType.Reporter) {
+        if (!currentUser.canSubmitQualityReport()) {
             submitWaterQualityReportButton.setVisibility(View.GONE);
         } else {
             submitWaterQualityReportButton.setVisibility(View.VISIBLE);
             submitWaterQualityReportButton.setOnClickListener(new View.OnClickListener() {
+                @Override
                 public void onClick(View v) {
-                    Intent nextActivity  = new Intent(HomeActivity.this, SubmitWaterQualityReportActivity.class);
+                    Intent nextActivity  = new Intent(HomeActivity.this,
+                            SubmitWaterQualityReportActivity.class);
                     nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     nextActivity.putExtra("CurrentUser", currentUser.getUsername());
                     startActivity(nextActivity);
                 }
             });
         }
+    }
 
+    private void bindSubmitWaterSourceButton() {
         final Button submitReportButton = (Button) findViewById(R.id.submit_report_button);
-        if (currentUser.getUserType() == UserType.Administrator) {
+        if (!currentUser.canSubmitWaterSourceReport()) {
             submitReportButton.setVisibility(View.GONE);
         } else {
             submitReportButton.setVisibility(View.VISIBLE);
             submitReportButton.setOnClickListener(new View.OnClickListener() {
+                @Override
                 public void onClick(View v) {
-                    Intent nextActivity  = new Intent(HomeActivity.this, SubmitWaterSourceReportActivity.class);
+                    Intent nextActivity  = new Intent(HomeActivity.this,
+                            SubmitWaterSourceReportActivity.class);
                     nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     nextActivity.putExtra("CurrentUser", currentUser.getUsername());
                     startActivity(nextActivity);
                 }
             });
         }
+    }
 
-        final  Button viewHistoricalPurityReportButton = (Button) findViewById(R.id.view_historical_button);
+    private void bindViewHistoricalPurityReportButton() {
+        final  Button viewHistoricalPurityReportButton =
+                (Button) findViewById(R.id.view_historical_button);
         if (currentUser.getUserType() != UserType.Manager){
             viewHistoricalPurityReportButton.setVisibility(View.GONE);
         } else {
             viewHistoricalPurityReportButton.setVisibility(View.VISIBLE);
             viewHistoricalPurityReportButton.setOnClickListener(new View.OnClickListener() {
+                @Override
                 public void onClick(View v) {
-                    Intent nextActivity  = new Intent(HomeActivity.this, GenerateHistoricalReportActivity.class);
+                    Intent nextActivity  = new Intent(HomeActivity.this,
+                            GenerateHistoricalReportActivity.class);
                     nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     nextActivity.putExtra("CurrentUser", currentUser.getUsername());
                     startActivity(nextActivity);
@@ -91,15 +120,17 @@ public class HomeActivity extends AppCompatActivity {
             });
 
         }
+    }
 
-
-
-        final Button viewWaterAvailabilityButton = (Button) findViewById(R.id.waterAvaliability_button);
+    private void bindViewWaterSourceReportButton() {
+        final Button viewWaterAvailabilityButton =
+                (Button) findViewById(R.id.waterAvailability_button);
         if (currentUser.getUserType() == UserType.Administrator) {
             viewWaterAvailabilityButton.setVisibility(View.GONE);
         } else {
             viewWaterAvailabilityButton.setVisibility(View.VISIBLE);
             viewWaterAvailabilityButton .setOnClickListener(new View.OnClickListener() {
+                @Override
                 public void onClick(View v) {
                     Intent nextActivity  = new Intent(HomeActivity.this, MapsActivity.class);
                     nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -108,23 +139,24 @@ public class HomeActivity extends AppCompatActivity {
                 }
             });
         }
+    }
 
+    private void bindViewReportButton() {
         final Button viewReportList = (Button) findViewById(R.id.view_report_list_button);
         if (currentUser.getUserType() == UserType.Administrator) {
             viewReportList.setVisibility(View.GONE);
         } else {
             viewReportList.setVisibility(View.VISIBLE);
             viewReportList.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent nextActivity  = new Intent(HomeActivity.this, ViewReportListActivity.class);
-                nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                nextActivity.putExtra("CurrentUser", currentUser.getUsername());
-                startActivity(nextActivity);
-            }
-        });
-    }
-
-        final TextView userTypeText = (TextView) findViewById(R.id.userText_id);
-        userTypeText.setText(currentUser.getUserType().toString());
+                @Override
+                public void onClick(View v) {
+                    Intent nextActivity  = new Intent(HomeActivity.this,
+                            ViewReportListActivity.class);
+                    nextActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    nextActivity.putExtra("CurrentUser", currentUser.getUsername());
+                    startActivity(nextActivity);
+                }
+            });
+        }
     }
 }

@@ -1,18 +1,38 @@
 package com.turboocelots.oasis.models;
 
 /**
- * Created by caylavinzons on 2/22/17.
+ * Abstract class that describes a generic User
  */
 
 public abstract class User {
-    protected String _username;
-    protected String _password;
-    protected String _name;
-    protected String _email;
-    protected String _home;
-    protected UserTitle _title;
-    protected String _phone;
-    protected UserType _userType;
+    private String _username;
+    private String _password;
+    private String _name;
+    private String _email;
+    private String _home;
+    private UserTitle _title;
+    private String _phone;
+
+    /**
+     * Two parameter constructor representing bare minimum of USer
+     * @param username the username of the User
+     * @param password the password of the User
+     */
+
+    User (String username, String password) {
+        this(username, password, "", "", "", UserTitle.NA, "");
+    }
+
+    User (String username, String password, String name,
+                 String email, String home, UserTitle title, String phone) {
+        _name = name;
+        _username = username;
+        _password = password;
+        _email = email;
+        _home = home;
+        _title = title;
+        _phone = phone;
+    }
 
     /* Getters and setters */
 
@@ -73,6 +93,11 @@ public abstract class User {
      * @return the current user's home address
      */
     public String getHome() { return _home; }
+
+    /**
+     * Sets the home address
+     * @param home the new Home Address
+     */
     public void setHome(String home) { _home = home; }
 
     /**
@@ -103,8 +128,24 @@ public abstract class User {
      * gets the current user type
      * @return the Enum type for the user
      */
-    public UserType getUserType(){
-        return UserType.Reporter;
+    public abstract UserType getUserType();
+
+
+    /**
+     * Permission for being able to submit Quality Reports
+     * Currently held by Workers
+     */
+
+    public boolean canSubmitQualityReport() {
+        return false;
+    }
+
+    /**
+     * Permission for being able to submit Water Source Reports
+     * Currently held by Reporters
+     */
+    public boolean canSubmitWaterSourceReport() {
+        return false;
     }
 
     /**
@@ -113,9 +154,10 @@ public abstract class User {
      * @return whether or not the users are equal
      */
     public boolean equals(Object o) {
+        if (o == null) return false;
+        if (o == this) return true;
+        if (!(o instanceof User)) return false;
         User r = (User) o;
         return (r.getUsername().equals(_username));
     }
-
-
 }
