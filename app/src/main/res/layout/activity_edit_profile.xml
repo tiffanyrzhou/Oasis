@@ -41,17 +41,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/editProfile"
-                    android:layout_width="31dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:text="Title"
-                    android:textColor="@color/dark_grey"
-                    android:textSize="12sp"
-                    android:textStyle="italic"
-                    tools:text="Title" />
-
-                <TextView
                     android:id="@+id/NameView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -156,8 +145,6 @@
                 android:textSize="12sp"
                 android:textStyle="italic" />
 
-            <EditText
-                android:id="@+id/editPhoneNumber"
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
