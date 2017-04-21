@@ -83,4 +83,13 @@ public class ViewHistoricalReportActivity extends AppCompatActivity {
         }
 
     }
+
+    public static class ViewWaterReport extends AppCompatActivity {
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_view_water_report);
+        }
+    }
 }

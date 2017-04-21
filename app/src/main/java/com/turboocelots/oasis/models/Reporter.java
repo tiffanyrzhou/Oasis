@@ -35,7 +35,7 @@ public class Reporter extends User implements Serializable {
 
     @Override
     public boolean canSubmitWaterSourceReport() {
-        return false;
+        return true;
     }
 
     /**

@@ -9,6 +9,7 @@ import com.turboocelots.oasis.models.Administrator;
 import com.turboocelots.oasis.models.Manager;
 import com.turboocelots.oasis.models.Reporter;
 import com.turboocelots.oasis.models.User;
+import com.turboocelots.oasis.models.UserFactory;
 import com.turboocelots.oasis.models.UserRepository;
 import com.turboocelots.oasis.models.UserTitle;
 import com.turboocelots.oasis.models.UserType;
@@ -102,21 +103,12 @@ public final class UsersTable implements BaseColumns {
             String type = cursor.getString(cursor.getColumnIndexOrThrow(
                     UsersTable.COLUMN_NAME_USER_TYPE));
             UserType userType = UserType.valueOf(type);
-            User newUser;
-
-            if (userType.equals(UserType.Administrator)) {
-                newUser = new Administrator(username, password, name, email, home,
-                        UserTitle.valueOf(title), phone);
-            } else if (userType.equals(UserType.Worker)) {
-                newUser = new Worker(username, password, name, email, home,
-                        UserTitle.valueOf(title), phone);
-            } else if (userType.equals(UserType.Manager)) {
-                newUser = new Manager(username, password, name, email, home,
-                        UserTitle.valueOf(title), phone);
-            } else {
-                newUser = new Reporter(username, password, name, email, home,
-                        UserTitle.valueOf(title), phone);
-            }
+            User newUser = UserFactory.createUser(userType, username, password);
+            newUser.setName(name);
+            newUser.setEmail(email);
+            newUser.setHome(home);
+            newUser.setTitle(UserTitle.valueOf(title));
+            newUser.setPhone(phone);
             UserRepository.addUser(newUser);
         }
         cursor.close();
@@ -275,20 +267,14 @@ public final class UsersTable implements BaseColumns {
                 String type = cursor.getString(cursor.getColumnIndexOrThrow(
                         UsersTable.COLUMN_NAME_USER_TYPE));
                 UserType userType = UserType.valueOf(type);
-                User newUser;
-                if (userType.equals(UserType.Administrator)) {
-                    newUser = new Administrator(username, password, name, email,
-                            home, UserTitle.valueOf(title), phone);
-                } else if (userType.equals(UserType.Worker)) {
-                    newUser = new Worker(username, password, name, email, home,
-                            UserTitle.valueOf(title), phone);
-                } else if (userType.equals(UserType.Manager)) {
-                    newUser = new Manager(username, password, name, email, home,
-                            UserTitle.valueOf(title), phone);
-                } else {
-                    newUser = new Reporter(username, password, name, email, home,
-                            UserTitle.valueOf(title), phone);
-                }
+                User newUser = UserFactory.createUser(userType, username, password);
+
+                newUser.setName(name);
+                newUser.setEmail(email);
+                newUser.setHome(home);
+                newUser.setTitle(UserTitle.valueOf(title));
+                newUser.setPhone(phone);
+
                 itemIds.add(newUser);
             }
         }

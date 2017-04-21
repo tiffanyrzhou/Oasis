@@ -42,6 +42,7 @@ import com.turboocelots.oasis.models.Administrator;
 import com.turboocelots.oasis.models.Manager;
 import com.turboocelots.oasis.models.Reporter;
 import com.turboocelots.oasis.models.User;
+import com.turboocelots.oasis.models.UserFactory;
 import com.turboocelots.oasis.models.UserRepository;
 import com.turboocelots.oasis.models.UserTitle;
 import com.turboocelots.oasis.models.UserType;
@@ -281,12 +282,12 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
         private final String mUsername;
         private final String mPassword;
-        private final UserType user;
+        private final UserType userType;
 
         ValidateNewUserTask(String username, String password, UserType userType) {
             mUsername = username;
             mPassword = password;
-            user = userType;
+            this.userType = userType;
         }
 
         @Override
@@ -294,17 +295,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             DbHelper uDbHelper = new DbHelper(getApplicationContext());
             SQLiteDatabase db = uDbHelper.getReadableDatabase();
 
-            User newUser;
-
-            if (user.equals(UserType.Administrator)) {
-                newUser = new Administrator(mUsername, mPassword, "", "", "", UserTitle.NA, "");
-            } else if (user.equals(UserType.Worker)) {
-                newUser = new Worker(mUsername, mPassword, "", "", "", UserTitle.NA, "");
-            } else if (user.equals(UserType.Manager)) {
-                newUser = new Manager(mUsername, mPassword, "", "", "", UserTitle.NA, "");
-            } else {
-                newUser = new Reporter(mUsername, mPassword, "", "", "", UserTitle.NA, "");
-            }
+            User newUser = UserFactory.createUser(userType, mUsername, mPassword);
 
             boolean successful = UsersTable.registerUser(db, newUser);
             if (successful) {

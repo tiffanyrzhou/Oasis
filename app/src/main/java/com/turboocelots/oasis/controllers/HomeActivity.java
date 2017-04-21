@@ -104,7 +104,7 @@ public class HomeActivity extends AppCompatActivity {
     private void bindViewHistoricalPurityReportButton() {
         final  Button viewHistoricalPurityReportButton =
                 (Button) findViewById(R.id.view_historical_button);
-        if (currentUser.getUserType() != UserType.Manager){
+        if (!currentUser.canSubmitQualityReport()){
             viewHistoricalPurityReportButton.setVisibility(View.GONE);
         } else {
             viewHistoricalPurityReportButton.setVisibility(View.VISIBLE);
@@ -125,7 +125,7 @@ public class HomeActivity extends AppCompatActivity {
     private void bindViewWaterSourceReportButton() {
         final Button viewWaterAvailabilityButton =
                 (Button) findViewById(R.id.waterAvailability_button);
-        if (currentUser.getUserType() == UserType.Administrator) {
+        if (!currentUser.canSubmitWaterSourceReport()) {
             viewWaterAvailabilityButton.setVisibility(View.GONE);
         } else {
             viewWaterAvailabilityButton.setVisibility(View.VISIBLE);
@@ -143,7 +143,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void bindViewReportButton() {
         final Button viewReportList = (Button) findViewById(R.id.view_report_list_button);
-        if (currentUser.getUserType() == UserType.Administrator) {
+        if (!currentUser.canSubmitWaterSourceReport()) {
             viewReportList.setVisibility(View.GONE);
         } else {
             viewReportList.setVisibility(View.VISIBLE);
