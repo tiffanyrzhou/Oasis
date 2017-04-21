@@ -1,5 +1,8 @@
 package com.turboocelots.oasis.models;
 
+import com.turboocelots.oasis.models.constants.UserTitle;
+import com.turboocelots.oasis.models.constants.UserType;
+
 /**
  * Represents a Worker
  * Workers can create reports on water purity levels

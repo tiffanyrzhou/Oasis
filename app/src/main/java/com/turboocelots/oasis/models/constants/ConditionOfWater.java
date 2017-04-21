@@ -1,4 +1,4 @@
-package com.turboocelots.oasis.models;
+package com.turboocelots.oasis.models.constants;
 
 import java.io.Serializable;
 

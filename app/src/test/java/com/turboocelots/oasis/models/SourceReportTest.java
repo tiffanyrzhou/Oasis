@@ -1,4 +1,7 @@
 package com.turboocelots.oasis.models;
+import com.turboocelots.oasis.models.constants.ConditionOfWater;
+import com.turboocelots.oasis.models.constants.TypeOfWater;
+
 import java.util.Calendar;
 import java.sql.Timestamp;
 import org.junit.Before;

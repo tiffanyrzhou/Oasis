@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
-import com.turboocelots.oasis.models.OverallCondition;
+import com.turboocelots.oasis.models.constants.OverallCondition;
 import com.turboocelots.oasis.models.QualityRepository;
 import com.turboocelots.oasis.models.WaterQualityReport;
 

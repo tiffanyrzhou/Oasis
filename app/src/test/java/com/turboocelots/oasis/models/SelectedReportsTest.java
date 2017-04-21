@@ -1,5 +1,7 @@
 package com.turboocelots.oasis.models;
 
+import com.turboocelots.oasis.models.constants.OverallCondition;
+
 import org.junit.Before;
 import org.junit.Test;
 

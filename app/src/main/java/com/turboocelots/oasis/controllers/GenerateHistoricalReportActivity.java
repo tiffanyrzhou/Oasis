@@ -11,7 +11,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.turboocelots.oasis.R;
-import com.turboocelots.oasis.models.PPMType;
+import com.turboocelots.oasis.models.constants.PPMType;
 import com.turboocelots.oasis.models.QualityRepository;
 import com.turboocelots.oasis.models.User;
 import com.turboocelots.oasis.models.UserRepository;

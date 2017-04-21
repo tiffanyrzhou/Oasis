@@ -5,9 +5,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
-import com.turboocelots.oasis.models.ConditionOfWater;
+import com.turboocelots.oasis.models.constants.ConditionOfWater;
 import com.turboocelots.oasis.models.SourceRepository;
-import com.turboocelots.oasis.models.TypeOfWater;
+import com.turboocelots.oasis.models.constants.TypeOfWater;
 import com.turboocelots.oasis.models.WaterSourceReport;
 
 import java.sql.Timestamp;

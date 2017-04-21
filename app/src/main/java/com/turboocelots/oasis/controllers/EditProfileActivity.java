@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 
@@ -17,7 +16,7 @@ import com.turboocelots.oasis.databases.DbHelper;
 import com.turboocelots.oasis.databases.UsersTable;
 import com.turboocelots.oasis.models.User;
 import com.turboocelots.oasis.models.UserRepository;
-import com.turboocelots.oasis.models.UserTitle;
+import com.turboocelots.oasis.models.constants.UserTitle;
 
 /**
  * Activity for EditProfile

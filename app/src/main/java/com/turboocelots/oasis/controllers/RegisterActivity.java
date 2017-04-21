@@ -25,7 +25,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -38,15 +37,10 @@ import android.content.Intent;
 import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.databases.DbHelper;
 import com.turboocelots.oasis.databases.UsersTable;
-import com.turboocelots.oasis.models.Administrator;
-import com.turboocelots.oasis.models.Manager;
-import com.turboocelots.oasis.models.Reporter;
 import com.turboocelots.oasis.models.User;
 import com.turboocelots.oasis.models.UserFactory;
 import com.turboocelots.oasis.models.UserRepository;
-import com.turboocelots.oasis.models.UserTitle;
-import com.turboocelots.oasis.models.UserType;
-import com.turboocelots.oasis.models.Worker;
+import com.turboocelots.oasis.models.constants.UserType;
 
 /**
  * A login screen that offers login via email/password.

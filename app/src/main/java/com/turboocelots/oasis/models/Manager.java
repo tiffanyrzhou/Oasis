@@ -1,6 +1,7 @@
 package com.turboocelots.oasis.models;
 
-import com.turboocelots.oasis.models.Worker;
+import com.turboocelots.oasis.models.constants.UserTitle;
+import com.turboocelots.oasis.models.constants.UserType;
 
 
 /**

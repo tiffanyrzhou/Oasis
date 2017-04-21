@@ -17,11 +17,11 @@ import java.util.Calendar;
 import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.databases.DbHelper;
 import com.turboocelots.oasis.databases.SourceReportsTable;
-import com.turboocelots.oasis.models.ConditionOfWater;
+import com.turboocelots.oasis.models.constants.ConditionOfWater;
 import com.turboocelots.oasis.models.SourceRepository;
 import com.turboocelots.oasis.models.UserRepository;
 import com.turboocelots.oasis.models.WaterSourceReport;
-import com.turboocelots.oasis.models.TypeOfWater;
+import com.turboocelots.oasis.models.constants.TypeOfWater;
 import com.turboocelots.oasis.models.User;
 
 /**

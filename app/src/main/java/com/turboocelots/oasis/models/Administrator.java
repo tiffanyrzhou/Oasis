@@ -1,5 +1,8 @@
 package com.turboocelots.oasis.models;
 
+import com.turboocelots.oasis.models.constants.UserTitle;
+import com.turboocelots.oasis.models.constants.UserType;
+
 /**
  * The Administrator class.
  * Special account for maintenance of system.

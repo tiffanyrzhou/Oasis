@@ -5,15 +5,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
-import com.turboocelots.oasis.models.Administrator;
-import com.turboocelots.oasis.models.Manager;
-import com.turboocelots.oasis.models.Reporter;
 import com.turboocelots.oasis.models.User;
 import com.turboocelots.oasis.models.UserFactory;
 import com.turboocelots.oasis.models.UserRepository;
-import com.turboocelots.oasis.models.UserTitle;
-import com.turboocelots.oasis.models.UserType;
-import com.turboocelots.oasis.models.Worker;
+import com.turboocelots.oasis.models.constants.UserTitle;
+import com.turboocelots.oasis.models.constants.UserType;
 
 import java.util.ArrayList;
 import java.util.Collection;

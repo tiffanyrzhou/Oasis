@@ -10,7 +10,7 @@ import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.turboocelots.oasis.R;
-import com.turboocelots.oasis.models.PPMType;
+import com.turboocelots.oasis.models.constants.PPMType;
 import com.turboocelots.oasis.models.QualityRepository;
 import com.turboocelots.oasis.models.WaterQualityReport;
 

@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.turboocelots.oasis.R;
 import com.turboocelots.oasis.models.User;
 import com.turboocelots.oasis.models.UserRepository;
-import com.turboocelots.oasis.models.UserType;
 
 /**
  * The Home screen after the User Logs in

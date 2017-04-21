@@ -1,4 +1,6 @@
 package com.turboocelots.oasis.models;
+import com.turboocelots.oasis.models.constants.OverallCondition;
+
 import java.util.Calendar;
 import java.sql.Timestamp;
 import org.junit.Before;
