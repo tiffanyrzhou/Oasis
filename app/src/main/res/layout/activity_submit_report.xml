@@ -20,6 +20,7 @@
                 android:id="@+id/textView16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
                 android:text="New Water Source Report"
                 android:textAlignment="center"
                 android:textColor="@color/dark_grey"
@@ -148,8 +149,7 @@
                 android:text="Save"
                 android:textAppearance="@style/TextAppearance.AppCompat"
                 android:textColor="@color/almost_white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="20sp" />
 
             <Button
                 android:id="@+id/cancelReport_button"
@@ -162,8 +162,7 @@
                 android:text="Cancel"
                 android:textAppearance="@style/TextAppearance.AppCompat"
                 android:textColor="@color/almost_white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="20sp" />
 
         </LinearLayout>
     </ScrollView>

@@ -1,62 +1,238 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_home"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
+
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-
     tools:context="com.turboocelots.oasis.controllers.HomeActivity">
+
         <TextView
+            android:id="@+id/textView8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/userText_id" />
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textColor="@color/dark_grey"
+            android:textSize="46sp"
+            tools:text="Welcome" />
 
-        <Button
-            android:text="@string/activity_home_submit_water_source_button"
+        <TextView
+            android:id="@+id/userText_id"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/submit_report_button" />
+            android:layout_height="wrap_content" />
 
-        <Button
-            android:text="@string/activity_home_submit_water_quality_button"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/submitWaterQuality" />
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
-        <Button
-            android:text="@string/activity_home_view_all_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/view_report_list_button" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-        <Button
-            android:text="@string/activity_home_historical_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/view_historical_button" />
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/logout_icon" />
 
-        <Button
-            android:text="@string/activity_home_water_availability_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/waterAvailability_button" />
+                        <Button
+                            android:id="@+id/logout_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:backgroundTint="@android:color/transparent"
+                            android:text="@string/activity_home_logout_button"
+                            android:textAllCaps="false"
+                            android:textSize="20sp" />
+                </LinearLayout>
 
-        <Button
-            android:text="@string/activity_home_edit_profile_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/edit_profile_button" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-        <Button
-            android:text="@string/activity_home_logout_button"
-            android:layout_width="match_parent"
+                        <ImageView
+                            android:id="@+id/imageView5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/edit_profile_icon" />
+
+                        <Button
+                            android:id="@+id/edit_profile_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:backgroundTint="@android:color/transparent"
+                            android:text="@string/activity_home_edit_profile_button"
+                            android:textAllCaps="false"
+                            android:textSize="20sp" />
+                </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/logout_id" />
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/source_report_icon" />
+
+                        <Button
+                            android:id="@+id/submit_report_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/activity_home_submit_water_source_button"
+                            android:backgroundTint="@android:color/transparent"
+                            android:textAllCaps="false"
+                            android:textSize="20sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView7"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/list_view_icon" />
+
+                        <Button
+                            android:id="@+id/view_report_list_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/activity_home_view_all_button"
+                            android:backgroundTint="@android:color/transparent"
+                            android:textAllCaps="false"
+                            android:textSize="20sp"/>
+
+                </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView8"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/availability_icon" />
+
+                        <Button
+                            android:id="@+id/waterAvailability_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/activity_home_water_availability_button"
+                            android:visibility="visible"
+                            android:backgroundTint="@android:color/transparent"
+                            android:textAllCaps="false"
+                            android:textSize="20sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView9"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/quality_report_icon" />
+
+                        <Button
+                            android:id="@+id/submitWaterQuality"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/activity_home_submit_water_quality_button"
+                            android:backgroundTint="@android:color/transparent"
+                            android:textAllCaps="false"
+                            android:textSize="20sp"/>
+                </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="181dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView10"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/historical_report_icon" />
+
+                        <Button
+                            android:id="@+id/view_historical_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/activity_home_historical_button"
+                            android:backgroundTint="@android:color/transparent"
+                            android:textAllCaps="false"
+                            android:textSize="20sp"/>
+
+                </LinearLayout>
+
+        </LinearLayout>
 
 </LinearLayout>
 

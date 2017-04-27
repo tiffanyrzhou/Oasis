@@ -37,26 +37,30 @@
             android:layout_marginTop="22dp" />
 
         <Button
-            android:text="Login"
+            android:id="@+id/login_id"
             android:layout_width="185dp"
             android:layout_height="wrap_content"
-            android:id="@+id/login_id"
+            android:layout_marginTop="22dp"
             android:background="@drawable/rounded_button"
             android:backgroundTint="@color/accent_blue"
-            android:elevation="4dp"
+            android:elevation="6dp"
+            android:text="Login"
             android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="22dp" />
+            android:textAllCaps="false"
+            android:textColor="@color/almost_white"
+            android:textSize="20sp" />
 
         <Button
-            android:text="Register"
+            android:id="@+id/register_id"
             android:layout_width="185dp"
             android:layout_height="wrap_content"
-            android:id="@+id/register_id"
+            android:layout_marginTop="22dp"
             android:background="@drawable/rounded_button"
             android:backgroundTint="@color/accent_green"
             android:elevation="4dp"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="22dp" />
+            android:text="Register"
+            android:textAllCaps="false"
+            android:textColor="@color/almost_white"
+            android:textSize="20sp" />
     </LinearLayout>
 </RelativeLayout>
